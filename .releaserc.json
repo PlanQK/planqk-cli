@@ -2,13 +2,14 @@
   "plugins": [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
-    "@semantic-release/gitlab",
+    "@semantic-release/github",
     "@semantic-release/npm",
     [
       "@semantic-release/git",
       {
         "assets": [
-          "package.json"
+          "package.json",
+          "package-lock.json"
         ],
         "message": "chore(release): v${nextRelease.version}\n\n${nextRelease.notes}"
       }
