@@ -1,0 +1,83 @@
+{
+  "name": "@anaqor/planqk-cli",
+  "version": "1.1.0",
+  "description": "PlanQK Platform CLI",
+  "author": "Anaqor AG",
+  "contributors": [
+    "Falkenthal, Michael <michael.falkenthal@stoneone.de>",
+    "Wurster, Michael <michael.wurster@stoneone.de>"
+  ],
+  "license": "Apache-2.0",
+  "private": true,
+  "homepage": "https://gitlab.com/StoneOne/planqk/planqk-cli",
+  "repository": "https://gitlab.com/StoneOne/planqk/planqk-cli",
+  "keywords": [
+    "planqk"
+  ],
+  "bin": {
+    "planqk": "./bin/run"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "/bin",
+    "/dist",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json"
+  ],
+  "dependencies": {
+    "@oclif/core": "^2.8.2",
+    "@oclif/plugin-autocomplete": "^2.1.9",
+    "@oclif/plugin-not-found": "^2.3.23",
+    "adm-zip": "^0.5.10",
+    "async-wait-until": "^2.0.12",
+    "axios": "^1.4.0",
+    "fs-extra": "^11.1.1",
+    "inquirer": "^8.0.0",
+    "mime-types": "^2.1.35",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "@oclif/test": "^2.3.17",
+    "@types/adm-zip": "^0.5.0",
+    "@types/chai": "^4.3.5",
+    "@types/fs-extra": "^11.0.1",
+    "@types/inquirer": "^8.2.6",
+    "@types/mime-types": "^2.1.1",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^18.16.3",
+    "@types/request": "^2.48.8",
+    "chai": "^4.3.7",
+    "eslint": "^7.32.0",
+    "eslint-config-oclif": "^4.0.0",
+    "eslint-config-oclif-typescript": "^1.0.3",
+    "mocha": "^10.2.0",
+    "oclif": "^3.8.2",
+    "shx": "^0.3.4",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.5.0",
+    "typescript": "^4.9.5"
+  },
+  "oclif": {
+    "bin": "planqk",
+    "dirname": "planqk",
+    "commands": "./dist/commands",
+    "plugins": [
+      "@oclif/plugin-not-found",
+      "@oclif/plugin-autocomplete"
+    ],
+    "topics": {}
+  },
+  "scripts": {
+    "build": "shx rm -rf dist && tsc -b",
+    "lint": "eslint . --ext .ts --config .eslintrc",
+    "postpack": "shx rm -f oclif.manifest.json",
+    "posttest": "npm run lint",
+    "prepack": "npm run build && oclif manifest && oclif readme",
+    "test": "mocha --forbid-only \"test/**/*.test.ts\"",
+    "version": "oclif readme && git add README.md"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "types": "dist/index.d.ts"
+}

@@ -1,0 +1,102 @@
+stages:
+  - test
+  - build
+  - version
+  - release
+  - deploy
+
+lint:
+  stage: test
+  rules:
+    - if: '$CI_COMMIT_MESSAGE =~ /^chore\(release\):/'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: $CI_COMMIT_BRANCH
+  image: node:16-buster
+  cache:
+    key: $CI_JOB_NAME
+    paths:
+      - node_modules
+  script:
+    - yarn install
+    - npm run lint
+  tags:
+    - cluster
+    - kubernetes
+
+build:
+  stage: build
+  rules:
+    - if: '$CI_COMMIT_MESSAGE =~ /^chore\(release\):/'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: $CI_COMMIT_BRANCH
+  image: node:16-buster
+  cache:
+    key: $CI_JOB_NAME
+    paths:
+      - node_modules
+  script:
+    - yarn install
+    - npm run build
+  tags:
+    - cluster
+    - kubernetes
+
+version:
+  stage: version
+  rules:
+    - if: '$CI_COMMIT_MESSAGE =~ /^chore\(release\):/'
+      when: never
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+  image: node:18-buster-slim
+  before_script:
+    - apt-get update && apt-get install -y --no-install-recommends git-core ca-certificates
+    - npm install -g semantic-release @semantic-release/gitlab @semantic-release/git @semantic-release/exec
+  script:
+    - semantic-release
+  tags:
+    - cluster
+    - kubernetes
+
+tarballs-create:
+  stage: release
+  rules:
+    - if: $CI_COMMIT_TAG
+  image: node:16-buster
+  cache:
+    key: $CI_JOB_NAME
+    paths:
+      - node_modules
+  before_script:
+    - apt-get update
+    - apt-get install p7zip-full -y --no-install-recommends
+  script:
+    - yarn install
+    - npx oclif pack tarballs --no-xz
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - dist
+  tags:
+    - cluster
+    - kubernetes
+
+tarballs-upload:
+  stage: deploy
+  rules:
+    - if: $CI_COMMIT_TAG
+  image: google/cloud-sdk
+  before_script:
+    - apt-get update
+    - apt-get install zip -y --no-install-recommends
+  script:
+    - gcloud auth activate-service-account --key-file $GCLOUD_REGISTRY_KEYFILE
+    - gcloud config set project delta-spark-291914
+    - find ./dist -name "*.tar.gz" > filelist
+    - cat filelist | gsutil -m cp -I gs://planqk-cli/$CI_COMMIT_TAG
+  tags:
+    - cluster
+    - kubernetes

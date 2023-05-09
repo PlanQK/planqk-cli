@@ -1,0 +1,10 @@
+{
+  "name": "delightful-leopard-nf4mb",
+  "description": "",
+  "quantumBackend": "NONE",
+  "resources": {
+    "cpu": 1,
+    "memory": 1
+  },
+  "runtime": "DOCKER"
+}
