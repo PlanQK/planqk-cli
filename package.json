@@ -4,13 +4,15 @@
   "description": "PlanQK Platform CLI",
   "author": "Anaqor AG",
   "contributors": [
-    "Falkenthal, Michael <michael.falkenthal@stoneone.de>",
-    "Wurster, Michael <michael.wurster@stoneone.de>"
+    "Falkenthal, Michael <michael.falkenthal@anaqor.io>",
+    "Wurster, Michael <michael.wurster@anaqor.id>",
+    "Christoph, Krieger <christoph.krieger@anaqor.id>"
   ],
   "license": "Apache-2.0",
-  "private": true,
-  "homepage": "https://gitlab.com/StoneOne/planqk/planqk-cli",
-  "repository": "https://gitlab.com/StoneOne/planqk/planqk-cli",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PlanQK/planqk-cli.git"
+  },
   "keywords": [
     "planqk"
   ],
