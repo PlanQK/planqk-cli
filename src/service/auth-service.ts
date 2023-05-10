@@ -1,30 +1,24 @@
 import {Config} from '@oclif/core/lib/config'
 import UserConfig, {defaultBasePath} from '../model/user-config'
-import {
-  ServicePlatformApplicationsApi,
-  ServicePlatformApplicationsApiApiKeys,
-} from '../client/api/servicePlatformApplicationsApi'
-import {HttpError} from '../client/api/apis'
+import axios, {AxiosError} from 'axios'
+import AuthPrincipal from '../model/auth-principal'
 
 export default class AuthService {
-  applicationApi: ServicePlatformApplicationsApi
+  userConfig!: UserConfig
 
   constructor(config: Config, userConfig: UserConfig) {
-    this.applicationApi = new ServicePlatformApplicationsApi()
-    this.applicationApi.setApiKey(ServicePlatformApplicationsApiApiKeys.apiKey, userConfig.auth?.value as string)
-    if (userConfig.endpoint) {
-      this.applicationApi.basePath = userConfig.endpoint.basePath || defaultBasePath
-      this.applicationApi.defaultHeaders = userConfig.endpoint.defaultHeaders || {}
-    }
+    this.userConfig = userConfig
   }
 
-  async isAuthenticated(): Promise<boolean> {
+  async authenticate(apiKey: string): Promise<AuthPrincipal> {
     try {
-      const payload = await this.applicationApi.getApplications()
-      return (payload.response.statusCode! >= 200 && payload.response.statusCode! < 400)
+      const basePath = this.userConfig.endpoint?.basePath || defaultBasePath
+      const payload = await axios
+        .post(basePath + '/authorize', undefined, {headers: {'X-Auth-Token': apiKey}})
+      return payload.data
     } catch (error) {
-      if (error instanceof HttpError && error.statusCode === 401) {
-        return false
+      if (error instanceof AxiosError && error.status === 401) {
+        throw new Error('Invalid credentials. Please try again.');
       }
 
       throw new Error(`Internal error occurred, please contact your PlanQK administrator: ${error}`)

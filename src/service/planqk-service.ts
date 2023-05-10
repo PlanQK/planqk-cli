@@ -8,10 +8,11 @@ import {BuildJobDto, ServiceDefinitionDto} from '../client/model/models'
 import {HttpError} from '../client/api/apis'
 import {ReadStream} from 'fs-extra'
 import ManagedServiceConfig from '../model/managed-service-config'
-import axios from 'axios';
 import {ServicePlatformJobsApi, ServicePlatformJobsApiApiKeys} from '../client/api/servicePlatformJobsApi';
 import {CreateJobRequest} from '../client/model/createJobRequest';
 import {JobDto} from '../client/model/jobDto';
+import Account from '../model/account';
+import axios from 'axios';
 
 export default class PlanqkService extends CommandService {
   serviceApi: ServicePlatformServicesApi
@@ -30,8 +31,17 @@ export default class PlanqkService extends CommandService {
   }
 
   async getService(id: string): Promise<ServiceDto> {
-    const response = await this.serviceApi.getService(id)
-    return response.body
+    try {
+      const organizationId = this.userConfig.context?.isOrganization ? this.userConfig.context.id : undefined
+      const response = await this.serviceApi.getService(id, organizationId)
+      return response.body
+    } catch (error) {
+      if (error instanceof HttpError) {
+        this.cmd.error(`Error getting service: ${error.response.statusCode} - ${error.response.statusMessage}`)
+      }
+
+      throw new Error('Internal error occurred, please contact your PlanQK administrator')
+    }
   }
 
   async createService(serviceConfig: ManagedServiceConfig, userCode: ReadStream): Promise<ServiceDto> {
@@ -47,7 +57,7 @@ export default class PlanqkService extends CommandService {
         vCpuMilli,
         memoryMegabyte,
         serviceConfig.runtime,
-        undefined,
+        this.userConfig.context?.isOrganization ? this.userConfig.context.id : undefined,
         userCode,
         undefined,
         {
@@ -66,10 +76,11 @@ export default class PlanqkService extends CommandService {
   }
 
   async updateService(serviceId: string, userCode: ReadStream): Promise<ServiceDto> {
+    const organizationId = this.userConfig.context?.isOrganization ? this.userConfig.context.id : undefined
     try {
-      const {body: service} = await this.serviceApi.getService(serviceId)
+      const {body: service} = await this.serviceApi.getService(serviceId, organizationId)
       const serviceDefinition = service && service.serviceDefinitions && service.serviceDefinitions[0]
-      const payload = await this.serviceApi.updateSourceCode(serviceId, serviceDefinition!.id!, userCode)
+      const payload = await this.serviceApi.updateSourceCode(serviceId, serviceDefinition!.id!, userCode, organizationId)
       return payload.body
     } catch (error) {
       if (error instanceof HttpError) {
@@ -81,7 +92,8 @@ export default class PlanqkService extends CommandService {
   }
 
   async getBuildJob(service: ServiceDto, serviceDefinition: ServiceDefinitionDto): Promise<BuildJobDto> {
-    const payload = await this.serviceApi.getBuildStatus(service.id!, serviceDefinition.id!)
+    const organizationId = this.userConfig.context?.isOrganization ? this.userConfig.context.id : undefined
+    const payload = await this.serviceApi.getBuildStatus(service.id!, serviceDefinition.id!, organizationId)
     return payload.body
   }
 
@@ -91,11 +103,16 @@ export default class PlanqkService extends CommandService {
   }
 
   async runJob(payload: CreateJobRequest): Promise<JobDto> {
+    const organizationId = this.userConfig.context?.isOrganization ? this.userConfig.context.id : undefined
     try {
-      const response =  await this.jobApi.createJob(payload, undefined, {headers: {'X-Auth-Token': this.userConfig.auth!.value}})
+      const response = await this.jobApi.createJob(payload, organizationId, {headers: {'X-Auth-Token': this.userConfig.auth!.value}})
       return response.body
     } catch (error) {
       if (error instanceof HttpError) {
+        if (error.statusCode === 404) {
+          this.cmd.error(`Service you want to execute was not found in context ${this.userConfig.context?.displayName}. Are you in the correct context?`)
+        }
+
         this.cmd.error(`Error creating job: ${error.response.statusCode} - ${error.response.statusMessage}`)
       }
 
@@ -104,7 +121,19 @@ export default class PlanqkService extends CommandService {
   }
 
   async getJobById(id: string): Promise<JobDto> {
-    const response = await this.jobApi.getJobById(id, undefined, {headers: {'X-Auth-Token': this.userConfig.auth!.value}})
+    const organizationId = this.userConfig.context?.isOrganization ? this.userConfig.context.id : undefined
+    const response = await this.jobApi.getJobById(id, organizationId, {headers: {'X-Auth-Token': this.userConfig.auth!.value}})
     return response.body;
+  }
+
+  async getAccounts(): Promise<Account[]> {
+    try {
+      const basePath = this.userConfig.endpoint?.basePath || defaultBasePath
+      const payload = await axios
+        .get(basePath + '/my/accounts', {headers: {'X-Auth-Token': this.userConfig.auth?.value}})
+      return payload.data
+    } catch {
+      throw new Error('Failed fetching available user contexts.')
+    }
   }
 }

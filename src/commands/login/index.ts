@@ -29,19 +29,20 @@ export default class Login extends AbstractCommand {
 
     ux.action.start('Login')
 
+    const auth = new AuthService(this.config, this.userConfig)
+    const principal = await auth.authenticate(token)
+
     const userConfig = {
       ...this.userConfig,
       auth: {
         type: AuthType.API_KEY,
         value: token,
       },
-    }
-
-    const auth = new AuthService(this.config, userConfig)
-    const isAuthenticated = await auth.isAuthenticated()
-
-    if (!isAuthenticated) {
-      throw new Error('Invalid credentials. Please try again.')
+      context: {
+        id: principal.user.id,
+        displayName: `${principal.user.firstName} ${principal.user.lastName}`,
+        isOrganization: false,
+      },
     }
 
     this.userConfigService.writeUserConfig(this.config.configDir, userConfig)

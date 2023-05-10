@@ -5,7 +5,6 @@ import ServiceConfigService from '../../service/service-config-service';
 import {Flags, ux} from '@oclif/core';
 import * as fs from 'fs-extra'
 import {ServiceDto} from '../../client/model/serviceDto';
-import {HttpError} from '../../client/api/apis';
 import * as path from 'path'
 import * as inquirer from 'inquirer';
 import waitUntil from 'async-wait-until';
@@ -44,14 +43,8 @@ export default class Run extends AuthenticatedCommand {
       ux.error('No service id present in planqk.json. Either add the id of a deployed service or deploy your service by running `planqk up`.')
     }
 
-    let service: ServiceDto
-    let serviceDefinitionId: string
-    try {
-      service = await this.planqkService.getService(serviceConfig.serviceId)
-      serviceDefinitionId = service.serviceDefinitions![0].id!
-    } catch {
-      ux.error('Service referenced by property serviceId in planqk.json does not exist.')
-    }
+    const service = await this.planqkService.getService(serviceConfig.serviceId)
+    const serviceDefinitionId = service.serviceDefinitions![0].id!
 
     const data = flags.data ? this.fixJsonString(flags.data) : await this.getInputData(flags.dataFile || '/input/data.json')
     const params = flags.params ? this.fixJsonString(flags.params) : await this.getParams(flags.paramsFile || '/input/params.json')
