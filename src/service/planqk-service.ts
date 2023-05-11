@@ -51,6 +51,10 @@ export default class PlanqkService extends CommandService {
       return response.body
     } catch (error) {
       if (error instanceof HttpError) {
+        if (error.response.statusCode === 404) {
+          this.cmd.error(`Service with id ${id} not found. Deploy your service by running 'planqk up'`)
+        }
+
         this.cmd.error(`Error getting service: ${error.response.statusCode} - ${error.response.statusMessage}`)
       }
 
