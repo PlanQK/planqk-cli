@@ -2,7 +2,7 @@ import {AuthenticatedCommand} from '../../model/command'
 import PlanqkService from '../../service/planqk-service';
 import ManagedServiceConfig from '../../model/managed-service-config';
 import ServiceConfigService from '../../service/service-config-service';
-import {Flags, ux} from '@oclif/core';
+import {Args, Flags, ux} from '@oclif/core';
 import * as fs from 'fs-extra'
 import * as path from 'path'
 import * as inquirer from 'inquirer';
@@ -21,6 +21,10 @@ export default class Run extends AuthenticatedCommand {
 
   planqkService!: PlanqkService
 
+  static args = {
+    serviceId: Args.string(),
+  }
+
   static flags = {
     data: Flags.string({char: 'd', description: 'Input data as JSON string.', required: false}),
     params: Flags.string({char: 'p', description: 'Input data as JSON string.', required: false}),
@@ -36,13 +40,23 @@ export default class Run extends AuthenticatedCommand {
 
   async run(): Promise<void> {
     const {flags} = await this.parse(Run)
+    const {args} = await this.parse(Run)
 
-    const serviceConfig: ManagedServiceConfig = ServiceConfigService.readServiceConfig()
-    if (!serviceConfig.serviceId) {
-      ux.error('No service id present in planqk.json. Either add the id of a deployed service or deploy your service by running `planqk up`.')
+    let serviceId = args.serviceId
+
+    // if no service id is provided, try to read it from the planqk.json
+    if (!serviceId) {
+      try {
+        const serviceConfig: ManagedServiceConfig = ServiceConfigService.readServiceConfig()
+        serviceId = serviceConfig.serviceId
+      } catch {
+        ux.error('Missing service id. Please provide a service id as argument or set it in the planqk.json of your project.')
+      }
     }
 
-    const service = await this.planqkService.getService(serviceConfig.serviceId)
+    if (!serviceId) ux.error('Missing service id. Please provide a service id as argument or set it in the planqk.json of your project.')
+
+    const service = await this.planqkService.getService(serviceId)
     const serviceDefinitionId = service.serviceDefinitions![0].id!
 
     const data = flags.data ? this.fixJsonString(flags.data) : await this.getInputData(flags.dataFile || '/input/data.json')
