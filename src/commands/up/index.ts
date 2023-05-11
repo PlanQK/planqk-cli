@@ -75,7 +75,7 @@ export default class Up extends AuthenticatedCommand {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     if (buildJob && buildJob!.status === BuildJobDto.StatusEnum.Success) {
-      ux.action.stop('Service created')
+      ux.action.stop('Service created \u{1F680}')
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
     } else if (buildJob && buildJob!.status === BuildJobDto.StatusEnum.Failure) {

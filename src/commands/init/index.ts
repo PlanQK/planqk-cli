@@ -108,7 +108,7 @@ export default class Init extends AbstractCommand {
       await this.loadCodingTemplate(responses.template)
     }
 
-    this.log('Initialized project. Happy hacking!')
+    this.log('\u{1F389} Initialized project. Happy hacking!')
   }
 
   async loadCodingTemplate(templatePath: string): Promise<void> {
