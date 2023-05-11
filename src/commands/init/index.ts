@@ -76,17 +76,31 @@ export default class Init extends AbstractCommand {
         message: 'Choose your runtime',
         type: 'list',
         choices: [{name: 'Python Template', value: Runtime.PYTHON_TEMPLATE}, {name: 'Docker', value: Runtime.DOCKER}],
-      }, {
+      },
+    ])
+
+    const pythonTemplates = [
+      {name: 'None', value: undefined},
+      {name: 'D-Wave IDE', value: 'python/dwave-hello-ide'},
+      {name: 'D-Wave Service', value: 'python/dwave-hello-service'},
+      {name: 'Qiskit IonQ', value: 'python/qiskit-ionq'},
+      {name: 'Vanilla', value: 'python/vanilla'},
+    ]
+
+    const dockerTemplates = [
+      {name: 'None', value: undefined},
+      {name: 'Docker Go', value: 'docker/docker-go'},
+      {name: 'Docker Node', value: 'docker/docker-node'},
+      {name: 'Docker Python', value: 'docker/docker-python'},
+      {name: 'Docker Qiskit Aer GPU', value: 'docker/docker-qiskit-aer-gpu'},
+    ]
+
+    const templateResponses: any = await inquirer.prompt([
+      {
         name: 'template',
         message: 'Choose a coding template',
         type: 'list',
-        choices: [
-          {name: 'None', value: undefined},
-          {name: 'Docker Go', value: 'docker/docker-go'},
-          {name: 'Docker Node', value: 'docker/docker-node'},
-          {name: 'Docker Python', value: 'docker/docker-python'},
-          {name: 'Docker Qiskit Aer GPU', value: 'docker/docker-qiskit-aer-gpu'},
-        ],
+        choices: responses.runtime === Runtime.PYTHON_TEMPLATE ? pythonTemplates : dockerTemplates,
       },
     ])
 
@@ -104,8 +118,8 @@ export default class Init extends AbstractCommand {
     serviceConfigService.writeServiceConfig(serviceConfig)
 
     // load template from github
-    if (responses.template) {
-      await this.loadCodingTemplate(responses.template)
+    if (templateResponses.template) {
+      await this.loadCodingTemplate(templateResponses.template)
     }
 
     this.log('\u{1F389} Initialized project. Happy hacking!')
