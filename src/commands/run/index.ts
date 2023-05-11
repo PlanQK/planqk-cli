@@ -4,7 +4,6 @@ import ManagedServiceConfig from '../../model/managed-service-config';
 import ServiceConfigService from '../../service/service-config-service';
 import {Flags, ux} from '@oclif/core';
 import * as fs from 'fs-extra'
-import {ServiceDto} from '../../client/model/serviceDto';
 import * as path from 'path'
 import * as inquirer from 'inquirer';
 import waitUntil from 'async-wait-until';

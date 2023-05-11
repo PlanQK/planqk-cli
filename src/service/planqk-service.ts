@@ -30,6 +30,20 @@ export default class PlanqkService extends CommandService {
     }
   }
 
+  async getServices(): Promise<ServiceDto[]> {
+    try {
+      const organizationId = this.userConfig.context?.isOrganization ? this.userConfig.context.id : undefined
+      const response = await this.serviceApi.getServices(undefined, organizationId)
+      return response.body
+    } catch (error) {
+      if (error instanceof HttpError) {
+        this.cmd.error(`Error getting services: ${error.response.statusCode} - ${error.response.statusMessage}`)
+      }
+
+      throw new Error('Internal error occurred, please contact your PlanQK administrator')
+    }
+  }
+
   async getService(id: string): Promise<ServiceDto> {
     try {
       const organizationId = this.userConfig.context?.isOrganization ? this.userConfig.context.id : undefined

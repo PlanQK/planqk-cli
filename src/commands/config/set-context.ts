@@ -7,6 +7,8 @@ import PlanqkService from '../../service/planqk-service';
 export default class SetContext extends AbstractCommand {
   planqkService!: PlanqkService
 
+  static description = 'Set the current context'
+
   static examples = [
     '$ planqk config:set-context ',
   ]
