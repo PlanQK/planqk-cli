@@ -4,7 +4,7 @@ import ManagedServiceConfig, {QuantumBackend, Runtime} from '../../model/managed
 import * as AdmZip from 'adm-zip'
 import axios, {ResponseType} from 'axios'
 import serviceConfigService from '../../service/service-config-service'
-import {Args} from "@oclif/core";
+import {Args} from '@oclif/core'
 import * as fs from 'fs-extra'
 
 export default class Init extends AbstractCommand {
@@ -20,7 +20,7 @@ export default class Init extends AbstractCommand {
 
   async run(): Promise<void> {
     const {args} = await this.parse(Init)
-    const folderName = args.name || this.generateRandomName();
+    const folderName = args.name || this.generateRandomName()
 
     const responses: any = await inquirer.prompt([
       {
@@ -124,7 +124,7 @@ export default class Init extends AbstractCommand {
     // create directory
     const projectDir = `${process.cwd()}/${folderName}`
     if (!fs.existsSync(projectDir)) {
-      fs.mkdirSync(projectDir);
+      fs.mkdirSync(projectDir)
     }
 
     serviceConfigService.writeServiceConfig(projectDir, serviceConfig)
@@ -146,13 +146,13 @@ export default class Init extends AbstractCommand {
           Expires: '0',
         },
         responseType: 'arraybuffer' as ResponseType,
-      };
+      }
 
-      const t = await axios.get('https://github.com/PlanQK/planqk-platform-samples/archive/refs/heads/master.zip', config);
+      const t = await axios.get('https://github.com/PlanQK/planqk-platform-samples/archive/refs/heads/master.zip', config)
       const zip = new AdmZip(t.data, {})
 
-      const templateFolder = `planqk-platform-samples-master/coding-templates/${templatePath}/`;
-      const zipEntries = zip.getEntries();
+      const templateFolder = `planqk-platform-samples-master/coding-templates/${templatePath}/`
+      const zipEntries = zip.getEntries()
 
       for (const entry of zipEntries) {
         if (!entry.isDirectory && entry.entryName.startsWith(templateFolder)) {
@@ -164,11 +164,11 @@ export default class Init extends AbstractCommand {
             destinationPath = destinationPath + '/' + pathWithinFolder.slice(0, Math.max(0, pathWithinFolder.lastIndexOf('/')))
           }
 
-          zip.extractEntryTo(entry.entryName, destinationPath, false, true);
+          zip.extractEntryTo(entry.entryName, destinationPath, false, true)
         }
       }
     } catch {
-      this.log('Error loading the code template: ' + templatePath);
+      this.log('Error loading the code template: ' + templatePath)
     }
   }
 
@@ -194,7 +194,7 @@ export default class Init extends AbstractCommand {
       'peaceful',
       'radiant',
       'silly',
-    ];
+    ]
 
     const animals = [
       'aardvark',
@@ -248,13 +248,13 @@ export default class Init extends AbstractCommand {
       'walrus',
       'wombat',
       'zebra',
-    ];
+    ]
 
-    const suffix = Math.random().toString(36).slice(2, 7);
+    const suffix = Math.random().toString(36).slice(2, 7)
 
-    const randomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)];
-    const randomAnimal = animals[Math.floor(Math.random() * animals.length)];
+    const randomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)]
+    const randomAnimal = animals[Math.floor(Math.random() * animals.length)]
 
-    return `${randomAdjective}-${randomAnimal}-${suffix}`;
+    return `${randomAdjective}-${randomAnimal}-${suffix}`
   }
 }
