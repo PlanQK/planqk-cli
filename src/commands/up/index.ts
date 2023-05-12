@@ -15,7 +15,7 @@ import {ServiceDto} from '../../client/model/serviceDto'
 import {ValidationResult} from '../../client/model/validationResult';
 
 export default class Up extends AuthenticatedCommand {
-  static description = 'Creates and updates a PlanQK Service'
+  static description = 'Creates or updates a PlanQK Service'
 
   static examples = [
     '$ planqk up',
