@@ -14,6 +14,12 @@
         ],
         "message": "chore(release): v${nextRelease.version}\n\n${nextRelease.notes}"
       }
+    ],
+    [
+      "@semantic-release/exec",
+      {
+        "generateNotesCmd": "npx oclif readme"
+      }
     ]
   ],
   "branches": [
