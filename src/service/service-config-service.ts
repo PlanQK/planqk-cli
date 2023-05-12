@@ -3,8 +3,8 @@ import * as fs from 'fs-extra'
 import ManagedServiceConfig from '../model/managed-service-config'
 
 export default {
-  readServiceConfig(): ManagedServiceConfig {
-    const file = path.join(process.cwd(), 'planqk.json')
+  readServiceConfig(location: string): ManagedServiceConfig {
+    const file = path.join(location, 'planqk.json')
 
     if (!fs.existsSync(file)) {
       throw new Error('No planqk.json file found in current directory')
@@ -15,8 +15,8 @@ export default {
 
     return fs.readJsonSync(file, {encoding: 'utf-8'})
   },
-  writeServiceConfig(serviceConfig: ManagedServiceConfig): ManagedServiceConfig {
-    const file = path.join(process.cwd(), 'planqk.json')
+  writeServiceConfig(location: string, serviceConfig: ManagedServiceConfig): ManagedServiceConfig {
+    const file = path.join(location, 'planqk.json')
 
     if (!fs.existsSync(file)) {
       fs.createFileSync(file)
@@ -24,6 +24,6 @@ export default {
 
     fs.writeJsonSync(file, serviceConfig, {encoding: 'utf-8', spaces: 2})
 
-    return this.readServiceConfig();
+    return this.readServiceConfig(location);
   },
 }

@@ -29,7 +29,7 @@ export default class Up extends AuthenticatedCommand {
   }
 
   async run(): Promise<void> {
-    const serviceConfig: ManagedServiceConfig = ServiceConfigService.readServiceConfig()
+    const serviceConfig: ManagedServiceConfig = ServiceConfigService.readServiceConfig(process.cwd())
     const userCode = await this.zipUserCode()
 
     let service: ServiceDto | undefined
@@ -41,7 +41,7 @@ export default class Up extends AuthenticatedCommand {
       ux.action.start('Creating service')
       service = await this.planqkService?.createService(serviceConfig, userCode)
       serviceConfig.serviceId = service?.id
-      serviceConfigService.writeServiceConfig(serviceConfig)
+      serviceConfigService.writeServiceConfig(process.cwd(), serviceConfig)
     }
 
     // delete the temp file after create service call

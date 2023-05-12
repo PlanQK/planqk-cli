@@ -47,7 +47,7 @@ export default class Run extends AuthenticatedCommand {
     // if no service id is provided, try to read it from the planqk.json
     if (!serviceId) {
       try {
-        const serviceConfig: ManagedServiceConfig = ServiceConfigService.readServiceConfig()
+        const serviceConfig: ManagedServiceConfig = ServiceConfigService.readServiceConfig(process.cwd())
         serviceId = serviceConfig.serviceId
       } catch {
         ux.error('Missing service id. Please provide a service id as argument or set it in the planqk.json of your project.')

@@ -4,21 +4,28 @@ import ManagedServiceConfig, {QuantumBackend, Runtime} from '../../model/managed
 import * as AdmZip from 'adm-zip'
 import axios, {ResponseType} from 'axios'
 import serviceConfigService from '../../service/service-config-service'
+import {Args} from "@oclif/core";
+import * as fs from 'fs-extra'
 
 export default class Init extends AbstractCommand {
   static description = 'Initialize a PlanQK project.'
+
+  static args = {
+    name: Args.string(),
+  }
 
   static examples = [
     '$ planqk init',
   ]
 
   async run(): Promise<void> {
-    const randomName = this.generateRandomName();
+    const {args} = await this.parse(Init)
+    const folderName = args.name || this.generateRandomName();
 
     const responses: any = await inquirer.prompt([
       {
         name: 'name',
-        message: `Service name (${randomName}):`,
+        message: `Service name (${folderName}):`,
         type: 'input',
       }, {
         name: 'description',
@@ -80,11 +87,10 @@ export default class Init extends AbstractCommand {
     ])
 
     const pythonTemplates = [
-      {name: 'None', value: undefined},
+      {name: 'Vanilla', value: 'python/vanilla'},
       {name: 'D-Wave IDE', value: 'python/dwave-hello-ide'},
       {name: 'D-Wave Service', value: 'python/dwave-hello-service'},
       {name: 'Qiskit IonQ', value: 'python/qiskit-ionq'},
-      {name: 'Vanilla', value: 'python/vanilla'},
     ]
 
     const dockerTemplates = [
@@ -105,7 +111,7 @@ export default class Init extends AbstractCommand {
     ])
 
     const serviceConfig: ManagedServiceConfig = {
-      name: responses.name || randomName,
+      name: responses.name || folderName,
       description: responses.description,
       quantumBackend: responses.quantumBackend,
       resources: {
@@ -115,17 +121,23 @@ export default class Init extends AbstractCommand {
       runtime: responses.runtime,
     }
 
-    serviceConfigService.writeServiceConfig(serviceConfig)
+    // create directory
+    const projectDir = `${process.cwd()}/${folderName}`
+    if (!fs.existsSync(projectDir)) {
+      fs.mkdirSync(projectDir);
+    }
+
+    serviceConfigService.writeServiceConfig(projectDir, serviceConfig)
 
     // load template from github
     if (templateResponses.template) {
-      await this.loadCodingTemplate(templateResponses.template)
+      await this.loadCodingTemplate(templateResponses.template, projectDir)
     }
 
     this.log('\u{1F389} Initialized project. Happy hacking!')
   }
 
-  async loadCodingTemplate(templatePath: string): Promise<void> {
+  async loadCodingTemplate(templatePath: string, projectLocation: string): Promise<void> {
     try {
       const config = {
         headers: {
@@ -144,7 +156,7 @@ export default class Init extends AbstractCommand {
 
       for (const entry of zipEntries) {
         if (!entry.isDirectory && entry.entryName.startsWith(templateFolder)) {
-          let destinationPath = process.cwd();
+          let destinationPath = projectLocation
 
           // check if file is in subfolder
           if (entry.entryName.replace(templateFolder, '').includes('/')) {
