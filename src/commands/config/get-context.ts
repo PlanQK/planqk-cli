@@ -1,7 +1,7 @@
-import {AbstractCommand} from '../../model/command';
+import {AuthenticatedCommand} from '../../model/command';
 import {ux} from '@oclif/core';
 
-export default class GetContext extends AbstractCommand {
+export default class GetContext extends AuthenticatedCommand {
   static description = 'Get the current context'
 
   static examples = [

@@ -1,10 +1,10 @@
-import {AbstractCommand} from '../../model/command';
+import {AbstractCommand, AuthenticatedCommand} from '../../model/command';
 import Account from '../../model/account';
 import * as inquirer from 'inquirer';
 import {ux} from '@oclif/core';
 import PlanqkService from '../../service/planqk-service';
 
-export default class SetContext extends AbstractCommand {
+export default class SetContext extends AuthenticatedCommand {
   planqkService!: PlanqkService
 
   static description = 'Set the current context'
