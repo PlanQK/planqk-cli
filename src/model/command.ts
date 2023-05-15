@@ -27,7 +27,7 @@ export abstract class AuthenticatedCommand extends AbstractCommand {
     try {
       await auth.authenticate(this.userConfig.auth.value)
     } catch {
-      this.userConfigService.writeUserConfig(this.config.configDir, {...this.userConfig, auth: undefined})
+      this.userConfigService.writeUserConfig(this.config.configDir, {...this.userConfig, auth: undefined, context: undefined})
       throw new Error('Invalid credentials provided. Use the "login" command to log-in.')
     }
   }

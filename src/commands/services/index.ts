@@ -1,8 +1,8 @@
-import {AbstractCommand} from '../../model/command';
+import {AuthenticatedCommand} from '../../model/command';
 import PlanqkService from '../../service/planqk-service';
 import {ux} from '@oclif/core';
 
-export default class Services extends AbstractCommand {
+export default class Services extends AuthenticatedCommand {
   static description = 'List all available services'
 
   static examples = [

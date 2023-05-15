@@ -1,4 +1,4 @@
-import {AbstractCommand, AuthenticatedCommand} from '../../model/command';
+import {AuthenticatedCommand} from '../../model/command';
 import Account from '../../model/account';
 import * as inquirer from 'inquirer';
 import {ux} from '@oclif/core';
