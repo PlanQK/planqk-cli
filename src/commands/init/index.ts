@@ -87,10 +87,8 @@ export default class Init extends AbstractCommand {
     ])
 
     const pythonTemplates = [
-      {name: 'Vanilla', value: 'python/vanilla'},
-      {name: 'D-Wave IDE', value: 'python/dwave-hello-ide'},
-      {name: 'D-Wave Service', value: 'python/dwave-hello-service'},
-      {name: 'Qiskit IonQ', value: 'python/qiskit-ionq'},
+      {name: 'Python Starter', value: 'python/python-starter'},
+      {name: 'Python Starter IonQ', value: 'python/python-starter-ionq'},
     ]
 
     const dockerTemplates = [
