@@ -7,10 +7,10 @@ import PlanqkService from '../../service/planqk-service';
 export default class SetContext extends AuthenticatedCommand {
   planqkService!: PlanqkService
 
-  static description = 'Set the current context'
+  static description = 'Set the current context, i.e. the personal or organization account you are currently working with.'
 
   static examples = [
-    '$ planqk config:set-context ',
+    '$ planqk set-context ',
   ]
 
   async init(): Promise<void> {
