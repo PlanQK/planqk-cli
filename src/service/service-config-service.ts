@@ -10,9 +10,6 @@ export default {
       throw new Error('No planqk.json file found in current directory')
     }
 
-    // eslint-disable-next-line no-warning-comments
-    // TODO: validate config
-
     return fs.readJsonSync(file, {encoding: 'utf-8'})
   },
   writeServiceConfig(location: string, serviceConfig: ManagedServiceConfig): ManagedServiceConfig {

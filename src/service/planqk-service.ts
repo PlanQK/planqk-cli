@@ -37,7 +37,7 @@ export default class PlanqkService extends CommandService {
       return response.body
     } catch (error) {
       if (error instanceof HttpError) {
-        this.cmd.error(`Error getting services: ${error.response.statusCode} - ${error.response.statusMessage}`)
+        this.cmd.error(`Error getting services: ${error.response.statusCode} - ${error.body.errorMessage}`)
       }
 
       throw new Error('Internal error occurred, please contact your PlanQK administrator')
@@ -55,7 +55,7 @@ export default class PlanqkService extends CommandService {
           this.cmd.error(`Service with id ${id} not found. Deploy your service by running 'planqk up'`)
         }
 
-        this.cmd.error(`Error getting service: ${error.response.statusCode} - ${error.response.statusMessage}`)
+        this.cmd.error(`Error getting service: ${error.response.statusCode} - ${error.body.errorMessage}`)
       }
 
       throw new Error('Internal error occurred, please contact your PlanQK administrator')
@@ -91,7 +91,7 @@ export default class PlanqkService extends CommandService {
       return payload.body
     } catch (error) {
       if (error instanceof HttpError) {
-        this.cmd.error(`Error processing request: ${error.response.statusCode} - ${error.response.statusMessage}`)
+        this.cmd.error(`Error processing request: ${error.response.statusCode} - ${error.body.errorMessage}`)
       }
 
       throw new Error('Internal error occurred, please contact your PlanQK administrator')
@@ -107,7 +107,7 @@ export default class PlanqkService extends CommandService {
       return payload.body
     } catch (error) {
       if (error instanceof HttpError) {
-        this.cmd.error(`Error processing request: ${error.response.statusCode} - ${error.response.statusMessage}`)
+        this.cmd.error(`Error processing request: ${error.response.statusCode} - ${error.body.errorMessage}`)
       }
 
       throw new Error('Internal error occurred, please contact your PlanQK administrator')
@@ -136,7 +136,7 @@ export default class PlanqkService extends CommandService {
           this.cmd.error(`Service you want to execute was not found in context ${this.userConfig.context?.displayName}. Are you in the correct context?`)
         }
 
-        this.cmd.error(`Error creating job: ${error.response.statusCode} - ${error.response.statusMessage}`)
+        this.cmd.error(`Error creating job: ${error.response.statusCode} - ${error.body.errorMessage}`)
       }
 
       throw new Error('Internal error occurred, please contact your PlanQK administrator')
