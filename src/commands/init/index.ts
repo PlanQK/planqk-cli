@@ -4,8 +4,9 @@ import ManagedServiceConfig, {QuantumBackend, Runtime} from '../../model/managed
 import * as AdmZip from 'adm-zip'
 import axios, {ResponseType} from 'axios'
 import serviceConfigService from '../../service/service-config-service'
-import {Args} from '@oclif/core'
+import {Args, ux} from '@oclif/core'
 import * as fs from 'fs-extra'
+import * as path from 'path'
 
 export default class Init extends AbstractCommand {
   static description = 'Initialize a PlanQK project.'
@@ -22,26 +23,44 @@ export default class Init extends AbstractCommand {
     const {args} = await this.parse(Init)
     const folderName = args.name || this.generateRandomName()
 
+    const destination = path.join(process.cwd(), folderName)
+
+    if (fs.existsSync(destination)) {
+      ux.error(`Destination ${destination} already exists. Please choose another name.`)
+    }
+
     const responses: any = await inquirer.prompt([
       {
         name: 'name',
         message: `Service name (${folderName}):`,
         type: 'input',
-      }, {
+      },
+      {
         name: 'description',
         message: 'Description (optional):',
         type: 'input',
-      }, {
-        name: 'quantumBackend',
-        message: 'Choose a quantum backend:',
+      },
+      {
+        name: 'template',
+        message: 'Choose a coding template',
         type: 'list',
         choices: [
-          {name: 'None', value: QuantumBackend.NONE},
-          {name: 'IBM', value: QuantumBackend.IBM},
-          {name: 'D-Wave', value: QuantumBackend.DWAVE},
-          {name: 'IonQ', value: QuantumBackend.IONQ},
+          {name: 'None (Creates planqk.json only)', value: undefined},
+          {name: 'Python Starter', value: {path: 'python/python-starter', runtime: Runtime.PYTHON_TEMPLATE, quantumBackend: QuantumBackend.NONE}},
+          {
+            name: 'Python Starter IonQ',
+            value: {path: 'python/python-starter-ionq', runtime: Runtime.PYTHON_TEMPLATE, quantumBackend: QuantumBackend.IONQ},
+          },
+          {name: 'Docker Go', value: {path: 'docker/docker-go', runtime: Runtime.DOCKER, quantumBackend: QuantumBackend.NONE}},
+          {name: 'Docker Node', value: {path: 'docker/docker-node', runtime: Runtime.DOCKER, quantumBackend: QuantumBackend.NONE}},
+          {name: 'Docker Python', value: {path: 'docker/docker-python', runtime: Runtime.DOCKER, quantumBackend: QuantumBackend.NONE}},
+          {
+            name: 'Docker Qiskit Aer GPU',
+            value: {path: 'docker/docker-qiskit-aer-gpu', runtime: Runtime.DOCKER, quantumBackend: QuantumBackend.NONE},
+          },
         ],
-      }, {
+      },
+      {
         name: 'cpu',
         message: 'Choose your vCPU configuration',
         type: 'list',
@@ -62,7 +81,8 @@ export default class Init extends AbstractCommand {
           {name: '28 vCPU (Premium Tier)', value: 28},
           {name: '32 vCPU (Premium Tier)', value: 32},
         ],
-      }, {
+      },
+      {
         name: 'memory',
         message: 'Choose your memory configuration',
         type: 'list',
@@ -78,58 +98,27 @@ export default class Init extends AbstractCommand {
           {name: '14 GB (Premium Tier)', value: 14},
           {name: '16 GB (Premium Tier)', value: 16},
         ],
-      }, {
-        name: 'runtime',
-        message: 'Choose your runtime',
-        type: 'list',
-        choices: [{name: 'Python Template', value: Runtime.PYTHON_TEMPLATE}, {name: 'Docker', value: Runtime.DOCKER}],
-      },
-    ])
-
-    const pythonTemplates = [
-      {name: 'Python Starter', value: 'python/python-starter'},
-      {name: 'Python Starter IonQ', value: 'python/python-starter-ionq'},
-    ]
-
-    const dockerTemplates = [
-      {name: 'None', value: undefined},
-      {name: 'Docker Go', value: 'docker/docker-go'},
-      {name: 'Docker Node', value: 'docker/docker-node'},
-      {name: 'Docker Python', value: 'docker/docker-python'},
-      {name: 'Docker Qiskit Aer GPU', value: 'docker/docker-qiskit-aer-gpu'},
-    ]
-
-    const templateResponses: any = await inquirer.prompt([
-      {
-        name: 'template',
-        message: 'Choose a coding template',
-        type: 'list',
-        choices: responses.runtime === Runtime.PYTHON_TEMPLATE ? pythonTemplates : dockerTemplates,
       },
     ])
 
     const serviceConfig: ManagedServiceConfig = {
       name: responses.name || folderName,
       description: responses.description,
-      quantumBackend: responses.quantumBackend,
+      quantumBackend: responses.template ? responses.template.quantumBackend : QuantumBackend.NONE,
       resources: {
         cpu: responses.cpu,
         memory: responses.memory,
       },
-      runtime: responses.runtime,
+      runtime: responses.template ? responses.template.runtime : Runtime.PYTHON_TEMPLATE,
     }
 
-    // create directory
-    const projectDir = `${process.cwd()}/${folderName}`
-    if (!fs.existsSync(projectDir)) {
-      fs.mkdirSync(projectDir)
-    }
+    fs.mkdirSync(destination)
 
-    serviceConfigService.writeServiceConfig(projectDir, serviceConfig)
+    serviceConfigService.writeServiceConfig(destination, serviceConfig)
 
     // load template from github
-    if (templateResponses.template) {
-      await this.loadCodingTemplate(templateResponses.template, projectDir)
+    if (responses.template) {
+      await this.loadCodingTemplate(responses.template.path, destination)
     }
 
     this.log('\u{1F389} Initialized project. Happy hacking!')
