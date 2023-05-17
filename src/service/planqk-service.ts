@@ -7,12 +7,12 @@ import {ServiceDto} from '../client/model/serviceDto'
 import {BuildJobDto, ServiceDefinitionDto} from '../client/model/models'
 import {HttpError} from '../client/api/apis'
 import {ReadStream} from 'fs-extra'
-import ManagedServiceConfig from '../model/managed-service-config'
-import {ServicePlatformJobsApi, ServicePlatformJobsApiApiKeys} from '../client/api/servicePlatformJobsApi';
-import {CreateJobRequest} from '../client/model/createJobRequest';
-import {JobDto} from '../client/model/jobDto';
-import Account from '../model/account';
-import axios from 'axios';
+import ManagedServiceConfig, {QuantumBackend} from '../model/managed-service-config'
+import {ServicePlatformJobsApi, ServicePlatformJobsApiApiKeys} from '../client/api/servicePlatformJobsApi'
+import {CreateJobRequest} from '../client/model/createJobRequest'
+import {JobDto} from '../client/model/jobDto'
+import Account from '../model/account'
+import axios from 'axios'
 
 export default class PlanqkService extends CommandService {
   serviceApi: ServicePlatformServicesApi
@@ -66,12 +66,17 @@ export default class PlanqkService extends CommandService {
     const vCpuMilli = (serviceConfig.resources?.cpu || 1) * 1000
     const memoryMegabyte = (serviceConfig.resources?.memory || 2) * 1024
 
+    let usePlatformToken: 'TRUE' | 'FALSE' | undefined = 'FALSE'
+    if (serviceConfig.quantumBackend === QuantumBackend.IONQ) {
+      usePlatformToken = 'TRUE'
+    }
+
     try {
       const payload = await this.serviceApi.createManagedService(
         serviceConfig.name,
         serviceConfig.description,
         serviceConfig.quantumBackend,
-        'FALSE',
+        usePlatformToken,
         vCpuMilli,
         memoryMegabyte,
         serviceConfig.runtime,
@@ -141,7 +146,7 @@ export default class PlanqkService extends CommandService {
   async getJobById(id: string): Promise<JobDto> {
     const organizationId = this.userConfig.context?.isOrganization ? this.userConfig.context.id : undefined
     const response = await this.jobApi.getJobById(id, organizationId, {headers: {'X-Auth-Token': this.userConfig.auth!.value}})
-    return response.body;
+    return response.body
   }
 
   async getAccounts(): Promise<Account[]> {
