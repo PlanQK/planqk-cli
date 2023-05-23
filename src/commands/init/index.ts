@@ -46,9 +46,12 @@ export default class Init extends AbstractCommand {
         type: 'list',
         choices: [
           {name: 'None (Creates planqk.json only)', value: undefined},
-          {name: 'Python Starter', value: {path: 'python/python-starter', runtime: Runtime.PYTHON_TEMPLATE, quantumBackend: QuantumBackend.NONE}},
           {
-            name: 'Python Starter IonQ',
+            name: 'Starter Qiskit Aer',
+            value: {path: 'python/python-starter-qiskit-aer', runtime: Runtime.PYTHON_TEMPLATE, quantumBackend: QuantumBackend.NONE},
+          },
+          {
+            name: 'Starter IonQ (Premium Tier)',
             value: {path: 'python/python-starter-ionq', runtime: Runtime.PYTHON_TEMPLATE, quantumBackend: QuantumBackend.IONQ},
           },
           {name: 'Docker Go', value: {path: 'docker/docker-go', runtime: Runtime.DOCKER, quantumBackend: QuantumBackend.NONE}},
