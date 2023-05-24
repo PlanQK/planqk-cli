@@ -10,7 +10,8 @@
  * Do not edit the class manually.
  */
 
-import {TaxonomyElement} from './taxonomyElement'
+import { RequestFile } from './models';
+import { TaxonomyElement } from './taxonomyElement';
 
 export class ApiOverviewDto {
     'id'?: string;

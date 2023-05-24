@@ -10,16 +10,18 @@
  * Do not edit the class manually.
  */
 
-import * as localVarRequest from 'request'
-import * as http from 'http'
+
+import * as localVarRequest from 'request';
+import * as http from 'http';
 
 /* tslint:disable:no-unused-locals */
-import {MeteringRequest} from '../model/meteringRequest'
-import {MeteringResponse} from '../model/meteringResponse'
+import { MeteringRequest } from '../model/meteringRequest';
+import { MeteringResponse } from '../model/meteringResponse';
 
-import {ApiKeyAuth, Authentication, Interceptor, OAuth, ObjectSerializer, VoidAuth} from '../model/models'
+import { ObjectSerializer, Authentication, VoidAuth, Interceptor } from '../model/models';
+import { HttpBasicAuth, HttpBearerAuth, ApiKeyAuth, OAuth } from '../model/models';
 
-import {HttpError} from './apis'
+import { HttpError, RequestFile } from './apis';
 
 let defaultBasePath = 'https://platform.planqk.de/qc-catalog';
 

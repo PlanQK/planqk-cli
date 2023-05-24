@@ -10,8 +10,9 @@
  * Do not edit the class manually.
  */
 
-import {PricingPlanDto} from './pricingPlanDto'
-import {TaxonomyElement} from './taxonomyElement'
+import { RequestFile } from './models';
+import { PricingPlanDto } from './pricingPlanDto';
+import { TaxonomyElement } from './taxonomyElement';
 
 export class ApiDto {
     'id'?: string;

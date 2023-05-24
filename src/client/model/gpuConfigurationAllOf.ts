@@ -10,6 +10,8 @@
  * Do not edit the class manually.
  */
 
+import { RequestFile } from './models';
+
 export class GpuConfigurationAllOf {
     'amount'?: number;
     'accelerator'?: GpuConfigurationAllOf.AcceleratorEnum;
@@ -35,9 +37,10 @@ export class GpuConfigurationAllOf {
 
 export namespace GpuConfigurationAllOf {
     export enum AcceleratorEnum {
-        T4 = <any> 'NVIDIA_TESLA_T4',
-        A100 = <any> 'NVIDIA_TESLA_A100',
-        P100 = <any> 'NVIDIA_TESLA_P100',
-        V100 = <any> 'NVIDIA_TESLA_V100'
+        NvidiaTeslaT4 = <any> 'NVIDIA_TESLA_T4',
+        NvidiaTeslaV100 = <any> 'NVIDIA_TESLA_V100',
+        NvidiaTeslaA100 = <any> 'NVIDIA_TESLA_A100',
+        NvidiaTeslaP100 = <any> 'NVIDIA_TESLA_P100',
+        None = <any> 'NONE'
     }
 }

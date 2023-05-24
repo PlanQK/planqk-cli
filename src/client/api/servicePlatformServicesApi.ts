@@ -10,26 +10,28 @@
  * Do not edit the class manually.
  */
 
-import * as localVarRequest from 'request'
-import * as http from 'http'
 
+import * as localVarRequest from 'request';
+import * as http from 'http';
 /* tslint:disable:no-unused-locals */
-import {BuildJobDto} from '../model/buildJobDto'
-import {CreateExternalServicePricingPlanRequest} from '../model/createExternalServicePricingPlanRequest'
-import {CreateManagedServicePricingPlanRequest} from '../model/createManagedServicePricingPlanRequest'
-import {PricingPlanDto} from '../model/pricingPlanDto'
-import {ProductUsageDto} from '../model/productUsageDto'
-import {ServiceDefinitionCommand} from '../model/serviceDefinitionCommand'
-import {ServiceDefinitionDto} from '../model/serviceDefinitionDto'
-import {ServiceDto} from '../model/serviceDto'
-import {ServiceExecutionDto} from '../model/serviceExecutionDto'
-import {ServiceOverviewDto} from '../model/serviceOverviewDto'
-import {SubscriptionDto} from '../model/subscriptionDto'
-import {UpdateVersionRequest} from '../model/updateVersionRequest'
+import { BuildJobDto } from '../model/buildJobDto';
+import { CreateExternalServicePricingPlanRequest } from '../model/createExternalServicePricingPlanRequest';
+import { CreateManagedServicePricingPlanRequest } from '../model/createManagedServicePricingPlanRequest';
+import { PricingPlanDto } from '../model/pricingPlanDto';
+import { ProductUsageDto } from '../model/productUsageDto';
+import { ServiceDefinitionCommand } from '../model/serviceDefinitionCommand';
+import { ServiceDefinitionDto } from '../model/serviceDefinitionDto';
+import { ServiceDto } from '../model/serviceDto';
+import { ServiceExecutionDto } from '../model/serviceExecutionDto';
+import { ServiceOverviewDto } from '../model/serviceOverviewDto';
+import { SubscriptionDto } from '../model/subscriptionDto';
+import { UpdateResourceConfigurationRequest } from '../model/updateResourceConfigurationRequest';
+import { UpdateVersionRequest } from '../model/updateVersionRequest';
 
-import {ApiKeyAuth, Authentication, Interceptor, OAuth, ObjectSerializer, VoidAuth} from '../model/models'
+import { ObjectSerializer, Authentication, VoidAuth, Interceptor } from '../model/models';
+import { HttpBasicAuth, HttpBearerAuth, ApiKeyAuth, OAuth } from '../model/models';
 
-import {HttpError, RequestFile} from './apis'
+import { HttpError, RequestFile } from './apis';
 
 let defaultBasePath = 'https://platform.planqk.de/qc-catalog';
 
@@ -491,14 +493,16 @@ export class ServicePlatformServicesApi {
      * @param description
      * @param quantumBackend
      * @param usePlatformToken
-     * @param cpu
-     * @param memory
+     * @param milliCpus
+     * @param memoryInMegabytes
      * @param runtime
+     * @param gpuCount
+     * @param gpuAccelerator
      * @param xOrganizationId The ID of your organization in case you want to perform operations in this context. Leave it empty to operate in your personal space.
      * @param userCode
      * @param apiDefinition
      */
-    public async createManagedService (name: string, description?: string, quantumBackend?: 'IBM' | 'IONQ' | 'DWAVE' | 'NONE', usePlatformToken?: 'TRUE' | 'FALSE', cpu?: number, memory?: number, runtime?: 'DOCKER' | 'PYTHON_TEMPLATE' | 'PYTHON', xOrganizationId?: string, userCode?: RequestFile, apiDefinition?: RequestFile, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: ServiceDto;  }> {
+    public async createManagedService (name: string, description?: string, quantumBackend?: 'IBM' | 'IONQ' | 'DWAVE' | 'NONE', usePlatformToken?: 'TRUE' | 'FALSE', milliCpus?: number, memoryInMegabytes?: number, runtime?: 'DOCKER' | 'PYTHON_TEMPLATE' | 'PYTHON', gpuCount?: number, gpuAccelerator?: 'NVIDIA_TESLA_T4' | 'NVIDIA_TESLA_V100' | 'NVIDIA_TESLA_A100' | 'NVIDIA_TESLA_P100' | 'NONE', xOrganizationId?: string, userCode?: RequestFile, apiDefinition?: RequestFile, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: ServiceDto;  }> {
         const localVarPath = this.basePath + '/v2/managed-services';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
@@ -532,16 +536,24 @@ export class ServicePlatformServicesApi {
             localVarQueryParameters['usePlatformToken'] = ObjectSerializer.serialize(usePlatformToken, "'TRUE' | 'FALSE'");
         }
 
-        if (cpu !== undefined) {
-            localVarQueryParameters['cpu'] = ObjectSerializer.serialize(cpu, "number");
+        if (milliCpus !== undefined) {
+            localVarQueryParameters['milliCpus'] = ObjectSerializer.serialize(milliCpus, "number");
         }
 
-        if (memory !== undefined) {
-            localVarQueryParameters['memory'] = ObjectSerializer.serialize(memory, "number");
+        if (memoryInMegabytes !== undefined) {
+            localVarQueryParameters['memoryInMegabytes'] = ObjectSerializer.serialize(memoryInMegabytes, "number");
         }
 
         if (runtime !== undefined) {
             localVarQueryParameters['runtime'] = ObjectSerializer.serialize(runtime, "'DOCKER' | 'PYTHON_TEMPLATE' | 'PYTHON'");
+        }
+
+        if (gpuCount !== undefined) {
+            localVarQueryParameters['gpuCount'] = ObjectSerializer.serialize(gpuCount, "number");
+        }
+
+        if (gpuAccelerator !== undefined) {
+            localVarQueryParameters['gpuAccelerator'] = ObjectSerializer.serialize(gpuAccelerator, "'NVIDIA_TESLA_T4' | 'NVIDIA_TESLA_V100' | 'NVIDIA_TESLA_A100' | 'NVIDIA_TESLA_P100' | 'NONE'");
         }
 
         localVarHeaderParams['X-OrganizationId'] = ObjectSerializer.serialize(xOrganizationId, "string");
@@ -842,8 +854,9 @@ export class ServicePlatformServicesApi {
      * Gets the API definition of a service.
      * @param serviceId
      * @param versionId
+     * @param xOrganizationId The ID of your organization in case you want to perform operations in this context. Leave it empty to operate in your personal space.
      */
-    public async getApiDefinition (serviceId: string, versionId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: string;  }> {
+    public async getApiDefinition (serviceId: string, versionId: string, xOrganizationId?: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: string;  }> {
         const localVarPath = this.basePath + '/services/{serviceId}/versions/{versionId}/api-spec'
             .replace('{' + 'serviceId' + '}', encodeURIComponent(String(serviceId)))
             .replace('{' + 'versionId' + '}', encodeURIComponent(String(versionId)));
@@ -868,6 +881,90 @@ export class ServicePlatformServicesApi {
             throw new Error('Required parameter versionId was null or undefined when calling getApiDefinition.');
         }
 
+        localVarHeaderParams['X-OrganizationId'] = ObjectSerializer.serialize(xOrganizationId, "string");
+        (<any>Object).assign(localVarHeaderParams, options.headers);
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'GET',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        let authenticationPromise = Promise.resolve();
+        if (this.authentications.apiKey.apiKey) {
+            authenticationPromise = authenticationPromise.then(() => this.authentications.apiKey.applyToRequest(localVarRequestOptions));
+        }
+        if (this.authentications.oauth2.accessToken) {
+            authenticationPromise = authenticationPromise.then(() => this.authentications.oauth2.applyToRequest(localVarRequestOptions));
+        }
+        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+
+        let interceptorPromise = authenticationPromise;
+        for (const interceptor of this.interceptors) {
+            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+        }
+
+        return interceptorPromise.then(() => {
+            if (Object.keys(localVarFormParams).length) {
+                if (localVarUseFormData) {
+                    (<any>localVarRequestOptions).formData = localVarFormParams;
+                } else {
+                    localVarRequestOptions.form = localVarFormParams;
+                }
+            }
+            return new Promise<{ response: http.IncomingMessage; body: string;  }>((resolve, reject) => {
+                localVarRequest(localVarRequestOptions, (error, response, body) => {
+                    if (error) {
+                        reject(error);
+                    } else {
+                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            body = ObjectSerializer.deserialize(body, "string");
+                            resolve({ response: response, body: body });
+                        } else {
+                            reject(new HttpError(response, body, response.statusCode));
+                        }
+                    }
+                });
+            });
+        });
+    }
+    /**
+     * Returns the logs of the last build of a managed service.
+     * @param serviceId
+     * @param versionId
+     * @param xOrganizationId The ID of your organization in case you want to perform operations in this context. Leave it empty to operate in your personal space.
+     */
+    public async getBuildLogs (serviceId: string, versionId: string, xOrganizationId?: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: string;  }> {
+        const localVarPath = this.basePath + '/services/{serviceId}/versions/{versionId}/build-logs'
+            .replace('{' + 'serviceId' + '}', encodeURIComponent(String(serviceId)))
+            .replace('{' + 'versionId' + '}', encodeURIComponent(String(versionId)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
+        const produces = ['text/plain'];
+        // give precedence to 'application/json'
+        if (produces.indexOf('application/json') >= 0) {
+            localVarHeaderParams.Accept = 'application/json';
+        } else {
+            localVarHeaderParams.Accept = produces.join(',');
+        }
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'serviceId' is not null or undefined
+        if (serviceId === null || serviceId === undefined) {
+            throw new Error('Required parameter serviceId was null or undefined when calling getBuildLogs.');
+        }
+
+        // verify required parameter 'versionId' is not null or undefined
+        if (versionId === null || versionId === undefined) {
+            throw new Error('Required parameter versionId was null or undefined when calling getBuildLogs.');
+        }
+
+        localVarHeaderParams['X-OrganizationId'] = ObjectSerializer.serialize(xOrganizationId, "string");
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -1245,7 +1342,7 @@ export class ServicePlatformServicesApi {
         });
     }
     /**
-     * Gets a list of all active subscriptions to a specific service version.
+     * Gets a list of all active subscriptions of a specific service version.
      * @param serviceId
      * @param versionId
      * @param xOrganizationId The ID of your organization in case you want to perform operations in this context. Leave it empty to operate in your personal space.
@@ -1561,11 +1658,12 @@ export class ServicePlatformServicesApi {
         });
     }
     /**
-     * Gets the source code of service.
+     * Returns the source code archive that was used to create the most recent version of the service.
      * @param serviceId
      * @param versionId
+     * @param xOrganizationId The ID of your organization in case you want to perform operations in this context. Leave it empty to operate in your personal space.
      */
-    public async getSourceCode (serviceId: string, versionId: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: string;  }> {
+    public async getSourceCode (serviceId: string, versionId: string, xOrganizationId?: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: string;  }> {
         const localVarPath = this.basePath + '/services/{serviceId}/versions/{versionId}/source-code'
             .replace('{' + 'serviceId' + '}', encodeURIComponent(String(serviceId)))
             .replace('{' + 'versionId' + '}', encodeURIComponent(String(versionId)));
@@ -1590,6 +1688,7 @@ export class ServicePlatformServicesApi {
             throw new Error('Required parameter versionId was null or undefined when calling getSourceCode.');
         }
 
+        localVarHeaderParams['X-OrganizationId'] = ObjectSerializer.serialize(xOrganizationId, "string");
         (<any>Object).assign(localVarHeaderParams, options.headers);
 
         let localVarUseFormData = false;
@@ -1898,7 +1997,7 @@ export class ServicePlatformServicesApi {
      * @param xOrganizationId The ID of your organization in case you want to perform operations in this context. Leave it empty to operate in your personal space.
      */
     public async updateApiDefinition (serviceId: string, versionId: string, file: RequestFile, xOrganizationId?: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body?: any;  }> {
-        const localVarPath = this.basePath + '/{serviceId}/versions/{versionId}/api-spec'
+        const localVarPath = this.basePath + '/v2/services/{serviceId}/versions/{versionId}/api-spec'
             .replace('{' + 'serviceId' + '}', encodeURIComponent(String(serviceId)))
             .replace('{' + 'versionId' + '}', encodeURIComponent(String(versionId)));
         let localVarQueryParameters: any = {};
@@ -1937,6 +2036,88 @@ export class ServicePlatformServicesApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
+        };
+
+        let authenticationPromise = Promise.resolve();
+        if (this.authentications.apiKey.apiKey) {
+            authenticationPromise = authenticationPromise.then(() => this.authentications.apiKey.applyToRequest(localVarRequestOptions));
+        }
+        if (this.authentications.oauth2.accessToken) {
+            authenticationPromise = authenticationPromise.then(() => this.authentications.oauth2.applyToRequest(localVarRequestOptions));
+        }
+        authenticationPromise = authenticationPromise.then(() => this.authentications.default.applyToRequest(localVarRequestOptions));
+
+        let interceptorPromise = authenticationPromise;
+        for (const interceptor of this.interceptors) {
+            interceptorPromise = interceptorPromise.then(() => interceptor(localVarRequestOptions));
+        }
+
+        return interceptorPromise.then(() => {
+            if (Object.keys(localVarFormParams).length) {
+                if (localVarUseFormData) {
+                    (<any>localVarRequestOptions).formData = localVarFormParams;
+                } else {
+                    localVarRequestOptions.form = localVarFormParams;
+                }
+            }
+            return new Promise<{ response: http.IncomingMessage; body?: any;  }>((resolve, reject) => {
+                localVarRequest(localVarRequestOptions, (error, response, body) => {
+                    if (error) {
+                        reject(error);
+                    } else {
+                        if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                            resolve({ response: response, body: body });
+                        } else {
+                            reject(new HttpError(response, body, response.statusCode));
+                        }
+                    }
+                });
+            });
+        });
+    }
+    /**
+     * Updates the vCPU, memory, and GPU configuration of a managed service.
+     * @param serviceId
+     * @param versionId
+     * @param updateResourceConfigurationRequest
+     * @param xOrganizationId The ID of your organization in case you want to perform operations in this context. Leave it empty to operate in your personal space.
+     */
+    public async updateResourceConfiguration (serviceId: string, versionId: string, updateResourceConfigurationRequest: UpdateResourceConfigurationRequest, xOrganizationId?: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body?: any;  }> {
+        const localVarPath = this.basePath + '/services/{serviceId}/versions/{versionId}/resource-configuration'
+            .replace('{' + 'serviceId' + '}', encodeURIComponent(String(serviceId)))
+            .replace('{' + 'versionId' + '}', encodeURIComponent(String(versionId)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this._defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'serviceId' is not null or undefined
+        if (serviceId === null || serviceId === undefined) {
+            throw new Error('Required parameter serviceId was null or undefined when calling updateResourceConfiguration.');
+        }
+
+        // verify required parameter 'versionId' is not null or undefined
+        if (versionId === null || versionId === undefined) {
+            throw new Error('Required parameter versionId was null or undefined when calling updateResourceConfiguration.');
+        }
+
+        // verify required parameter 'updateResourceConfigurationRequest' is not null or undefined
+        if (updateResourceConfigurationRequest === null || updateResourceConfigurationRequest === undefined) {
+            throw new Error('Required parameter updateResourceConfigurationRequest was null or undefined when calling updateResourceConfiguration.');
+        }
+
+        localVarHeaderParams['X-OrganizationId'] = ObjectSerializer.serialize(xOrganizationId, "string");
+        (<any>Object).assign(localVarHeaderParams, options.headers);
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'PUT',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+            body: ObjectSerializer.serialize(updateResourceConfigurationRequest, "UpdateResourceConfigurationRequest")
         };
 
         let authenticationPromise = Promise.resolve();
@@ -2067,14 +2248,14 @@ export class ServicePlatformServicesApi {
         });
     }
     /**
-     * Updates the source code of a service.
+     * Updates the source code of a managed service and triggers a new build.
      * @param serviceId
      * @param versionId
      * @param sourceCode
      * @param xOrganizationId The ID of your organization in case you want to perform operations in this context. Leave it empty to operate in your personal space.
      */
     public async updateSourceCode (serviceId: string, versionId: string, sourceCode: RequestFile, xOrganizationId?: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: ServiceDefinitionDto;  }> {
-        const localVarPath = this.basePath + '/{serviceId}/versions/{versionId}/source-code'
+        const localVarPath = this.basePath + '/v2/services/{serviceId}/versions/{versionId}/source-code'
             .replace('{' + 'serviceId' + '}', encodeURIComponent(String(serviceId)))
             .replace('{' + 'versionId' + '}', encodeURIComponent(String(versionId)));
         let localVarQueryParameters: any = {};

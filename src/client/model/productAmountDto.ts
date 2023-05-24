@@ -10,7 +10,8 @@
  * Do not edit the class manually.
  */
 
-import {AmountMajorDto} from './amountMajorDto'
+import { RequestFile } from './models';
+import { AmountMajorDto } from './amountMajorDto';
 
 export class ProductAmountDto {
     'name'?: string;

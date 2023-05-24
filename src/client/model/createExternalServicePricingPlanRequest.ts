@@ -10,7 +10,8 @@
  * Do not edit the class manually.
  */
 
-import {CreateProductRequest} from './createProductRequest'
+import { RequestFile } from './models';
+import { CreateProductRequest } from './createProductRequest';
 
 export class CreateExternalServicePricingPlanRequest {
     'type': CreateExternalServicePricingPlanRequest.TypeEnum;

@@ -10,7 +10,8 @@
  * Do not edit the class manually.
  */
 
-import {ServiceDefinitionDto} from './serviceDefinitionDto'
+import { RequestFile } from './models';
+import { ServiceDefinitionDto } from './serviceDefinitionDto';
 
 export class ServiceDto {
     /**

@@ -10,10 +10,11 @@
  * Do not edit the class manually.
  */
 
-import {PricingPlanDto} from './pricingPlanDto'
-import {RuntimeConfiguration} from './runtimeConfiguration'
-import {ServiceDefinitionDtoConfigurationsInner} from './serviceDefinitionDtoConfigurationsInner'
-import {TaxonomyElement} from './taxonomyElement'
+import { RequestFile } from './models';
+import { PricingPlanDto } from './pricingPlanDto';
+import { RuntimeConfiguration } from './runtimeConfiguration';
+import { TaxonomyElement } from './taxonomyElement';
+import { UpdateResourceConfigurationRequest } from './updateResourceConfigurationRequest';
 
 export class ServiceDefinitionDto {
     'id'?: string;
@@ -32,7 +33,7 @@ export class ServiceDefinitionDto {
     'modifiedAt'?: string;
     'createdBy'?: string;
     'modifiedBy'?: string;
-    'configurations'?: Set<ServiceDefinitionDtoConfigurationsInner>;
+    'configurations'?: Set<UpdateResourceConfigurationRequest>;
     'runtimeConfiguration'?: RuntimeConfiguration;
     'logoUrl'?: string;
 
@@ -122,7 +123,7 @@ export class ServiceDefinitionDto {
         {
             "name": "configurations",
             "baseName": "configurations",
-            "type": "Set<ServiceDefinitionDtoConfigurationsInner>"
+            "type": "Set<UpdateResourceConfigurationRequest>"
         },
         {
             "name": "runtimeConfiguration",

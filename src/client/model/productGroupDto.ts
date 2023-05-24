@@ -10,8 +10,9 @@
  * Do not edit the class manually.
  */
 
-import {AmountMajorDto} from './amountMajorDto'
-import {ProductAmountDto} from './productAmountDto'
+import { RequestFile } from './models';
+import { AmountMajorDto } from './amountMajorDto';
+import { ProductAmountDto } from './productAmountDto';
 
 export class ProductGroupDto {
     'name'?: string;

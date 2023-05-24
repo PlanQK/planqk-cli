@@ -80,9 +80,6 @@ export default class Init extends AbstractCommand {
           {name: '16 vCPU (Premium Tier)', value: 16},
           {name: '18 vCPU (Premium Tier)', value: 18},
           {name: '20 vCPU (Premium Tier)', value: 20},
-          {name: '24 vCPU (Premium Tier)', value: 24},
-          {name: '28 vCPU (Premium Tier)', value: 28},
-          {name: '32 vCPU (Premium Tier)', value: 32},
         ],
       },
       {
@@ -100,6 +97,13 @@ export default class Init extends AbstractCommand {
           {name: '12 GB (Premium Tier)', value: 12},
           {name: '14 GB (Premium Tier)', value: 14},
           {name: '16 GB (Premium Tier)', value: 16},
+          {name: '18 GB (Premium Tier)', value: 18},
+          {name: '20 GB (Premium Tier)', value: 20},
+          {name: '22 GB (Premium Tier)', value: 22},
+          {name: '24 GB (Premium Tier)', value: 24},
+          {name: '28 GB (Premium Tier)', value: 28},
+          {name: '30 GB (Premium Tier)', value: 30},
+          {name: '32 GB (Premium Tier)', value: 32},
         ],
       },
     ])

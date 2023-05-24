@@ -20,6 +20,7 @@ export class SubscriptionDto {
     'application'?: ApplicationDto;
     'api'?: ApiDto;
     'pricingPlan'?: PricingPlanDto;
+    'logsAvailable'?: boolean;
 
     static discriminator: string | undefined = undefined;
 
@@ -43,6 +44,11 @@ export class SubscriptionDto {
             "name": "pricingPlan",
             "baseName": "pricingPlan",
             "type": "PricingPlanDto"
+        },
+        {
+            "name": "logsAvailable",
+            "baseName": "logsAvailable",
+            "type": "boolean"
         }    ];
 
     static getAttributeTypeMap() {

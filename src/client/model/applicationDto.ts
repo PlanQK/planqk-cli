@@ -10,6 +10,8 @@
  * Do not edit the class manually.
  */
 
+import { RequestFile } from './models';
+
 export class ApplicationDto {
     /**
     * The access permission role for this entity of the current user

@@ -10,7 +10,8 @@
  * Do not edit the class manually.
  */
 
-import {ProductDto} from './productDto'
+import { RequestFile } from './models';
+import { ProductDto } from './productDto';
 
 export class PricingPlanDto {
     'id'?: string;

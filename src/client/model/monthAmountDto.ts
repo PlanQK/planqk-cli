@@ -10,8 +10,9 @@
  * Do not edit the class manually.
  */
 
-import {AmountMajorDto} from './amountMajorDto'
-import {ProductGroupDto} from './productGroupDto'
+import { RequestFile } from './models';
+import { AmountMajorDto } from './amountMajorDto';
+import { ProductGroupDto } from './productGroupDto';
 
 export class MonthAmountDto {
     'year'?: number;

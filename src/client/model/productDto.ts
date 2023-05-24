@@ -10,6 +10,8 @@
  * Do not edit the class manually.
  */
 
+import { RequestFile } from './models';
+
 export class ProductDto {
     'id'?: string;
     'name'?: string;
@@ -64,6 +66,8 @@ export namespace ProductDto {
         Memory = <any> 'MEMORY',
         Ionq1GateShot = <any> 'IONQ_1_GATE_SHOT',
         Ionq2GateShot = <any> 'IONQ_2_GATE_SHOT',
-        Custom = <any> 'CUSTOM'
+        Custom = <any> 'CUSTOM',
+        GpuNvidiaT4 = <any> 'GPU_NVIDIA_T4',
+        GpuNvidiaV100 = <any> 'GPU_NVIDIA_V100'
     }
 }

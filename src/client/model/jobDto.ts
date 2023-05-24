@@ -22,8 +22,8 @@ export class JobDto {
     'parameters'?: string;
     'parametersRef'?: DataPoolRef;
     'result'?: string;
-    'createdAt'?: Date;
-    'endedAt'?: Date;
+    'createdAt'?: string;
+    'endedAt'?: string;
     'persistResult'?: boolean;
     'resultDataPoolId'?: string;
     'serviceDefinition'?: ServiceDefinitionDto;
@@ -69,12 +69,12 @@ export class JobDto {
         {
             "name": "createdAt",
             "baseName": "createdAt",
-            "type": "Date"
+            "type": "string"
         },
         {
             "name": "endedAt",
             "baseName": "endedAt",
-            "type": "Date"
+            "type": "string"
         },
         {
             "name": "persistResult",

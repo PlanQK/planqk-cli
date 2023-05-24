@@ -80,6 +80,8 @@ export default class PlanqkService extends CommandService {
         vCpuMilli,
         memoryMegabyte,
         serviceConfig.runtime,
+        0,
+        undefined,
         this.userConfig.context?.isOrganization ? this.userConfig.context.id : undefined,
         userCode,
         undefined,
@@ -145,7 +147,7 @@ export default class PlanqkService extends CommandService {
 
   async getJobById(id: string): Promise<JobDto> {
     const organizationId = this.userConfig.context?.isOrganization ? this.userConfig.context.id : undefined
-    const response = await this.jobApi.getJobById(id, organizationId, {headers: {'X-Auth-Token': this.userConfig.auth!.value}})
+    const response = await this.jobApi.getJob(id, organizationId, {headers: {'X-Auth-Token': this.userConfig.auth!.value}})
     return response.body
   }
 

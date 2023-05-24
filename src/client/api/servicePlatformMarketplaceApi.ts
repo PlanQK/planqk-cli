@@ -10,17 +10,19 @@
  * Do not edit the class manually.
  */
 
-import * as localVarRequest from 'request'
-import * as http from 'http'
+
+import * as localVarRequest from 'request';
+import * as http from 'http';
 
 /* tslint:disable:no-unused-locals */
-import {ApiDto} from '../model/apiDto'
-import {ApiOverviewDto} from '../model/apiOverviewDto'
-import {CreateSubscriptionRequest} from '../model/createSubscriptionRequest'
+import { ApiDto } from '../model/apiDto';
+import { ApiOverviewDto } from '../model/apiOverviewDto';
+import { CreateSubscriptionRequest } from '../model/createSubscriptionRequest';
 
-import {ApiKeyAuth, Authentication, Interceptor, OAuth, ObjectSerializer, VoidAuth} from '../model/models'
+import { ObjectSerializer, Authentication, VoidAuth, Interceptor } from '../model/models';
+import { HttpBasicAuth, HttpBearerAuth, ApiKeyAuth, OAuth } from '../model/models';
 
-import {HttpError} from './apis'
+import { HttpError, RequestFile } from './apis';
 
 let defaultBasePath = 'https://platform.planqk.de/qc-catalog';
 

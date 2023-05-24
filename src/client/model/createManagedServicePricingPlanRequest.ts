@@ -10,6 +10,8 @@
  * Do not edit the class manually.
  */
 
+import { RequestFile } from './models';
+
 export class CreateManagedServicePricingPlanRequest {
     'type': CreateManagedServicePricingPlanRequest.TypeEnum;
     'profitPercentage'?: number;
