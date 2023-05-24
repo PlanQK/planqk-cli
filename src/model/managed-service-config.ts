@@ -24,4 +24,17 @@ export enum Runtime {
 export interface ResourceConfiguration {
   cpu: number;
   memory: number;
+  gpu?: GpuConfiguration
+}
+
+export interface GpuConfiguration {
+  type: GpuType;
+  count: number;
+}
+
+export enum GpuType {
+  NVIDIA_TESLA_T4 = 'NVIDIA_TESLA_T4',
+  NVIDIA_TESLA_V100 = 'NVIDIA_TESLA_V100',
+  NVIDIA_TESLA_A100 = 'NVIDIA_TESLA_A100',
+  NVIDIA_TESLA_P100 = 'NVIDIA_TESLA_P100',
 }

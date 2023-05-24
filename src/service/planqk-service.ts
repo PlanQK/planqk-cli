@@ -66,6 +66,9 @@ export default class PlanqkService extends CommandService {
     const vCpuMilli = (serviceConfig.resources?.cpu || 1) * 1000
     const memoryMegabyte = (serviceConfig.resources?.memory || 2) * 1024
 
+    const gpuAccelerator = serviceConfig.resources?.gpu?.type || 'NONE'
+    const gpuCount = serviceConfig.resources?.gpu?.count || 0
+
     let usePlatformToken: 'TRUE' | 'FALSE' | undefined = 'FALSE'
     if (serviceConfig.quantumBackend === QuantumBackend.IONQ) {
       usePlatformToken = 'TRUE'
@@ -80,8 +83,8 @@ export default class PlanqkService extends CommandService {
         vCpuMilli,
         memoryMegabyte,
         serviceConfig.runtime,
-        0,
-        undefined,
+        gpuCount,
+        gpuAccelerator,
         this.userConfig.context?.isOrganization ? this.userConfig.context.id : undefined,
         userCode,
         undefined,

@@ -1,6 +1,6 @@
 import {AbstractCommand} from '../../model/command'
 import * as inquirer from 'inquirer'
-import ManagedServiceConfig, {QuantumBackend, Runtime} from '../../model/managed-service-config'
+import ManagedServiceConfig, {GpuType, QuantumBackend, Runtime} from '../../model/managed-service-config'
 import * as AdmZip from 'adm-zip'
 import axios, {ResponseType} from 'axios'
 import serviceConfigService from '../../service/service-config-service'
@@ -106,6 +106,16 @@ export default class Init extends AbstractCommand {
           {name: '32 GB (Premium Tier)', value: 32},
         ],
       },
+      {
+        name: 'gpu',
+        message: 'Choose your GPU configuration',
+        type: 'list',
+        choices: [
+          {name: 'No GPU support', value: undefined},
+          {name: 'NVIDIA® T4', value: GpuType.NVIDIA_TESLA_T4},
+          {name: 'NVIDIA® V100', value: GpuType.NVIDIA_TESLA_V100},
+        ],
+      },
     ])
 
     const serviceConfig: ManagedServiceConfig = {
@@ -117,6 +127,13 @@ export default class Init extends AbstractCommand {
         memory: responses.memory,
       },
       runtime: responses.template ? responses.template.runtime : Runtime.PYTHON_TEMPLATE,
+    }
+
+    if (responses.gpu) {
+      serviceConfig!.resources!.gpu = {
+        type: responses.gpu,
+        count: 1,
+      }
     }
 
     fs.mkdirSync(destination)
