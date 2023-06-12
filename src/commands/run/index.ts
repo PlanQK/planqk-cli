@@ -1,13 +1,13 @@
 import {AuthenticatedCommand} from '../../model/command'
-import PlanqkService from '../../service/planqk-service';
-import ManagedServiceConfig from '../../model/managed-service-config';
-import ServiceConfigService from '../../service/service-config-service';
-import {Args, Flags, ux} from '@oclif/core';
+import PlanqkService from '../../service/planqk-service'
+import ManagedServiceConfig from '../../model/managed-service-config'
+import ServiceConfigService from '../../service/service-config-service'
+import {Args, Flags, ux} from '@oclif/core'
 import * as fs from 'fs-extra'
 import * as path from 'path'
-import * as inquirer from 'inquirer';
-import waitUntil from 'async-wait-until';
-import {JobDto} from '../../client/model/jobDto';
+import * as inquirer from 'inquirer'
+import waitUntil from 'async-wait-until'
+import {JobDto} from '../../client/model/jobDto'
 
 export default class Run extends AuthenticatedCommand {
   static description = 'Creates a job execution of a PlanQK Service'
@@ -28,9 +28,20 @@ export default class Run extends AuthenticatedCommand {
   static flags = {
     data: Flags.string({char: 'd', description: 'Input data as JSON string.', required: false}),
     params: Flags.string({char: 'p', description: 'Input data as JSON string.', required: false}),
-    dataFile: Flags.string({aliases: ['data-file'], description: 'Relative path to file containing input data.', required: false}),
-    paramsFile: Flags.string({aliases: ['params-file'], description: 'Relative path to file containing params.', required: false}),
-    detached: Flags.boolean({description: 'Executes the job in detached mode, i.e., without waiting for it to finish.', required: false}),
+    dataFile: Flags.string({
+      aliases: ['data-file'],
+      description: 'Relative path to file containing input data.',
+      required: false,
+    }),
+    paramsFile: Flags.string({
+      aliases: ['params-file'],
+      description: 'Relative path to file containing params.',
+      required: false,
+    }),
+    detached: Flags.boolean({
+      description: 'Executes the job in detached mode, i.e., without waiting for it to finish.',
+      required: false,
+    }),
   }
 
   async init(): Promise<void> {
@@ -81,23 +92,26 @@ export default class Run extends AuthenticatedCommand {
 
     try {
       await waitUntil(async () => {
-        job = await this.planqkService.getJobById(job.id as string)
-        return job.status === JobDto.StatusEnum.Success || job.status === JobDto.StatusEnum.Failed
-      },
-      {
-        timeout: 10 * 60 * 1000, // 10 minute timeout
-        intervalBetweenAttempts: 5000, // every 5 seconds
-      })
+          job = await this.planqkService.getJobById(job.id as string)
+          return job.status === JobDto.StatusEnum.Succeeded || job.status === JobDto.StatusEnum.Failed || job.status === JobDto.StatusEnum.Cancelled
+        },
+        {
+          timeout: 10 * 60 * 1000, // 10 minute timeout
+          intervalBetweenAttempts: 5000, // every 5 seconds
+        })
     } catch {
       // ignore wait until next attempt
     }
 
     const jobDetailsLink = `https://platform.planqk.de/jobs/${job.id}`
-    if (job.status === JobDto.StatusEnum.Success) {
+    if (job.status === JobDto.StatusEnum.Succeeded) {
       ux.action.stop('Job succeeded.')
       ux.info(`See result at \u001B]8;;${jobDetailsLink}\u0007${jobDetailsLink}\u001B]8;;\u0007\``)
     } else if (job.status === JobDto.StatusEnum.Failed) {
       ux.action.stop('Job failed.')
+      ux.info(`See details at \u001B]8;;${jobDetailsLink}\u0007${jobDetailsLink}\u001B]8;;\u0007\``)
+    } else if (job.status === JobDto.StatusEnum.Cancelled) {
+      ux.action.stop('Job canceled.')
       ux.info(`See details at \u001B]8;;${jobDetailsLink}\u0007${jobDetailsLink}\u001B]8;;\u0007\``)
     } else {
       ux.action.stop('Timeout polling status.')
@@ -140,7 +154,7 @@ export default class Run extends AuthenticatedCommand {
   }
 
   fixJsonString(jsonString: string): string {
-    const regex = /([,{])(\s*)(\w+?)\s*:/g;
-    return jsonString.replace(regex, '$1"$3":');
+    const regex = /([,{])(\s*)(\w+?)\s*:/g
+    return jsonString.replace(regex, '$1"$3":')
   }
 }
