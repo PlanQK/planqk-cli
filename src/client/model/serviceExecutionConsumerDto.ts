@@ -10,8 +10,6 @@
  * Do not edit the class manually.
  */
 
-import { RequestFile } from './models';
-
 export class ServiceExecutionConsumerDto {
     'id'?: string;
     'createdAt'?: string;
@@ -59,7 +57,7 @@ export namespace ServiceExecutionConsumerDto {
         Pending = <any> 'PENDING',
         Running = <any> 'RUNNING',
         Succeeded = <any> 'SUCCEEDED',
-        Cancelled = <any> 'CANCELLED',
-        Failed = <any> 'FAILED'
+        Failed = <any> 'FAILED',
+        Cancelled = <any> 'CANCELLED'
     }
 }

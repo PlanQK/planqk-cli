@@ -10,8 +10,6 @@
  * Do not edit the class manually.
  */
 
-import { RequestFile } from './models';
-
 export class ApplicationDto {
     /**
     * The access permission role for this entity of the current user
@@ -20,6 +18,7 @@ export class ApplicationDto {
     'id'?: string;
     'name'?: string;
     'subscriptionCount'?: number;
+    'createdAt'?: string;
 
     static discriminator: string | undefined = undefined;
 
@@ -43,6 +42,11 @@ export class ApplicationDto {
             "name": "subscriptionCount",
             "baseName": "subscriptionCount",
             "type": "number"
+        },
+        {
+            "name": "createdAt",
+            "baseName": "createdAt",
+            "type": "string"
         }    ];
 
     static getAttributeTypeMap() {

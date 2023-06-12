@@ -10,9 +10,8 @@
  * Do not edit the class manually.
  */
 
-import { RequestFile } from './models';
-import { DataPoolRef } from './dataPoolRef';
-import { ServiceDefinitionDto } from './serviceDefinitionDto';
+import {DataPoolRef} from './dataPoolRef'
+import {ServiceDefinitionDto} from './serviceDefinitionDto'
 
 export class JobDto {
     'id'?: string;
@@ -23,6 +22,7 @@ export class JobDto {
     'parametersRef'?: DataPoolRef;
     'result'?: string;
     'createdAt'?: string;
+    'startedAt'?: string;
     'endedAt'?: string;
     'persistResult'?: boolean;
     'resultDataPoolId'?: string;
@@ -72,6 +72,11 @@ export class JobDto {
             "type": "string"
         },
         {
+            "name": "startedAt",
+            "baseName": "startedAt",
+            "type": "string"
+        },
+        {
             "name": "endedAt",
             "baseName": "endedAt",
             "type": "string"
@@ -99,9 +104,11 @@ export class JobDto {
 
 export namespace JobDto {
     export enum StatusEnum {
-        Draft = <any> 'DRAFT',
-        Started = <any> 'STARTED',
-        Success = <any> 'SUCCESS',
-        Failed = <any> 'FAILED'
+        Unknown = <any> 'UNKNOWN',
+        Pending = <any> 'PENDING',
+        Running = <any> 'RUNNING',
+        Succeeded = <any> 'SUCCEEDED',
+        Failed = <any> 'FAILED',
+        Cancelled = <any> 'CANCELLED'
     }
 }
