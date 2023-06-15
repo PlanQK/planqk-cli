@@ -16,7 +16,7 @@ export default class Init extends AbstractCommand {
   ]
 
   async run(): Promise<void> {
-    const randomName =  this.generateRandomName()
+    const randomName = this.generateRandomName()
 
     const responses: any = await inquirer.prompt([
       {
@@ -40,7 +40,7 @@ export default class Init extends AbstractCommand {
             value: {
               path: 'python/python-starter-qiskit-aer',
               runtime: Runtime.PYTHON_TEMPLATE,
-              quantumBackend: QuantumBackend.NONE
+              quantumBackend: QuantumBackend.NONE,
             },
           },
           {
@@ -48,21 +48,21 @@ export default class Init extends AbstractCommand {
             value: {
               path: 'python/python-starter-ionq',
               runtime: Runtime.PYTHON_TEMPLATE,
-              quantumBackend: QuantumBackend.IONQ
+              quantumBackend: QuantumBackend.IONQ,
             },
           },
           {
             name: 'Docker Go',
-            value: {path: 'docker/docker-go', runtime: Runtime.DOCKER, quantumBackend: QuantumBackend.NONE}
+            value: {path: 'docker/docker-go', runtime: Runtime.DOCKER, quantumBackend: QuantumBackend.NONE},
           },
           {
             name: 'Docker Node',
-            value: {path: 'docker/docker-node', runtime: Runtime.DOCKER, quantumBackend: QuantumBackend.NONE}
+            value: {path: 'docker/docker-node', runtime: Runtime.DOCKER, quantumBackend: QuantumBackend.NONE},
           },
           {
             name: 'Docker Python',
             value: {path: 'docker/docker-python', runtime: Runtime.DOCKER, quantumBackend: QuantumBackend.NONE}
-          ,
+            ,
           },
           {
             name: 'Docker Qiskit Aer GPU',
@@ -162,7 +162,7 @@ export default class Init extends AbstractCommand {
     this.log('\u{1F389} Initialized project. Happy hacking!')
 
     this.log('\n Next steps:')
-    this.log(`  \u{2022} cd ${folderName}`)
+    this.log(`  \u{2022} cd ${name}`)
     this.log('  \u{2022} planqk up   (deploys your code as a service to the PlanQK platform)')
     this.log('  \u{2022} planqk run  (executes your service using the data from the input directory)')
     this.log('')
