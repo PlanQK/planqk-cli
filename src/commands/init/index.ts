@@ -4,35 +4,24 @@ import ManagedServiceConfig, {GpuType, QuantumBackend, Runtime} from '../../mode
 import * as AdmZip from 'adm-zip'
 import axios, {ResponseType} from 'axios'
 import serviceConfigService from '../../service/service-config-service'
-import {Args, ux} from '@oclif/core'
+import {ux} from '@oclif/core'
 import * as fs from 'fs-extra'
 import * as path from 'path'
 
 export default class Init extends AbstractCommand {
   static description = 'Initialize a PlanQK project.'
 
-  static args = {
-    name: Args.string(),
-  }
-
   static examples = [
     '$ planqk init',
   ]
 
   async run(): Promise<void> {
-    const {args} = await this.parse(Init)
-    const folderName = args.name || this.generateRandomName()
-
-    const destination = path.join(process.cwd(), folderName)
-
-    if (fs.existsSync(destination)) {
-      ux.error(`Destination ${destination} already exists. Please choose another name.`)
-    }
+    const randomName =  this.generateRandomName()
 
     const responses: any = await inquirer.prompt([
       {
         name: 'name',
-        message: `Service name (${folderName}):`,
+        message: `Service name (${randomName}):`,
         type: 'input',
       },
       {
@@ -48,15 +37,32 @@ export default class Init extends AbstractCommand {
           {name: 'None (Creates planqk.json only)', value: undefined},
           {
             name: 'Starter Qiskit Aer',
-            value: {path: 'python/python-starter-qiskit-aer', runtime: Runtime.PYTHON_TEMPLATE, quantumBackend: QuantumBackend.NONE},
+            value: {
+              path: 'python/python-starter-qiskit-aer',
+              runtime: Runtime.PYTHON_TEMPLATE,
+              quantumBackend: QuantumBackend.NONE
+            },
           },
           {
             name: 'Starter IonQ (Premium Tier)',
-            value: {path: 'python/python-starter-ionq', runtime: Runtime.PYTHON_TEMPLATE, quantumBackend: QuantumBackend.IONQ},
+            value: {
+              path: 'python/python-starter-ionq',
+              runtime: Runtime.PYTHON_TEMPLATE,
+              quantumBackend: QuantumBackend.IONQ
+            },
           },
-          {name: 'Docker Go', value: {path: 'docker/docker-go', runtime: Runtime.DOCKER, quantumBackend: QuantumBackend.NONE}},
-          {name: 'Docker Node', value: {path: 'docker/docker-node', runtime: Runtime.DOCKER, quantumBackend: QuantumBackend.NONE}},
-          {name: 'Docker Python', value: {path: 'docker/docker-python', runtime: Runtime.DOCKER, quantumBackend: QuantumBackend.NONE}},
+          {
+            name: 'Docker Go',
+            value: {path: 'docker/docker-go', runtime: Runtime.DOCKER, quantumBackend: QuantumBackend.NONE}
+          },
+          {
+            name: 'Docker Node',
+            value: {path: 'docker/docker-node', runtime: Runtime.DOCKER, quantumBackend: QuantumBackend.NONE}
+          },
+          {
+            name: 'Docker Python',
+            value: {path: 'docker/docker-python', runtime: Runtime.DOCKER, quantumBackend: QuantumBackend.NONE}
+          },
           {
             name: 'Docker Qiskit Aer GPU',
             value: {path: 'docker/docker-qiskit-aer-gpu', runtime: Runtime.DOCKER, quantumBackend: QuantumBackend.NONE},
@@ -118,8 +124,15 @@ export default class Init extends AbstractCommand {
       },
     ])
 
+    const name = responses.name || randomName
+    const destination = path.join(process.cwd(), name)
+
+    if (fs.existsSync(destination)) {
+      ux.error(`Destination ${destination} already exists. Please choose another name.`)
+    }
+
     const serviceConfig: ManagedServiceConfig = {
-      name: responses.name || folderName,
+      name: name,
       description: responses.description,
       quantumBackend: responses.template ? responses.template.quantumBackend : QuantumBackend.NONE,
       resources: {
