@@ -62,6 +62,7 @@ export default class Init extends AbstractCommand {
           {
             name: 'Docker Python',
             value: {path: 'docker/docker-python', runtime: Runtime.DOCKER, quantumBackend: QuantumBackend.NONE}
+          ,
           },
           {
             name: 'Docker Qiskit Aer GPU',
@@ -159,6 +160,12 @@ export default class Init extends AbstractCommand {
     }
 
     this.log('\u{1F389} Initialized project. Happy hacking!')
+
+    this.log('\n Next steps:')
+    this.log(`  \u{2022} cd ${folderName}`)
+    this.log('  \u{2022} planqk up   (deploys your code as a service to the PlanQK platform)')
+    this.log('  \u{2022} planqk run  (executes your service using the data from the input directory)')
+    this.log('')
   }
 
   async loadCodingTemplate(templatePath: string, projectLocation: string): Promise<void> {
