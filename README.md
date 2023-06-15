@@ -14,7 +14,7 @@ $ npm install -g @anaqor/planqk
 $ planqk COMMAND
 running command...
 $ planqk (--version)
-@anaqor/planqk/1.6.1 linux-x64 node-v16.16.0
+@anaqor/planqk/1.7.0 linux-x64 node-v16.16.0
 $ planqk --help [COMMAND]
 USAGE
   $ planqk COMMAND
