@@ -38,7 +38,7 @@ export default class Init extends AbstractCommand {
         choices: [
           {name: 'None (Creates planqk.json only)', value: undefined},
           {
-            name: 'Starter Qiskit Aer',
+            name: 'Starter Qiskit',
             value: {
               path: 'python/python-starter-qiskit-aer',
               runtime: Runtime.PYTHON_TEMPLATE,
