@@ -7,6 +7,8 @@ import serviceConfigService from '../../service/service-config-service'
 import {ux} from '@oclif/core'
 import * as fs from 'fs-extra'
 import * as path from 'path'
+import * as YAML from 'js-yaml'
+
 
 export default class Init extends AbstractCommand {
   static description = 'Initialize a PlanQK project.'
@@ -157,6 +159,8 @@ export default class Init extends AbstractCommand {
     // load template from github
     if (responses.template) {
       await this.loadCodingTemplate(responses.template.path, destination)
+      this.updateNameInEnvironmentYml(name)
+      this.updateReadme(name)
     }
 
     this.log('\u{1F389} Initialized project. Happy hacking!')
@@ -201,6 +205,35 @@ export default class Init extends AbstractCommand {
     } catch {
       this.log('Error loading the code template: ' + templatePath)
     }
+  }
+
+  updateNameInEnvironmentYml(serviceName: string) {
+    const destination = path.join(process.cwd(), serviceName, 'environment.yml')
+    const data = fs.readFileSync(destination, 'utf8')
+
+    const yamlObject: any = YAML.load(data);
+
+    yamlObject.name = serviceName
+
+    const updatedContent = YAML.dump(yamlObject);
+
+    fs.writeFileSync(destination, updatedContent)
+  }
+
+  updateReadme(serviceName: string) {
+    const destination = path.join(process.cwd(), serviceName, 'README.md')
+    const data = fs.readFileSync(destination, 'utf8')
+    // Split the content into an array of lines
+    const lines = data.split('\n');
+
+    // Update the heading
+    lines[0] = `# ${serviceName}`
+
+    // Find the line number containing the conda activate command
+    const lineNumber = lines.findIndex(line => line.includes('conda activate'));
+    lines[lineNumber] = `conda activate ${serviceName}`
+    const updatedContent = lines.join('\n');
+    fs.writeFileSync(destination, updatedContent)
   }
 
   generateRandomName(): string {
