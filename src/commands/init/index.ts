@@ -208,8 +208,12 @@ export default class Init extends AbstractCommand {
 
   updateEnvironmentYaml(serviceName: string): void {
     const destination = path.join(process.cwd(), serviceName, 'environment.yml')
-    const data = fs.readFileSync(destination, 'utf8')
+    // skip if there is no environment.yml
+    if (!fs.existsSync(destination)) {
+      return
+    }
 
+    const data = fs.readFileSync(destination, 'utf8')
     const yamlObject: any = YAML.load(data)
     yamlObject.name = serviceName
 
@@ -219,6 +223,11 @@ export default class Init extends AbstractCommand {
 
   updateReadme(serviceName: string): void {
     const destination = path.join(process.cwd(), serviceName, 'README.md')
+    // skip if there is no README.md
+    if (!fs.existsSync(destination)) {
+      return
+    }
+
     const data = fs.readFileSync(destination, 'utf8')
     // Split the content into an array of lines
     const lines = data.split('\n')
