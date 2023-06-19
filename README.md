@@ -163,9 +163,9 @@ EXAMPLES
 
   $ planqk run --detached
 
-  $ planqk run -d "{"values": [10,12]}" -p "{"round_up": true}"
+  $ planqk run -d '{"values": [10,12]}' -p '{"round_up": true}'
 
-  $ planqk run --data-file=./input/dataV2.json --params-file=./input/paramsV2.json
+  $ planqk run --data-file=./input/data.json --params-file=./input/params.json
 ```
 
 _See code: [dist/commands/run/index.ts](https://github.com/PlanQK/planqk-cli/tree/main/src/commands)_
