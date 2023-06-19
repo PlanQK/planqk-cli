@@ -69,7 +69,8 @@
       "@oclif/plugin-not-found",
       "@oclif/plugin-autocomplete"
     ],
-    "topics": {}
+    "topics": {},
+    "repositoryPrefix": "https://github.com/PlanQK/planqk-cli/tree/main/src/commands"
   },
   "scripts": {
     "build": "shx rm -rf dist && tsc -b",
