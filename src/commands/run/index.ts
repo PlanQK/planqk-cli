@@ -27,7 +27,7 @@ export default class Run extends AuthenticatedCommand {
 
   static flags = {
     data: Flags.string({char: 'd', description: 'Input data as JSON string.', required: false}),
-    params: Flags.string({char: 'p', description: 'Input data as JSON string.', required: false}),
+    params: Flags.string({char: 'p', description: 'Parameters as JSON string.', required: false}),
     'data-file': Flags.string({
       aliases: ['data-file'],
       description: 'Relative path to file containing input data.',
