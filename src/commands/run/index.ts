@@ -15,8 +15,8 @@ export default class Run extends AuthenticatedCommand {
   static examples = [
     '$ planqk run',
     '$ planqk run --detached',
-    '$ planqk run -d "{"values": [10,12]}" -p "{"round_up": true}"',
-    '$ planqk run --data-file=./input/dataV2.json --params-file=./input/paramsV2.json',
+    '$ planqk run -d \'{"values": [10,12]}\' -p \'{"round_up": true}\'',
+    '$ planqk run --data-file=./input/data.json --params-file=./input/params.json',
   ]
 
   planqkService!: PlanqkService
@@ -28,12 +28,12 @@ export default class Run extends AuthenticatedCommand {
   static flags = {
     data: Flags.string({char: 'd', description: 'Input data as JSON string.', required: false}),
     params: Flags.string({char: 'p', description: 'Input data as JSON string.', required: false}),
-    dataFile: Flags.string({
+    'data-file': Flags.string({
       aliases: ['data-file'],
       description: 'Relative path to file containing input data.',
       required: false,
     }),
-    paramsFile: Flags.string({
+    'params-file': Flags.string({
       aliases: ['params-file'],
       description: 'Relative path to file containing params.',
       required: false,
@@ -70,8 +70,8 @@ export default class Run extends AuthenticatedCommand {
     const service = await this.planqkService.getService(serviceId)
     const serviceDefinitionId = service.serviceDefinitions![0].id!
 
-    const data = flags.data ? this.fixJsonString(flags.data) : await this.getInputData(flags.dataFile || '/input/data.json')
-    const params = flags.params ? this.fixJsonString(flags.params) : await this.getParams(flags.paramsFile || '/input/params.json')
+    const data = flags.data ? flags.data : await this.getInputData(flags['data-file'] || './input/data.json')
+    const params = flags.params ? flags.params : await this.getParams(flags['params-file'] || './input/params.json')
 
     const payload = {
       inputData: data,
@@ -121,40 +121,45 @@ export default class Run extends AuthenticatedCommand {
     this.exit()
   }
 
-  async getInputData(relativePath: string): Promise<string | undefined> {
-    const location = path.join(process.cwd(), relativePath)
+  async getInputData(filePath: string): Promise<string | undefined> {
+    let file = filePath
 
-    if (!fs.existsSync(location)) {
+    // if the file path is not absolute, try to find it in the current working directory
+    if (!fs.existsSync(filePath)) {
+      file = path.join(process.cwd(), filePath)
+    }
+
+    if (!fs.existsSync(file)) {
       const response = await inquirer.prompt({
         name: 'confirm',
-        message: `No input file found under ${relativePath}. Run without input data?`,
+        message: `No input file found under ${filePath}. Run without input data?`,
         type: 'confirm',
       })
       if (response.confirm) return
       this.exit()
     }
 
-    return JSON.stringify(fs.readJsonSync(location, {encoding: 'utf-8'}))
+    return JSON.stringify(fs.readJsonSync(file, {encoding: 'utf-8'}))
   }
 
-  async getParams(relativePath: string): Promise<string | undefined> {
-    const location = path.join(process.cwd(), relativePath)
+  async getParams(filePath: string): Promise<string | undefined> {
+    let file = filePath
 
-    if (!fs.existsSync(location)) {
+    // if the file path is not absolute, try to find it in the current working directory
+    if (!fs.existsSync(filePath)) {
+      file = path.join(process.cwd(), filePath)
+    }
+
+    if (!fs.existsSync(file)) {
       const response = await inquirer.prompt({
         name: 'confirm',
-        message: `No params file found under ${relativePath}. Run without params?`,
+        message: `No params file found under ${filePath}. Run without params?`,
         type: 'confirm',
       })
       if (response.confirm) return
       this.exit()
     }
 
-    return JSON.stringify(fs.readJsonSync(location, {encoding: 'utf-8'}))
-  }
-
-  fixJsonString(jsonString: string): string {
-    const regex = /([,{])(\s*)(\w+?)\s*:/g
-    return jsonString.replace(regex, '$1"$3":')
+    return JSON.stringify(fs.readJsonSync(file, {encoding: 'utf-8'}))
   }
 }
