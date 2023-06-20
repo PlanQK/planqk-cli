@@ -10,6 +10,8 @@ import waitUntil from 'async-wait-until'
 import {JobDto} from '../../client/model/jobDto'
 
 export default class Run extends AuthenticatedCommand {
+  planqkService!: PlanqkService
+
   static description = 'Creates a job execution of a PlanQK Service'
 
   static examples = [
@@ -18,8 +20,6 @@ export default class Run extends AuthenticatedCommand {
     '$ planqk run -d \'{"values": [10,12]}\' -p \'{"round_up": true}\'',
     '$ planqk run --data-file=./input/data.json --params-file=./input/params.json',
   ]
-
-  planqkService!: PlanqkService
 
   static args = {
     serviceId: Args.string(),

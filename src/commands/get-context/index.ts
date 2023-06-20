@@ -1,8 +1,8 @@
-import {AuthenticatedCommand} from '../../model/command';
-import {ux} from '@oclif/core';
+import {AuthenticatedCommand} from '../../model/command'
+import {ux} from '@oclif/core'
 
 export default class GetContext extends AuthenticatedCommand {
-  static description = 'Get the current context, i.e. the personal or organization account you are currently working with.'
+  static description = 'Get the current context, i.e., the personal or organization account you are currently working with.'
 
   static examples = [
     '$ planqk get-context',
