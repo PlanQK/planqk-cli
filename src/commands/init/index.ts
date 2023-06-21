@@ -1,13 +1,13 @@
-import {AbstractCommand} from '../../model/command'
+import {ux} from '@oclif/core'
 import * as inquirer from 'inquirer'
-import ManagedServiceConfig, {GpuType, QuantumBackend, Runtime} from '../../model/managed-service-config'
 import * as AdmZip from 'adm-zip'
 import axios, {ResponseType} from 'axios'
-import serviceConfigService from '../../service/service-config-service'
-import {ux} from '@oclif/core'
 import * as fs from 'fs-extra'
 import * as path from 'path'
 import * as YAML from 'js-yaml'
+import {AbstractCommand} from '../../model/command'
+import ManagedServiceConfig, {GpuType, QuantumBackend, Runtime} from '../../model/managed-service-config'
+import {writeServiceConfig} from '../../service/service-config-service'
 
 export default class Init extends AbstractCommand {
   static description = 'Initialize a PlanQK project.'
@@ -153,9 +153,9 @@ export default class Init extends AbstractCommand {
 
     fs.mkdirSync(destination)
 
-    serviceConfigService.writeServiceConfig(destination, serviceConfig)
+    writeServiceConfig(destination, serviceConfig)
 
-    // load template from github
+    // load template from GitHub
     if (responses.template) {
       await this.loadCodingTemplate(responses.template.path, destination)
       this.updateEnvironmentYaml(name)
@@ -192,7 +192,7 @@ export default class Init extends AbstractCommand {
         if (!entry.isDirectory && entry.entryName.startsWith(templateFolder)) {
           let destinationPath = projectLocation
 
-          // check if file is in subfolder
+          // check if file is in sub-folder
           if (entry.entryName.replace(templateFolder, '').includes('/')) {
             const pathWithinFolder = entry.entryName.replace(templateFolder, '')
             destinationPath = destinationPath + '/' + pathWithinFolder.slice(0, Math.max(0, pathWithinFolder.lastIndexOf('/')))
@@ -223,23 +223,12 @@ export default class Init extends AbstractCommand {
 
   updateReadme(serviceName: string): void {
     const destination = path.join(process.cwd(), serviceName, 'README.md')
-    // skip if there is no README.md
-    if (!fs.existsSync(destination)) {
-      return
+    // skip if there is a README.md
+    if (fs.existsSync(destination)) {
+      // return
     }
 
-    const data = fs.readFileSync(destination, 'utf8')
-    // Split the content into an array of lines
-    const lines = data.split('\n')
-
-    // Update the heading
-    lines[0] = `# ${serviceName}`
-
-    // Find the line number containing the conda activate command
-    const lineNumber = lines.findIndex(line => line.includes('conda activate'))
-    lines[lineNumber] = `conda activate ${serviceName}`
-    const updatedContent = lines.join('\n')
-    fs.writeFileSync(destination, updatedContent)
+    // fs.writeFileSync(destination, updatedContent)
   }
 
   generateRandomName(): string {

@@ -5,15 +5,13 @@ import {ReadStream} from 'fs-extra'
 import {tmpdir} from 'os'
 import * as Path from 'path'
 import * as AdmZip from 'adm-zip'
-
 import {AuthenticatedCommand} from '../../model/command'
 import {BuildJobDto} from '../../client/model/buildJobDto'
 import ManagedServiceConfig from '../../model/managed-service-config'
 import PlanqkService from '../../service/planqk-service'
-import ServiceConfigService from '../../service/service-config-service'
-import serviceConfigService from '../../service/service-config-service'
 import {ServiceDto} from '../../client/model/serviceDto'
 import {ValidationResult} from '../../client/model/validationResult'
+import {readServiceConfig, writeServiceConfig} from '../../service/service-config-service'
 
 export default class Up extends AuthenticatedCommand {
   planqkService!: PlanqkService
@@ -39,7 +37,7 @@ export default class Up extends AuthenticatedCommand {
   async run(): Promise<void> {
     const {flags} = await this.parse(Up)
 
-    const serviceConfig: ManagedServiceConfig = ServiceConfigService.readServiceConfig(process.cwd())
+    const serviceConfig: ManagedServiceConfig = readServiceConfig(process.cwd())
     const userCode = await this.zipUserCode()
 
     const silentMode = flags.silent
@@ -59,7 +57,7 @@ export default class Up extends AuthenticatedCommand {
 
       service = await this.planqkService.createService(serviceConfig, userCode)
       serviceConfig.serviceId = service?.id
-      serviceConfigService.writeServiceConfig(process.cwd(), serviceConfig)
+      writeServiceConfig(process.cwd(), serviceConfig)
     }
 
     // delete the temp file after create service call

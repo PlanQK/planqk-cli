@@ -13,12 +13,11 @@ export default class AuthService {
   async authenticate(apiKey: string): Promise<AuthPrincipal> {
     try {
       const basePath = this.userConfig.endpoint?.basePath || defaultBasePath
-      const payload = await axios
-        .post(basePath + '/authorize', undefined, {headers: {'X-Auth-Token': apiKey}})
+      const payload = await axios.post(basePath + '/authorize', undefined, {headers: {'X-Auth-Token': apiKey}})
       return payload.data
     } catch (error) {
       if (error instanceof AxiosError && error.status === 401) {
-        throw new Error('Invalid credentials. Please try again.');
+        throw new Error('Invalid credentials. Please try again.')
       }
 
       throw new Error(`Internal error occurred, please contact your PlanQK administrator: ${error}`)

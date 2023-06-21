@@ -1,6 +1,7 @@
-import {AuthenticatedCommand} from '../../model/command'
-import Account from '../../model/account'
 import {ux} from '@oclif/core'
+
+import Account from '../../model/account'
+import {AuthenticatedCommand} from '../../model/command'
 import PlanqkService from '../../service/planqk-service'
 
 interface Context extends Record<string, unknown> {

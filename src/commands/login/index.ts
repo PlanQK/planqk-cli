@@ -2,6 +2,7 @@ import {Flags, ux} from '@oclif/core'
 import {AbstractCommand} from '../../model/command'
 import AuthService from '../../service/auth-service'
 import {AuthType} from '../../model/user-config'
+import {writeUserConfig} from '../../service/user-config-service'
 
 export default class Login extends AbstractCommand {
   static description = 'Login with your PlanQK Platform credentials'
@@ -44,7 +45,7 @@ export default class Login extends AbstractCommand {
       },
     }
 
-    this.userConfigService.writeUserConfig(this.config.configDir, userConfig)
+    writeUserConfig(this.config.configDir, userConfig)
 
     ux.action.stop('successful')
   }

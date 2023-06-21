@@ -1,13 +1,13 @@
-import {AuthenticatedCommand} from '../../model/command'
-import PlanqkService from '../../service/planqk-service'
-import ManagedServiceConfig from '../../model/managed-service-config'
-import ServiceConfigService from '../../service/service-config-service'
 import {Args, Flags, ux} from '@oclif/core'
 import * as fs from 'fs-extra'
 import * as path from 'path'
 import * as inquirer from 'inquirer'
 import waitUntil from 'async-wait-until'
 import {JobDto} from '../../client/model/jobDto'
+import {AuthenticatedCommand} from '../../model/command'
+import PlanqkService from '../../service/planqk-service'
+import ManagedServiceConfig from '../../model/managed-service-config'
+import {readServiceConfig} from '../../service/service-config-service'
 
 export default class Run extends AuthenticatedCommand {
   planqkService!: PlanqkService
@@ -58,7 +58,7 @@ export default class Run extends AuthenticatedCommand {
     // if no service id is provided, try to read it from the planqk.json
     if (!serviceId) {
       try {
-        const serviceConfig: ManagedServiceConfig = ServiceConfigService.readServiceConfig(process.cwd())
+        const serviceConfig: ManagedServiceConfig = readServiceConfig(process.cwd())
         serviceId = serviceConfig.serviceId
       } catch {
         ux.error('Missing service id. Please provide a service id as argument or set it in the planqk.json of your project.')

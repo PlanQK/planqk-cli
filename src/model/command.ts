@@ -1,17 +1,15 @@
 import {Command} from '@oclif/core'
 import {Config} from '@oclif/core/lib/config'
 import UserConfig from './user-config'
-import UserConfigService from '../service/user-config-service'
+import {readUserConfig, writeUserConfig} from '../service/user-config-service'
 import AuthService from '../service/auth-service'
 
 export abstract class AbstractCommand extends Command {
-  userConfigService: UserConfigService
   userConfig: UserConfig
 
   constructor(argv: string[], config: Config) {
     super(argv, config)
-    this.userConfigService = new UserConfigService()
-    this.userConfig = this.userConfigService.readUserConfig(this.config.configDir)
+    this.userConfig = readUserConfig(this.config.configDir)
   }
 }
 
@@ -27,7 +25,11 @@ export abstract class AuthenticatedCommand extends AbstractCommand {
     try {
       await auth.authenticate(this.userConfig.auth.value)
     } catch {
-      this.userConfigService.writeUserConfig(this.config.configDir, {...this.userConfig, auth: undefined, context: undefined})
+      writeUserConfig(this.config.configDir, {
+        ...this.userConfig,
+        auth: undefined,
+        context: undefined,
+      })
       throw new Error('Invalid credentials provided. Use the "login" command to log-in.')
     }
   }

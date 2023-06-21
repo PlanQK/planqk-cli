@@ -1,6 +1,6 @@
+import {ux} from '@oclif/core'
 import {AuthenticatedCommand} from '../../model/command'
 import PlanqkService from '../../service/planqk-service'
-import {ux} from '@oclif/core'
 
 export default class Services extends AuthenticatedCommand {
   planqkService!: PlanqkService

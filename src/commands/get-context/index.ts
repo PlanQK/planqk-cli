@@ -1,5 +1,5 @@
-import {AuthenticatedCommand} from '../../model/command'
 import {ux} from '@oclif/core'
+import {AuthenticatedCommand} from '../../model/command'
 
 export default class GetContext extends AuthenticatedCommand {
   static description = 'Get the current context, i.e., the personal or organization account you are currently working with.'

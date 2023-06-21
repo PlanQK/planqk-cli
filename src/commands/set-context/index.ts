@@ -1,8 +1,9 @@
+import {Args, ux} from '@oclif/core'
+import * as inquirer from 'inquirer'
 import {AuthenticatedCommand} from '../../model/command'
 import Account from '../../model/account'
-import * as inquirer from 'inquirer'
-import {Args, ux} from '@oclif/core'
 import PlanqkService from '../../service/planqk-service'
+import {writeUserConfig} from '../../service/user-config-service'
 
 interface Context {
   id: string
@@ -66,7 +67,7 @@ export default class SetContext extends AuthenticatedCommand {
       ...this.userConfig,
       context: selectedContext!,
     }
-    this.userConfigService.writeUserConfig(this.config.configDir, userConfig)
+    writeUserConfig(this.config.configDir, userConfig)
 
     this.log(`Switched to context "${selectedContext?.displayName}".`)
   }

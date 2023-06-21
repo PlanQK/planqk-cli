@@ -1,5 +1,6 @@
 import {ux} from '@oclif/core'
 import {AbstractCommand} from '../../model/command'
+import {writeUserConfig} from '../../service/user-config-service'
 
 export default class Logout extends AbstractCommand {
   static description = 'Logout of the PlanQK Platform'
@@ -10,7 +11,7 @@ export default class Logout extends AbstractCommand {
 
   async run(): Promise<void> {
     ux.action.start('Logout')
-    this.userConfigService.writeUserConfig(this.config.configDir, {
+    writeUserConfig(this.config.configDir, {
       ...this.userConfig,
       auth: undefined,
       context: undefined,
