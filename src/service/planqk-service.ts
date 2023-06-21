@@ -108,8 +108,8 @@ export default class PlanqkService extends CommandService {
     try {
       const {body: service} = await this.serviceApi.getService(serviceId, organizationId)
       const serviceDefinition = service && service.serviceDefinitions && service.serviceDefinitions[0]
-      const payload = await this.serviceApi.updateSourceCode(serviceId, serviceDefinition!.id!, userCode, organizationId)
-      return payload.body
+      await this.serviceApi.updateSourceCode(serviceId, serviceDefinition!.id!, userCode, organizationId)
+      return service
     } catch (error) {
       if (error instanceof HttpError) {
         this.cmd.error(`Error processing request: ${error.response.statusCode} - ${error.body.errorMessage}`)
