@@ -1,58 +1,39 @@
 planqk-cli
 ==========
 
-<!-- toc -->
-* [Usage](#usage)
-* [Commands](#commands)
-<!-- tocstop -->
+[![pipeline](https://github.com/PlanQK/planqk-cli/actions/workflows/pipeline.yml/badge.svg)](https://github.com/PlanQK/planqk-cli/actions/workflows/pipeline.yml)
 
-# Usage
+The PlanQK Command Line Interface (CLI) lets you interact with the PlanQk Platform directly from your terminal.
+We have installation instructions to guide you through the initial setup in our
+[quickstart](https://docs.platform.planqk.de/docs/getting-started/quickstart.html) guide.
 
-<!-- usage -->
-```sh-session
-$ npm install -g @anaqor/planqk
-$ planqk COMMAND
-running command...
-$ planqk (--version)
-@anaqor/planqk/1.8.0 linux-x64 node-v16.16.0
-$ planqk --help [COMMAND]
-USAGE
-  $ planqk COMMAND
-...
-```
-<!-- usagestop -->
+Detailed information about the supported commands can be found in our
+[CLI reference](https://docs.platform.planqk.de/docs/getting-started/cli-reference.html).
 
-# Commands
+## Installation
 
-<!-- commands -->
-* [`planqk autocomplete [SHELL]`](#planqk-autocomplete-shell)
+To install the PlanQK CLI, you must install Node.js and the npm command line interface using either a
+[Node version manager](https://github.com/nvm-sh/nvm) or a [Node installer](https://nodejs.org/en/download).
 
-## `planqk autocomplete [SHELL]`
+Then install the PlanQK CLI globally using npm:
 
-display autocomplete installation instructions
-
-```
-USAGE
-  $ planqk autocomplete [SHELL] [-r]
-
-ARGUMENTS
-  SHELL  shell type
-
-FLAGS
-  -r, --refresh-cache  Refresh cache (ignores displaying instructions)
-
-DESCRIPTION
-  display autocomplete installation instructions
-
-EXAMPLES
-  $ planqk autocomplete
-
-  $ planqk autocomplete bash
-
-  $ planqk autocomplete zsh
-
-  $ planqk autocomplete --refresh-cache
+```bash
+npm install -g @anaqor/planqk
 ```
 
-_See code: [@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/blob/v2.1.9/src/commands/autocomplete/index.ts)_
-<!-- commandsstop -->
+You can use the `--help` flag to get information about the supported commands:
+
+``` bash
+planqk --help
+```
+
+You may also get information about a specific command:
+
+``` bash
+planqk <command> --help
+```
+
+## License
+
+Apache-2.0 | Copyright 2023 Anaqor AG
+
