@@ -1,15 +1,15 @@
-import {AuthenticatedCommand} from '../../model/command';
-import PlanqkService from '../../service/planqk-service';
-import {ux} from '@oclif/core';
+import {AuthenticatedCommand} from '../../model/command'
+import PlanqkService from '../../service/planqk-service'
+import {ux} from '@oclif/core'
 
 export default class Services extends AuthenticatedCommand {
-  static description = 'List all available services'
+  planqkService!: PlanqkService
+
+  static description = 'List all available services of the current selected context.'
 
   static examples = [
     '$ planqk services',
   ]
-
-  planqkService!: PlanqkService
 
   async init(): Promise<void> {
     await super.init()

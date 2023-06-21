@@ -11,7 +11,6 @@ export default class Login extends AbstractCommand {
   ]
 
   static flags = {
-    help: Flags.help(),
     token: Flags.string({char: 't', description: 'Your personal access token', required: false}),
   }
 

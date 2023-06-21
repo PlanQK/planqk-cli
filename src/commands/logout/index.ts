@@ -1,4 +1,4 @@
-import {Flags, ux} from '@oclif/core'
+import {ux} from '@oclif/core'
 import {AbstractCommand} from '../../model/command'
 
 export default class Logout extends AbstractCommand {
@@ -8,13 +8,13 @@ export default class Logout extends AbstractCommand {
     '$ planqk logout',
   ]
 
-  static flags = {
-    help: Flags.help(),
-  }
-
   async run(): Promise<void> {
     ux.action.start('Logout')
-    this.userConfigService.writeUserConfig(this.config.configDir, {...this.userConfig, auth: undefined, context: undefined})
+    this.userConfigService.writeUserConfig(this.config.configDir, {
+      ...this.userConfig,
+      auth: undefined,
+      context: undefined,
+    })
     ux.action.stop('successful')
   }
 }

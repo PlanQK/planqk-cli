@@ -12,7 +12,7 @@ interface Context extends Record<string, unknown> {
 export default class ListContexts extends AuthenticatedCommand {
   planqkService!: PlanqkService
 
-  static description = 'Retrieves the available contexts, i.e., the personal or organizational accounts you are currently working with.'
+  static description = 'Retrieves the available contexts, i.e., the personal or organizational accounts available to you to work with.'
 
   static examples = [
     '$ planqk list-contexts',

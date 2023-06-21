@@ -17,7 +17,7 @@ export default class GetContext extends AuthenticatedCommand {
       const type = this.userConfig.context.isOrganization ? 'Organization' : 'Personal'
       ux.info(`${this.userConfig.context.displayName} (${type})`)
     } else {
-      ux.info('No context set. Use the "config:set-context" command to set a context.')
+      ux.info('No context set. Use "planqk set-context" to set a context.')
     }
   }
 }
