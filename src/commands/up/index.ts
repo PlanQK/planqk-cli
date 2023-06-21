@@ -1,27 +1,35 @@
-import {ux} from '@oclif/core'
+import {Flags, ux} from '@oclif/core'
 import waitUntil from 'async-wait-until'
-import {AuthenticatedCommand} from '../../model/command'
-import PlanqkService from '../../service/planqk-service'
-import {BuildJobDto} from '../../client/model/buildJobDto'
-import ManagedServiceConfig from '../../model/managed-service-config'
-import ServiceConfigService from '../../service/service-config-service'
-import serviceConfigService from '../../service/service-config-service'
 import * as fs from 'fs-extra'
 import {ReadStream} from 'fs-extra'
-import {tmpdir} from 'os';
-import * as Path from 'path';
+import {tmpdir} from 'os'
+import * as Path from 'path'
 import * as AdmZip from 'adm-zip'
+
+import {AuthenticatedCommand} from '../../model/command'
+import {BuildJobDto} from '../../client/model/buildJobDto'
+import ManagedServiceConfig from '../../model/managed-service-config'
+import PlanqkService from '../../service/planqk-service'
+import ServiceConfigService from '../../service/service-config-service'
+import serviceConfigService from '../../service/service-config-service'
 import {ServiceDto} from '../../client/model/serviceDto'
-import {ValidationResult} from '../../client/model/validationResult';
+import {ValidationResult} from '../../client/model/validationResult'
 
 export default class Up extends AuthenticatedCommand {
+  planqkService!: PlanqkService
+
   static description = 'Creates or updates a PlanQK Service'
 
   static examples = [
     '$ planqk up',
   ]
 
-  planqkService?: PlanqkService
+  static flags = {
+    silent: Flags.boolean({
+      description: 'Suppresses all outputs, helpful when executed in a CI/CD pipeline.',
+      required: false,
+    }),
+  }
 
   async init(): Promise<void> {
     await super.init()
@@ -29,17 +37,27 @@ export default class Up extends AuthenticatedCommand {
   }
 
   async run(): Promise<void> {
+    const {flags} = await this.parse(Up)
+
     const serviceConfig: ManagedServiceConfig = ServiceConfigService.readServiceConfig(process.cwd())
     const userCode = await this.zipUserCode()
+
+    const silentMode = flags.silent
 
     let service: ServiceDto | undefined
     // if service already exists we update it
     if (serviceConfig.serviceId) {
-      ux.action.start('Updating service')
-      service = await this.planqkService?.updateService(serviceConfig.serviceId, userCode)
+      if (!silentMode) {
+        ux.action.start('Updating service')
+      }
+
+      service = await this.planqkService.updateService(serviceConfig.serviceId, userCode)
     } else {
-      ux.action.start('Creating service')
-      service = await this.planqkService?.createService(serviceConfig, userCode)
+      if (!silentMode) {
+        ux.action.start('Creating service')
+      }
+
+      service = await this.planqkService.createService(serviceConfig, userCode)
       serviceConfig.serviceId = service?.id
       serviceConfigService.writeServiceConfig(process.cwd(), serviceConfig)
     }
@@ -50,45 +68,57 @@ export default class Up extends AuthenticatedCommand {
     }
 
     const serviceDefinition = service && service.serviceDefinitions && service.serviceDefinitions[0]
-
-    let buildJob: BuildJobDto | null = null
+    let buildJob: BuildJobDto | undefined
     try {
       await waitUntil(async () => {
-        buildJob = await this.planqkService!.getBuildJob(service!, serviceDefinition!)
+          buildJob = await this.planqkService!.getBuildJob(service!, serviceDefinition!)
 
-        if (buildJob.step === BuildJobDto.StepEnum.BuildImage) {
-          ux.action.start('Building Image (1/2)')
-        } else if (buildJob.step === BuildJobDto.StepEnum.PushImage) {
-          ux.action.start('Pushing Image (2/2)')
-        }
+          if (!silentMode) {
+            if (buildJob.step === BuildJobDto.StepEnum.BuildImage) {
+              ux.action.start('Building Image (1/2)')
+            } else if (buildJob.step === BuildJobDto.StepEnum.PushImage) {
+              ux.action.start('Pushing Image (2/2)')
+            }
+          }
 
-        return buildJob.status === BuildJobDto.StatusEnum.Success || buildJob.status === BuildJobDto.StatusEnum.Failure
-      },
-      {
-        timeout: 10 * 60 * 1000, // 10 minute timeout
-        intervalBetweenAttempts: 5000, // every 5 seconds
-      })
-    } catch {
-      buildJob = null;
+          return buildJob.status === BuildJobDto.StatusEnum.Success || buildJob.status === BuildJobDto.StatusEnum.Failure
+        },
+        {
+          timeout: 10 * 60 * 1000, // 10 minute timeout
+          intervalBetweenAttempts: 5000, // every 5 seconds
+        })
+    } catch (error) {
+      this.error('Error while waiting for the build job to finish: ' + error)
+      buildJob = undefined
     }
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    if (buildJob && buildJob!.status === BuildJobDto.StatusEnum.Success) {
-      ux.action.stop('Service created \u{1F680}')
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-    } else if (buildJob && buildJob!.status === BuildJobDto.StatusEnum.Failure) {
-      const {validationResult} = buildJob as BuildJobDto
+    if (buildJob && buildJob.status === BuildJobDto.StatusEnum.Success) {
+      const msg = 'Service created \u{1F680}'
+      if (silentMode) {
+        this.log(msg)
+      } else {
+        ux.action.stop(msg)
+      }
+    } else if (buildJob && buildJob.status === BuildJobDto.StatusEnum.Failure) {
+      const {validationResult} = buildJob
       let reason = 'Failed creating service'
 
       if (validationResult?.state === ValidationResult.StateEnum.Error && validationResult.summary) {
         reason = `${reason}: ${validationResult.summary}`
       }
 
-      ux.action.stop(reason)
+      if (silentMode) {
+        this.log(reason)
+      } else {
+        ux.action.stop(reason)
+      }
     } else {
-      ux.action.stop('Pending: please check the PlanQK UI to determine the status')
+      const msg = 'Still pending, please check the PlanQK UI to determine the status'
+      if (silentMode) {
+        this.log(msg)
+      } else {
+        ux.action.stop(msg)
+      }
     }
 
     this.exit()
@@ -101,9 +131,9 @@ export default class Up extends AuthenticatedCommand {
       fs.unlinkSync(tmpFilePath)
     }
 
-    const zip = new AdmZip();
-    zip.addLocalFolder(process.cwd());
-    zip.writeZip(tmpFilePath);
+    const zip = new AdmZip()
+    zip.addLocalFolder(process.cwd())
+    zip.writeZip(tmpFilePath)
     return fs.createReadStream(Path.join(tmpFilePath))
   }
 }

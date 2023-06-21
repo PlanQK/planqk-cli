@@ -50,8 +50,8 @@ export default class Run extends AuthenticatedCommand {
   }
 
   async run(): Promise<void> {
-    const {flags} = await this.parse(Run)
     const {args} = await this.parse(Run)
+    const {flags} = await this.parse(Run)
 
     let serviceId = args.serviceId
 
