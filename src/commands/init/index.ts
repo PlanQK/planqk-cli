@@ -8,7 +8,7 @@ import YAML from 'js-yaml'
 import {AbstractCommand} from '../../model/command'
 import ManagedServiceConfig, {GpuType, QuantumBackend, Runtime} from '../../model/managed-service-config'
 import {writeServiceConfig} from '../../service/service-config-service'
-import {randomName} from './random'
+import {randomName} from '../../helper/random-name'
 
 export default class Init extends AbstractCommand {
   static description = 'Initialize a PlanQK project.'
@@ -18,10 +18,11 @@ export default class Init extends AbstractCommand {
   ]
 
   async run(): Promise<void> {
+    let name = randomName()
     const responses: any = await inquirer.prompt([
       {
         name: 'name',
-        message: `Service name (${randomName}):`,
+        message: `Service name (${name}):`,
         type: 'input',
       },
       {
@@ -125,7 +126,7 @@ export default class Init extends AbstractCommand {
       },
     ])
 
-    const name = responses.name || randomName()
+    name = responses.name || name
     const destination = path.join(process.cwd(), name)
 
     if (fs.existsSync(destination)) {

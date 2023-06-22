@@ -133,11 +133,6 @@ export default class PlanqkService extends CommandService {
     return payload.body
   }
 
-  async getBuildJobStatus(service: ServiceDto, serviceDefinition: ServiceDefinitionDto): Promise<BuildJobDto.StatusEnum | undefined> {
-    const buildJob = await this.getBuildJob(service!, serviceDefinition!)
-    return buildJob.status
-  }
-
   async runJob(payload: CreateJobRequest): Promise<JobDto> {
     const organizationId = this.userConfig.context?.isOrganization ? this.userConfig.context.id : undefined
     try {

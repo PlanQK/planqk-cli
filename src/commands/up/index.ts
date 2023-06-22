@@ -39,6 +39,7 @@ export default class Up extends AuthenticatedCommand {
     const serviceConfig: ManagedServiceConfig = readServiceConfig(process.cwd())
     const userCode = await this.zipUserCode()
 
+    let updateMode = false
     const silentMode = flags.silent
 
     let service: ServiceDto | undefined
@@ -48,6 +49,7 @@ export default class Up extends AuthenticatedCommand {
         ux.action.start('Updating service')
       }
 
+      updateMode = true
       service = await this.planqkService.updateService(serviceConfig.serviceId, userCode)
     } else {
       if (!silentMode) {
@@ -90,7 +92,11 @@ export default class Up extends AuthenticatedCommand {
     }
 
     if (buildJob && buildJob.status === BuildJobDto.StatusEnum.Success) {
-      const msg = 'Service created \u{1F680}'
+      let msg = 'Service created \u{1F680}'
+      if (updateMode) {
+        msg = 'Service updated \u{1F680}'
+      }
+
       if (silentMode) {
         this.log(msg)
       } else {
