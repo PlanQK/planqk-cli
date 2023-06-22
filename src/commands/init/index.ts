@@ -8,6 +8,7 @@ import * as YAML from 'js-yaml'
 import {AbstractCommand} from '../../model/command'
 import ManagedServiceConfig, {GpuType, QuantumBackend, Runtime} from '../../model/managed-service-config'
 import {writeServiceConfig} from '../../service/service-config-service'
+import {randomName} from './random'
 
 export default class Init extends AbstractCommand {
   static description = 'Initialize a PlanQK project.'
@@ -17,8 +18,6 @@ export default class Init extends AbstractCommand {
   ]
 
   async run(): Promise<void> {
-    const randomName = this.generateRandomName()
-
     const responses: any = await inquirer.prompt([
       {
         name: 'name',
@@ -126,7 +125,7 @@ export default class Init extends AbstractCommand {
       },
     ])
 
-    const name = responses.name || randomName
+    const name = responses.name || randomName()
     const destination = path.join(process.cwd(), name)
 
     if (fs.existsSync(destination)) {
@@ -228,92 +227,8 @@ export default class Init extends AbstractCommand {
       // return
     }
 
+    // @TODO: generate README.md
+
     // fs.writeFileSync(destination, updatedContent)
-  }
-
-  generateRandomName(): string {
-    const adjectives = [
-      'admiring',
-      'adoring',
-      'blissful',
-      'brave',
-      'calm',
-      'charming',
-      'cozy',
-      'dazzling',
-      'delightful',
-      'eager',
-      'fierce',
-      'fluffy',
-      'gloomy',
-      'graceful',
-      'jolly',
-      'lively',
-      'misty',
-      'peaceful',
-      'radiant',
-      'silly',
-    ]
-
-    const animals = [
-      'aardvark',
-      'alpaca',
-      'antelope',
-      'baboon',
-      'bat',
-      'beaver',
-      'buffalo',
-      'camel',
-      'cheetah',
-      'chimpanzee',
-      'cobra',
-      'cougar',
-      'coyote',
-      'crocodile',
-      'dingo',
-      'dolphin',
-      'elephant',
-      'elk',
-      'ferret',
-      'gazelle',
-      'giraffe',
-      'gorilla',
-      'grizzly bear',
-      'hippopotamus',
-      'hyena',
-      'jaguar',
-      'kangaroo',
-      'koala',
-      'leopard',
-      'lion',
-      'llama',
-      'lynx',
-      'marmot',
-      'moose',
-      'orangutan',
-      'otter',
-      'panda',
-      'panther',
-      'puma',
-      'rabbit',
-      'raccoon',
-      'rhinoceros',
-      'seal',
-      'shark',
-      'skunk',
-      'sloth',
-      'tapir',
-      'tiger',
-      'walrus',
-      'wombat',
-      'zebra',
-    ]
-
-    const suffix = Math.random().toString(36).slice(2, 7)
-
-    const randomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)]
-    const randomAnimal = animals[Math.floor(Math.random() * animals.length)]
-
-    return `${randomAdjective}-${randomAnimal}-${suffix}`
   }
 }
