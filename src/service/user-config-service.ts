@@ -19,7 +19,7 @@ export const writeUserConfig = (location: string, userConfig: UserConfig): UserC
     fs.createFileSync(file)
   }
 
-  fs.writeJsonSync(file, userConfig, {encoding: 'utf-8'})
+  fs.writeJsonSync(file, userConfig, {encoding: 'utf-8', spaces: 2})
 
   return readUserConfig(location)
 }
