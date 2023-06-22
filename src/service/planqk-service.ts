@@ -20,13 +20,21 @@ export default class PlanqkService extends CommandService {
 
   constructor(cmd: Command, config: Config, userConfig: UserConfig) {
     super(cmd, config, userConfig)
+
+    const apiKey = userConfig.auth?.value as string
     this.serviceApi = new ServicePlatformServicesApi()
-    this.serviceApi.setApiKey(ServicePlatformServicesApiApiKeys.apiKey, userConfig.auth?.value as string)
+    this.serviceApi.setApiKey(ServicePlatformServicesApiApiKeys.apiKey, apiKey)
     this.jobApi = new ServicePlatformJobsApi()
-    this.jobApi.setApiKey(ServicePlatformJobsApiApiKeys.apiKey, userConfig.auth?.value as string)
+    this.jobApi.setApiKey(ServicePlatformJobsApiApiKeys.apiKey, apiKey)
+
+    // set endpoint configuration if configured
     if (userConfig.endpoint) {
-      this.serviceApi.basePath = userConfig.endpoint.basePath || defaultBasePath
-      this.serviceApi.defaultHeaders = userConfig.endpoint.defaultHeaders || {}
+      const basePath = userConfig.endpoint.basePath || defaultBasePath
+      const defaultHeaders = userConfig.endpoint.defaultHeaders || {}
+      this.serviceApi.basePath = basePath
+      this.serviceApi.defaultHeaders = defaultHeaders
+      this.jobApi.basePath = basePath
+      this.jobApi.defaultHeaders = defaultHeaders
     }
   }
 
