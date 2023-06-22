@@ -10,11 +10,10 @@
  * Do not edit the class manually.
  */
 
-import { RequestFile } from './models';
-import { PricingPlanDto } from './pricingPlanDto';
-import { RuntimeConfiguration } from './runtimeConfiguration';
-import { TaxonomyElement } from './taxonomyElement';
-import { UpdateResourceConfigurationRequest } from './updateResourceConfigurationRequest';
+import {PricingPlanDto} from './pricingPlanDto'
+import {RuntimeConfiguration} from './runtimeConfiguration'
+import {TaxonomyElement} from './taxonomyElement'
+import {UpdateResourceConfigurationRequest} from './updateResourceConfigurationRequest'
 
 export class ServiceDefinitionDto {
     'id'?: string;
@@ -153,8 +152,6 @@ export namespace ServiceDefinitionDto {
         External = <any> 'EXTERNAL'
     }
     export enum LifecycleEnum {
-        Error = <any> 'ERROR',
-        Creating = <any> 'CREATING',
         Created = <any> 'CREATED',
         Accessible = <any> 'ACCESSIBLE',
         Published = <any> 'PUBLISHED'

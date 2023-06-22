@@ -10,9 +10,8 @@
  * Do not edit the class manually.
  */
 
-import { RequestFile } from './models';
-import { PricingPlanDto } from './pricingPlanDto';
-import { TaxonomyElement } from './taxonomyElement';
+import {PricingPlanDto} from './pricingPlanDto'
+import {TaxonomyElement} from './taxonomyElement'
 
 export class ApiDto {
     'id'?: string;
@@ -134,8 +133,6 @@ export namespace ApiDto {
         Commercial = <any> 'COMMERCIAL'
     }
     export enum LifecycleEnum {
-        Error = <any> 'ERROR',
-        Creating = <any> 'CREATING',
         Created = <any> 'CREATED',
         Accessible = <any> 'ACCESSIBLE',
         Published = <any> 'PUBLISHED'

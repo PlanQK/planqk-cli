@@ -10,8 +10,7 @@
  * Do not edit the class manually.
  */
 
-import { RequestFile } from './models';
-import { ValidationResult } from './validationResult';
+import {ValidationResult} from './validationResult'
 
 export class BuildJobDto {
     'status'?: BuildJobDto.StatusEnum;
@@ -56,22 +55,13 @@ export class BuildJobDto {
 
 export namespace BuildJobDto {
     export enum StatusEnum {
-        StatusUnknown = <any> 'STATUS_UNKNOWN',
-        Pending = <any> 'PENDING',
-        Queued = <any> 'QUEUED',
         Working = <any> 'WORKING',
         Success = <any> 'SUCCESS',
-        Failure = <any> 'FAILURE',
-        InternalError = <any> 'INTERNAL_ERROR',
-        Timeout = <any> 'TIMEOUT',
-        Cancelled = <any> 'CANCELLED',
-        Expired = <any> 'EXPIRED',
-        Unrecognized = <any> 'UNRECOGNIZED'
+        Failure = <any> 'FAILURE'
     }
     export enum StepEnum {
+        Init = <any> 'INIT',
         BuildImage = <any> 'BUILD_IMAGE',
-        PushImage = <any> 'PUSH_IMAGE',
-        DeployService = <any> 'DEPLOY_SERVICE',
-        Unknown = <any> 'UNKNOWN'
+        PushImage = <any> 'PUSH_IMAGE'
     }
 }

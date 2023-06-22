@@ -1,4 +1,49 @@
-import * as localVarRequest from 'request'
+import localVarRequest from 'request'
+import * as fs from 'fs'
+import {AccessTokenDto} from './accessTokenDto'
+import {AmountMajorDto} from './amountMajorDto'
+import {ApiDto} from './apiDto'
+import {ApiOverviewDto} from './apiOverviewDto'
+import {ApplicationDto} from './applicationDto'
+import {BuildJobDto} from './buildJobDto'
+import {CpuConfiguration} from './cpuConfiguration'
+import {CpuConfigurationAllOf} from './cpuConfigurationAllOf'
+import {CreateApplicationRequest} from './createApplicationRequest'
+import {CreateExternalServicePricingPlanRequest} from './createExternalServicePricingPlanRequest'
+import {CreateInternalSubscriptionRequest} from './createInternalSubscriptionRequest'
+import {CreateJobRequest} from './createJobRequest'
+import {CreateManagedServicePricingPlanRequest} from './createManagedServicePricingPlanRequest'
+import {CreateProductRequest} from './createProductRequest'
+import {CreateSubscriptionRequest} from './createSubscriptionRequest'
+import {DataPoolRef} from './dataPoolRef'
+import {GpuConfiguration} from './gpuConfiguration'
+import {GpuConfigurationAllOf} from './gpuConfigurationAllOf'
+import {JobDto} from './jobDto'
+import {JobOverviewDto} from './jobOverviewDto'
+import {MemoryConfiguration} from './memoryConfiguration'
+import {MemoryConfigurationAllOf} from './memoryConfigurationAllOf'
+import {MeteringRequest} from './meteringRequest'
+import {MeteringResponse} from './meteringResponse'
+import {MonthAmountDto} from './monthAmountDto'
+import {PlatformManagedConfiguration} from './platformManagedConfiguration'
+import {PricingPlanDto} from './pricingPlanDto'
+import {ProductAmountDto} from './productAmountDto'
+import {ProductDto} from './productDto'
+import {ProductGroupDto} from './productGroupDto'
+import {ProductUsageDto} from './productUsageDto'
+import {ResourceConfiguration} from './resourceConfiguration'
+import {RuntimeConfiguration} from './runtimeConfiguration'
+import {ServiceDefinitionCommand} from './serviceDefinitionCommand'
+import {ServiceDefinitionDto} from './serviceDefinitionDto'
+import {ServiceDto} from './serviceDto'
+import {ServiceExecutionConsumerDto} from './serviceExecutionConsumerDto'
+import {ServiceExecutionDto} from './serviceExecutionDto'
+import {ServiceOverviewDto} from './serviceOverviewDto'
+import {SubscriptionDto} from './subscriptionDto'
+import {TaxonomyElement} from './taxonomyElement'
+import {UpdateResourceConfigurationRequest} from './updateResourceConfigurationRequest'
+import {UpdateVersionRequest} from './updateVersionRequest'
+import {ValidationResult} from './validationResult'
 
 export * from './accessTokenDto';
 export * from './amountMajorDto';
@@ -19,6 +64,7 @@ export * from './dataPoolRef';
 export * from './gpuConfiguration';
 export * from './gpuConfigurationAllOf';
 export * from './jobDto';
+export * from './jobOverviewDto';
 export * from './memoryConfiguration';
 export * from './memoryConfigurationAllOf';
 export * from './meteringRequest';
@@ -44,8 +90,6 @@ export * from './updateResourceConfigurationRequest';
 export * from './updateVersionRequest';
 export * from './validationResult';
 
-import * as fs from 'fs';
-
 export interface RequestDetailedFile {
     value: Buffer;
     options?: {
@@ -55,51 +99,6 @@ export interface RequestDetailedFile {
 }
 
 export type RequestFile = string | Buffer | fs.ReadStream | RequestDetailedFile;
-
-
-import { AccessTokenDto } from './accessTokenDto';
-import { AmountMajorDto } from './amountMajorDto';
-import { ApiDto } from './apiDto';
-import { ApiOverviewDto } from './apiOverviewDto';
-import { ApplicationDto } from './applicationDto';
-import { BuildJobDto } from './buildJobDto';
-import { CpuConfiguration } from './cpuConfiguration';
-import { CpuConfigurationAllOf } from './cpuConfigurationAllOf';
-import { CreateApplicationRequest } from './createApplicationRequest';
-import { CreateExternalServicePricingPlanRequest } from './createExternalServicePricingPlanRequest';
-import { CreateInternalSubscriptionRequest } from './createInternalSubscriptionRequest';
-import { CreateJobRequest } from './createJobRequest';
-import { CreateManagedServicePricingPlanRequest } from './createManagedServicePricingPlanRequest';
-import { CreateProductRequest } from './createProductRequest';
-import { CreateSubscriptionRequest } from './createSubscriptionRequest';
-import { DataPoolRef } from './dataPoolRef';
-import { GpuConfiguration } from './gpuConfiguration';
-import { GpuConfigurationAllOf } from './gpuConfigurationAllOf';
-import { JobDto } from './jobDto';
-import { MemoryConfiguration } from './memoryConfiguration';
-import { MemoryConfigurationAllOf } from './memoryConfigurationAllOf';
-import { MeteringRequest } from './meteringRequest';
-import { MeteringResponse } from './meteringResponse';
-import { MonthAmountDto } from './monthAmountDto';
-import { PlatformManagedConfiguration } from './platformManagedConfiguration';
-import { PricingPlanDto } from './pricingPlanDto';
-import { ProductAmountDto } from './productAmountDto';
-import { ProductDto } from './productDto';
-import { ProductGroupDto } from './productGroupDto';
-import { ProductUsageDto } from './productUsageDto';
-import { ResourceConfiguration } from './resourceConfiguration';
-import { RuntimeConfiguration } from './runtimeConfiguration';
-import { ServiceDefinitionCommand } from './serviceDefinitionCommand';
-import { ServiceDefinitionDto } from './serviceDefinitionDto';
-import { ServiceDto } from './serviceDto';
-import { ServiceExecutionConsumerDto } from './serviceExecutionConsumerDto';
-import { ServiceExecutionDto } from './serviceExecutionDto';
-import { ServiceOverviewDto } from './serviceOverviewDto';
-import { SubscriptionDto } from './subscriptionDto';
-import { TaxonomyElement } from './taxonomyElement';
-import { UpdateResourceConfigurationRequest } from './updateResourceConfigurationRequest';
-import { UpdateVersionRequest } from './updateVersionRequest';
-import { ValidationResult } from './validationResult';
 
 /* tslint:disable:no-unused-variable */
 let primitives = [
@@ -131,6 +130,7 @@ let enumsMap: {[index: string]: any} = {
         "GpuConfiguration.AcceleratorEnum": GpuConfiguration.AcceleratorEnum,
         "GpuConfigurationAllOf.AcceleratorEnum": GpuConfigurationAllOf.AcceleratorEnum,
         "JobDto.StatusEnum": JobDto.StatusEnum,
+        "JobOverviewDto.StatusEnum": JobOverviewDto.StatusEnum,
         "PricingPlanDto.TypeEnum": PricingPlanDto.TypeEnum,
         "ProductDto.TypeEnum": ProductDto.TypeEnum,
         "RuntimeConfiguration.RuntimeEnum": RuntimeConfiguration.RuntimeEnum,
@@ -168,6 +168,7 @@ let typeMap: {[index: string]: any} = {
     "GpuConfiguration": GpuConfiguration,
     "GpuConfigurationAllOf": GpuConfigurationAllOf,
     "JobDto": JobDto,
+    "JobOverviewDto": JobOverviewDto,
     "MemoryConfiguration": MemoryConfiguration,
     "MemoryConfigurationAllOf": MemoryConfigurationAllOf,
     "MeteringRequest": MeteringRequest,

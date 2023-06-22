@@ -10,8 +10,7 @@
  * Do not edit the class manually.
  */
 
-import { RequestFile } from './models';
-import { TaxonomyElement } from './taxonomyElement';
+import {TaxonomyElement} from './taxonomyElement'
 
 export class ApiOverviewDto {
     'id'?: string;
@@ -108,8 +107,6 @@ export namespace ApiOverviewDto {
         None = <any> 'NONE'
     }
     export enum LifecycleEnum {
-        Error = <any> 'ERROR',
-        Creating = <any> 'CREATING',
         Created = <any> 'CREATED',
         Accessible = <any> 'ACCESSIBLE',
         Published = <any> 'PUBLISHED'

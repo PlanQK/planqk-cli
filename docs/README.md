@@ -27,6 +27,8 @@ npm install -g @openapitools/openapi-generator-cli
 
 cd src
 openapi-generator-cli generate -g typescript-node -i https://platform.planqk.de/qc-catalog/docs -o client
+# or
+openapi-generator-cli generate -g typescript-node -i http://34.90.225.20.nip.io/qc-catalog/docs -o client
 ```
 
 ## Generate command overview
