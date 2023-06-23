@@ -1,7 +1,5 @@
 import {ux} from '@oclif/core'
 import inquirer from 'inquirer'
-import AdmZip from 'adm-zip'
-import axios, {ResponseType} from 'axios'
 import fs from 'fs-extra'
 import path from 'path'
 import YAML from 'js-yaml'
@@ -9,6 +7,7 @@ import {AbstractCommand} from '../../model/command'
 import ManagedServiceConfig, {GpuType, QuantumBackend, Runtime} from '../../model/managed-service-config'
 import {writeServiceConfig} from '../../service/service-config-service'
 import {randomName} from '../../helper/random-name'
+import {downloadArchive, extractTemplate} from '../../helper/coding-template'
 
 export default class Init extends AbstractCommand {
   static description = 'Initialize a PlanQK project.'
@@ -157,7 +156,9 @@ export default class Init extends AbstractCommand {
 
     // load template from GitHub
     if (responses.template) {
-      await this.loadCodingTemplate(responses.template.path, destination)
+      const zip = await downloadArchive()
+      extractTemplate(zip, responses.template.path, destination)
+
       this.updateEnvironmentYaml(name)
       this.updateReadme(name)
     }
@@ -169,41 +170,6 @@ export default class Init extends AbstractCommand {
     this.log('  \u{2022} planqk up   (deploys your code as a service to the PlanQK platform)')
     this.log('  \u{2022} planqk run  (executes your service using the data from the input directory)')
     this.log('')
-  }
-
-  async loadCodingTemplate(templatePath: string, projectLocation: string): Promise<void> {
-    try {
-      const config = {
-        headers: {
-          'Cache-Control': 'no-cache',
-          Pragma: 'no-cache',
-          Expires: '0',
-        },
-        responseType: 'arraybuffer' as ResponseType,
-      }
-
-      const t = await axios.get('https://github.com/PlanQK/planqk-platform-samples/archive/refs/heads/master.zip', config)
-      const zip = new AdmZip(t.data, {})
-
-      const templateFolder = `planqk-platform-samples-master/coding-templates/${templatePath}/`
-      const zipEntries = zip.getEntries()
-
-      for (const entry of zipEntries) {
-        if (!entry.isDirectory && entry.entryName.startsWith(templateFolder)) {
-          let destinationPath = projectLocation
-
-          // check if file is in sub-folder
-          if (entry.entryName.replace(templateFolder, '').includes('/')) {
-            const pathWithinFolder = entry.entryName.replace(templateFolder, '')
-            destinationPath = destinationPath + '/' + pathWithinFolder.slice(0, Math.max(0, pathWithinFolder.lastIndexOf('/')))
-          }
-
-          zip.extractEntryTo(entry.entryName, destinationPath, false, true)
-        }
-      }
-    } catch {
-      this.log('Error loading the code template: ' + templatePath)
-    }
   }
 
   updateEnvironmentYaml(serviceName: string): void {
