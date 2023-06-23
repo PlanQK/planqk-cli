@@ -7,7 +7,8 @@ import {AbstractCommand} from '../../model/command'
 import ManagedServiceConfig, {GpuType, QuantumBackend, Runtime} from '../../model/managed-service-config'
 import {writeServiceConfig} from '../../service/service-config-service'
 import {randomName} from '../../helper/random-name'
-import {downloadArchive, extractTemplate} from '../../helper/coding-template'
+import {downloadArchive, extractTemplate, getReadmeTemplate, getTemplateVariables} from '../../helper/coding-template'
+import AdmZip from 'adm-zip'
 
 export default class Init extends AbstractCommand {
   static description = 'Initialize a PlanQK project.'
@@ -160,7 +161,7 @@ export default class Init extends AbstractCommand {
       extractTemplate(zip, responses.template.path, destination)
 
       this.updateEnvironmentYaml(name)
-      this.updateReadme(name)
+      this.updateReadme(zip, responses.template.path, name)
     }
 
     this.log('\u{1F389} Initialized project. Happy hacking!')
@@ -187,15 +188,29 @@ export default class Init extends AbstractCommand {
     fs.writeFileSync(destination, updatedContent)
   }
 
-  updateReadme(serviceName: string): void {
-    const destination = path.join(process.cwd(), serviceName, 'README.md')
+  updateReadme(zip: AdmZip, templatePath: string, projectName: string): void {
+    const readmeFileLocation = path.join(process.cwd(), projectName, 'README.md')
     // skip if there is a README.md
-    if (fs.existsSync(destination)) {
-      // return
+    if (fs.existsSync(readmeFileLocation)) {
+      return
     }
 
-    // @TODO: generate README.md
+    let readmeContent = getReadmeTemplate(zip, templatePath)
 
-    // fs.writeFileSync(destination, updatedContent)
+    const variables = getTemplateVariables(zip, templatePath)
+    // skip if there are no variables
+    if (!variables) {
+      return
+    }
+
+    // replace global variables
+    readmeContent = readmeContent.replace(/\${PROJECT_NAME}/g, projectName)
+
+    // replace variables
+    for (const variable of variables) {
+      readmeContent = readmeContent.replace(new RegExp('\\${' + variable.name + '}', 'g'), variable.value)
+    }
+
+    fs.writeFileSync(readmeFileLocation, readmeContent)
   }
 }
