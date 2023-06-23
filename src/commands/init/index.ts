@@ -35,17 +35,16 @@ export default class Init extends AbstractCommand {
         message: 'Choose a coding template',
         type: 'list',
         choices: [
-          {name: 'None (Creates planqk.json only)', value: undefined},
           {
-            name: 'Starter Qiskit',
+            name: 'Qiskit Starter (Simulator)',
             value: {
-              path: 'python/python-starter-qiskit-aer',
+              path: 'python/python-starter-qiskit',
               runtime: Runtime.PYTHON_TEMPLATE,
               quantumBackend: QuantumBackend.NONE,
             },
           },
           {
-            name: 'Starter IonQ (Premium Tier)',
+            name: 'IonQ Starter (Premium Tier)',
             value: {
               path: 'python/python-starter-ionq',
               runtime: Runtime.PYTHON_TEMPLATE,
@@ -53,22 +52,23 @@ export default class Init extends AbstractCommand {
             },
           },
           {
-            name: 'Docker Go',
+            name: 'Docker Go Starter',
             value: {path: 'docker/docker-go', runtime: Runtime.DOCKER, quantumBackend: QuantumBackend.NONE},
           },
           {
-            name: 'Docker Node',
+            name: 'Docker Node Starter',
             value: {path: 'docker/docker-node', runtime: Runtime.DOCKER, quantumBackend: QuantumBackend.NONE},
           },
           {
-            name: 'Docker Python',
+            name: 'Docker Python Starter',
             value: {path: 'docker/docker-python', runtime: Runtime.DOCKER, quantumBackend: QuantumBackend.NONE}
             ,
           },
           {
-            name: 'Docker Qiskit Aer GPU',
-            value: {path: 'docker/docker-qiskit-aer-gpu', runtime: Runtime.DOCKER, quantumBackend: QuantumBackend.NONE},
+            name: 'Docker GPU Starter (Python/Qiskit)',
+            value: {path: 'docker/docker-gpu-qiskit', runtime: Runtime.DOCKER, quantumBackend: QuantumBackend.NONE},
           },
+          {name: 'None (Creates planqk.json only)', value: undefined},
         ],
       },
       {
@@ -120,8 +120,8 @@ export default class Init extends AbstractCommand {
         type: 'list',
         choices: [
           {name: 'No GPU support', value: undefined},
-          {name: 'NVIDIA® T4', value: GpuType.NVIDIA_TESLA_T4},
-          {name: 'NVIDIA® V100', value: GpuType.NVIDIA_TESLA_V100},
+          {name: 'NVIDIA® T4 (Premium Tier)', value: GpuType.NVIDIA_TESLA_T4},
+          {name: 'NVIDIA® V100 (Premium Tier)', value: GpuType.NVIDIA_TESLA_V100},
         ],
       },
     ])
