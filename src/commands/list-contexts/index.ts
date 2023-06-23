@@ -29,11 +29,11 @@ export default class ListContexts extends AuthenticatedCommand {
     const accounts: Account[] = await this.planqkService.getAccounts()
     ux.action.stop('Done')
 
-    const c: Context[] = accounts.map(account => {
+    const tableData: Context[] = accounts.map(account => {
       return {id: account.id, displayName: account.displayName, isOrganization: account.isOrganization}
     })
 
-    ux.table(c, {
+    ux.table(tableData, {
       displayName: {
         header: 'Name',
         minWidth: 15,

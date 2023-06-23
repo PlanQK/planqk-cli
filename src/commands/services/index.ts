@@ -2,6 +2,11 @@ import {ux} from '@oclif/core'
 import {AuthenticatedCommand} from '../../model/command'
 import PlanqkService from '../../service/planqk-service'
 
+interface Service extends Record<string, unknown> {
+  id?: string
+  name?: string
+}
+
 export default class Services extends AuthenticatedCommand {
   planqkService!: PlanqkService
 
@@ -21,9 +26,20 @@ export default class Services extends AuthenticatedCommand {
     const services = await this.planqkService.getServices()
     ux.action.stop('Done')
 
-    this.log(`Available services for ${this.userConfig.context?.displayName}:`)
-    for (const service of services) {
-      this.log(`- ${service.name} (${service.id})`)
-    }
+    const tableData: Service[] = services.map(service => {
+      return {id: service.id, name: service.name}
+    })
+
+    this.log(`Available services for ${this.userConfig.context?.displayName}:\n`)
+
+    ux.table(tableData, {
+      name: {
+        header: 'Name',
+        minWidth: 15,
+      },
+      id: {
+        header: 'ID',
+      },
+    })
   }
 }
