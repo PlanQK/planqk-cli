@@ -27,15 +27,12 @@ export default class PlanqkService extends CommandService {
     this.jobApi = new ServicePlatformJobsApi()
     this.jobApi.setApiKey(ServicePlatformJobsApiApiKeys.apiKey, apiKey)
 
-    // set endpoint configuration if configured
-    if (userConfig.endpoint) {
-      const basePath = userConfig.endpoint.basePath || defaultBasePath
-      const defaultHeaders = userConfig.endpoint.defaultHeaders || {}
-      this.serviceApi.basePath = basePath
-      this.serviceApi.defaultHeaders = defaultHeaders
-      this.jobApi.basePath = basePath
-      this.jobApi.defaultHeaders = defaultHeaders
-    }
+    const basePath = userConfig.endpoint?.basePath || defaultBasePath
+    const defaultHeaders = userConfig.endpoint?.defaultHeaders || {}
+    this.serviceApi.basePath = basePath
+    this.serviceApi.defaultHeaders = defaultHeaders
+    this.jobApi.basePath = basePath
+    this.jobApi.defaultHeaders = defaultHeaders
   }
 
   async getServices(): Promise<ServiceDto[]> {
@@ -45,7 +42,8 @@ export default class PlanqkService extends CommandService {
       return response.body
     } catch (error) {
       if (error instanceof HttpError) {
-        this.cmd.error(`Error getting services: ${error.response.statusCode} - ${error.body.errorMessage}`)
+        const errorMessage = this.getErrorMessage(error)
+        this.cmd.error(`Error getting services: ${errorMessage}`)
       }
 
       throw new Error('Internal error occurred, please contact your PlanQK administrator')
@@ -60,10 +58,11 @@ export default class PlanqkService extends CommandService {
     } catch (error) {
       if (error instanceof HttpError) {
         if (error.response.statusCode === 404) {
-          this.cmd.error(`Service with id ${id} not found. Deploy your service by running 'planqk up'`)
+          this.cmd.error(`Service with id ${id} not found. Deploy your service by running 'planqk up' first.`)
         }
 
-        this.cmd.error(`Error getting service: ${error.response.statusCode} - ${error.body.errorMessage}`)
+        const errorMessage = this.getErrorMessage(error)
+        this.cmd.error(`Error getting service: ${errorMessage}`)
       }
 
       throw new Error('Internal error occurred, please contact your PlanQK administrator')
@@ -104,7 +103,8 @@ export default class PlanqkService extends CommandService {
       return payload.body
     } catch (error) {
       if (error instanceof HttpError) {
-        this.cmd.error(`Error processing request: ${error.response.statusCode} - ${error.body.errorMessage}`)
+        const errorMessage = this.getErrorMessage(error)
+        this.cmd.error(`Error processing request: ${errorMessage}`)
       }
 
       throw new Error('Internal error occurred, please contact your PlanQK administrator')
@@ -120,7 +120,8 @@ export default class PlanqkService extends CommandService {
       return service
     } catch (error) {
       if (error instanceof HttpError) {
-        this.cmd.error(`Error processing request: ${error.response.statusCode} - ${error.body.errorMessage}`)
+        const errorMessage = this.getErrorMessage(error)
+        this.cmd.error(`Error processing request: ${errorMessage}`)
       }
 
       throw new Error('Internal error occurred, please contact your PlanQK administrator')
@@ -144,7 +145,8 @@ export default class PlanqkService extends CommandService {
           this.cmd.error(`Service you want to execute was not found in context ${this.userConfig.context?.displayName}. Are you in the correct context?`)
         }
 
-        this.cmd.error(`Error creating job: ${error.response.statusCode} - ${error.body.errorMessage}`)
+        const errorMessage = this.getErrorMessage(error)
+        this.cmd.error(`Error creating job: ${errorMessage}`)
       }
 
       throw new Error('Internal error occurred, please contact your PlanQK administrator')
@@ -166,5 +168,10 @@ export default class PlanqkService extends CommandService {
     } catch {
       throw new Error('Failed fetching available user contexts.')
     }
+  }
+
+  getErrorMessage(error: HttpError): string {
+    const errorMessage = error.body && error.body.errorMessage ? error.body.errorMessage : error.message
+    return `${errorMessage} (${error.response.statusCode} - ${error.response.statusMessage})`
   }
 }
