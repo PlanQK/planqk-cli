@@ -52,6 +52,14 @@ export default class Init extends AbstractCommand {
             },
           },
           {
+            name: 'D-Wave Leap Starter (own access token required)',
+            value: {
+              path: 'python/python-starter-dwave',
+              runtime: Runtime.PYTHON_TEMPLATE,
+              quantumBackend: QuantumBackend.DWAVE,
+            },
+          },
+          {
             name: 'Docker Go Starter',
             value: {path: 'docker/docker-go', runtime: Runtime.DOCKER, quantumBackend: QuantumBackend.NONE},
           },
@@ -203,13 +211,13 @@ export default class Init extends AbstractCommand {
       return
     }
 
-    // replace global variables
-    readmeContent = readmeContent.replace(/\${PROJECT_NAME}/g, projectName)
-
     // replace variables
     for (const variable of variables) {
       readmeContent = readmeContent.replace(new RegExp('\\${' + variable.name + '}', 'g'), variable.value)
     }
+
+    // replace global variables
+    readmeContent = readmeContent.replace(/\${PROJECT_NAME}/g, projectName)
 
     fs.writeFileSync(readmeFileLocation, readmeContent)
   }
