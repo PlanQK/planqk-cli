@@ -32,12 +32,9 @@
     "@oclif/plugin-not-found": "^2.3.23",
     "adm-zip": "^0.5.10",
     "async-wait-until": "^2.0.12",
-    "axios": "^1.4.0",
     "fs-extra": "^11.1.1",
     "inquirer": "^8.0.0",
-    "js-yaml": "^4.1.0",
-    "mime-types": "^2.1.35",
-    "request": "2.88.2"
+    "js-yaml": "^4.1.0"
   },
   "devDependencies": {
     "@oclif/test": "^2.3.17",
@@ -46,10 +43,8 @@
     "@types/fs-extra": "^11.0.1",
     "@types/inquirer": "^8.2.6",
     "@types/js-yaml": "^4.0.5",
-    "@types/mime-types": "^2.1.1",
     "@types/mocha": "^10.0.1",
     "@types/node": "^18.16.3",
-    "@types/request": "2.48.8",
     "chai": "^4.3.7",
     "eslint": "^7.32.0",
     "eslint-config-oclif": "^4.0.0",

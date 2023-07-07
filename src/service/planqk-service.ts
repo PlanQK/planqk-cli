@@ -1,19 +1,27 @@
 import {Command} from '@oclif/core'
 import {Config} from '@oclif/core/lib/config'
-import UserConfig, {defaultBasePath} from '../model/user-config'
 import {CommandService} from './command-service'
-import {ServicePlatformServicesApi, ServicePlatformServicesApiApiKeys} from '../client/api/servicePlatformServicesApi'
-import {ServiceDto} from '../client/model/serviceDto'
-import {BuildJobDto, ServiceDefinitionDto} from '../client/model/models'
-import {HttpError} from '../client/api/apis'
-import {ReadStream} from 'fs-extra'
-import ManagedServiceConfig, {QuantumBackend} from '../model/managed-service-config'
-import {ServicePlatformJobsApi, ServicePlatformJobsApiApiKeys} from '../client/api/servicePlatformJobsApi'
-import {CreateJobRequest} from '../client/model/createJobRequest'
-import {JobDto} from '../client/model/jobDto'
 import Account from '../model/account'
-import axios from 'axios'
+import UserConfig, {defaultBasePath} from '../model/user-config'
+import ManagedServiceConfig, {QuantumBackend} from '../model/managed-service-config'
+import {
+  BuildJobDto,
+  Configuration,
+  CreateJobRequest,
+  JobDto,
+  ServiceDefinitionDto,
+  ServiceDto,
+  ServiceOverviewDto,
+  ServicePlatformJobsApi,
+  ServicePlatformServicesApi,
+} from '../client'
 
+// TODO: Handle fetch errors
+// const response = await fetch(input, init);
+// if (!response.ok) {
+//   throw new MptError(response);
+// }
+// return response;
 export default class PlanqkService extends CommandService {
   serviceApi: ServicePlatformServicesApi
   jobApi: ServicePlatformJobsApi
@@ -21,31 +29,27 @@ export default class PlanqkService extends CommandService {
   constructor(cmd: Command, config: Config, userConfig: UserConfig) {
     super(cmd, config, userConfig)
 
-    const apiKey = userConfig.auth?.value as string
-    this.serviceApi = new ServicePlatformServicesApi()
-    this.serviceApi.setApiKey(ServicePlatformServicesApiApiKeys.apiKey, apiKey)
-    this.jobApi = new ServicePlatformJobsApi()
-    this.jobApi.setApiKey(ServicePlatformJobsApiApiKeys.apiKey, apiKey)
-
     const basePath = userConfig.endpoint?.basePath || defaultBasePath
     const defaultHeaders = userConfig.endpoint?.defaultHeaders || {}
-    this.serviceApi.basePath = basePath
-    this.serviceApi.defaultHeaders = defaultHeaders
-    this.jobApi.basePath = basePath
-    this.jobApi.defaultHeaders = defaultHeaders
+    const apiKey = userConfig.auth?.value as string
+
+    this.serviceApi = new ServicePlatformServicesApi(new Configuration({
+      apiKey: apiKey,
+      basePath: basePath,
+      headers: defaultHeaders,
+    }))
+    this.jobApi = new ServicePlatformJobsApi(new Configuration({
+      apiKey: apiKey,
+      basePath: basePath,
+      headers: defaultHeaders,
+    }))
   }
 
-  async getServices(): Promise<ServiceDto[]> {
+  async getServices(): Promise<ServiceOverviewDto[]> {
     try {
       const organizationId = this.userConfig.context?.isOrganization ? this.userConfig.context.id : undefined
-      const response = await this.serviceApi.getServices(undefined, organizationId)
-      return response.body
-    } catch (error) {
-      if (error instanceof HttpError) {
-        const errorMessage = this.getErrorMessage(error)
-        this.cmd.error(`Error getting services: ${errorMessage}`)
-      }
-
+      return await this.serviceApi.getServices({xOrganizationId: organizationId})
+    } catch {
       throw new Error('Internal error occurred, please contact your PlanQK administrator')
     }
   }
@@ -53,25 +57,15 @@ export default class PlanqkService extends CommandService {
   async getService(id: string): Promise<ServiceDto> {
     try {
       const organizationId = this.userConfig.context?.isOrganization ? this.userConfig.context.id : undefined
-      const response = await this.serviceApi.getService(id, organizationId)
-      return response.body
-    } catch (error) {
-      if (error instanceof HttpError) {
-        if (error.response.statusCode === 404) {
-          this.cmd.error(`Service with id ${id} not found. Deploy your service by running 'planqk up' first.`)
-        }
-
-        const errorMessage = this.getErrorMessage(error)
-        this.cmd.error(`Error getting service: ${errorMessage}`)
-      }
-
+      return await this.serviceApi.getService({id, xOrganizationId: organizationId})
+    } catch {
       throw new Error('Internal error occurred, please contact your PlanQK administrator')
     }
   }
 
-  async createService(serviceConfig: ManagedServiceConfig, userCode: ReadStream): Promise<ServiceDto> {
-    const vCpuMilli = (serviceConfig.resources?.cpu || 1) * 1000
-    const memoryMegabyte = (serviceConfig.resources?.memory || 2) * 1024
+  async createService(serviceConfig: ManagedServiceConfig, userCode: Blob): Promise<ServiceDto> {
+    const milliCpus = (serviceConfig.resources?.cpu || 1) * 1000
+    const memoryInMegabytes = (serviceConfig.resources?.memory || 2) * 1024
 
     const gpuAccelerator = serviceConfig.resources?.gpu?.type || 'NONE'
     const gpuCount = serviceConfig.resources?.gpu?.count || 0
@@ -82,96 +76,82 @@ export default class PlanqkService extends CommandService {
     }
 
     try {
-      const payload = await this.serviceApi.createManagedService(
-        serviceConfig.name,
-        serviceConfig.description,
-        serviceConfig.quantumBackend,
-        usePlatformToken,
-        vCpuMilli,
-        memoryMegabyte,
-        serviceConfig.runtime,
-        gpuCount,
-        gpuAccelerator,
-        this.userConfig.context?.isOrganization ? this.userConfig.context.id : undefined,
-        userCode,
-        undefined,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        })
-      return payload.body
-    } catch (error) {
-      if (error instanceof HttpError) {
-        const errorMessage = this.getErrorMessage(error)
-        this.cmd.error(`Error processing request: ${errorMessage}`)
-      }
-
+      return await this.serviceApi.createManagedService({
+          name: serviceConfig.name,
+          description: serviceConfig.description,
+          quantumBackend: serviceConfig.quantumBackend,
+          usePlatformToken: usePlatformToken,
+          milliCpus: milliCpus,
+          memoryInMegabytes: memoryInMegabytes,
+          runtime: serviceConfig.runtime,
+          gpuCount: gpuCount,
+          gpuAccelerator: gpuAccelerator,
+          xOrganizationId: this.userConfig.context?.isOrganization ? this.userConfig.context.id : undefined,
+          userCode: userCode,
+        },
+      )
+    } catch {
       throw new Error('Internal error occurred, please contact your PlanQK administrator')
     }
   }
 
-  async updateService(serviceId: string, userCode: ReadStream): Promise<ServiceDto> {
+  async updateService(serviceId: string, userCode: Blob): Promise<ServiceDto> {
     const organizationId = this.userConfig.context?.isOrganization ? this.userConfig.context.id : undefined
     try {
-      const {body: service} = await this.serviceApi.getService(serviceId, organizationId)
+      const service = await this.serviceApi.getService({id: serviceId, xOrganizationId: organizationId})
       const serviceDefinition = service && service.serviceDefinitions && service.serviceDefinitions[0]
-      await this.serviceApi.updateSourceCode(serviceId, serviceDefinition!.id!, userCode, organizationId)
+      await this.serviceApi.updateSourceCode({
+        serviceId: serviceId,
+        versionId: serviceDefinition!.id!,
+        sourceCode: userCode,
+        xOrganizationId: organizationId,
+      })
       return service
-    } catch (error) {
-      if (error instanceof HttpError) {
-        const errorMessage = this.getErrorMessage(error)
-        this.cmd.error(`Error processing request: ${errorMessage}`)
-      }
-
+    } catch {
       throw new Error('Internal error occurred, please contact your PlanQK administrator')
     }
   }
 
   async getBuildJob(service: ServiceDto, serviceDefinition: ServiceDefinitionDto): Promise<BuildJobDto> {
     const organizationId = this.userConfig.context?.isOrganization ? this.userConfig.context.id : undefined
-    const payload = await this.serviceApi.getBuildStatus(service.id!, serviceDefinition.id!, organizationId)
-    return payload.body
+    try {
+      return await this.serviceApi.getBuildStatus({
+        serviceId: service.id!,
+        versionId: serviceDefinition.id!,
+        xOrganizationId: organizationId,
+      })
+    } catch {
+      throw new Error('Internal error occurred, please contact your PlanQK administrator')
+    }
   }
 
   async runJob(payload: CreateJobRequest): Promise<JobDto> {
     const organizationId = this.userConfig.context?.isOrganization ? this.userConfig.context.id : undefined
     try {
-      const response = await this.jobApi.createJob(payload, organizationId, {headers: {'X-Auth-Token': this.userConfig.auth!.value}})
-      return response.body
-    } catch (error) {
-      if (error instanceof HttpError) {
-        if (error.statusCode === 404) {
-          this.cmd.error(`Service you want to execute was not found in context ${this.userConfig.context?.displayName}. Are you in the correct context?`)
-        }
-
-        const errorMessage = this.getErrorMessage(error)
-        this.cmd.error(`Error creating job: ${errorMessage}`)
-      }
-
+      return await this.jobApi.createJob({createJobRequest: payload, xOrganizationId: organizationId})
+    } catch {
       throw new Error('Internal error occurred, please contact your PlanQK administrator')
     }
   }
 
   async getJobById(id: string): Promise<JobDto> {
     const organizationId = this.userConfig.context?.isOrganization ? this.userConfig.context.id : undefined
-    const response = await this.jobApi.getJob(id, organizationId, {headers: {'X-Auth-Token': this.userConfig.auth!.value}})
-    return response.body
+    try {
+      return await this.jobApi.getJob({id, xOrganizationId: organizationId})
+    } catch {
+      throw new Error('Internal error occurred, please contact your PlanQK administrator')
+    }
   }
 
   async getAccounts(): Promise<Account[]> {
     try {
       const basePath = this.userConfig.endpoint?.basePath || defaultBasePath
-      const payload = await axios
-        .get(basePath + '/my/accounts', {headers: {'X-Auth-Token': this.userConfig.auth?.value}})
-      return payload.data
+      const payload = await fetch(basePath + '/my/accounts', {
+        headers: {'X-Auth-Token': this.userConfig.auth!.value},
+      })
+      return (await payload.json()) as Account[]
     } catch {
       throw new Error('Failed fetching available user contexts.')
     }
-  }
-
-  getErrorMessage(error: HttpError): string {
-    const errorMessage = error.body && error.body.errorMessage ? error.body.errorMessage : error.message
-    return `${errorMessage} (${error.response.statusCode} - ${error.response.statusMessage})`
   }
 }

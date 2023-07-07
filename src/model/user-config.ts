@@ -9,7 +9,7 @@ export interface Authentication {
 
 export interface Endpoint {
   basePath: string;
-  defaultHeaders: Record<string, unknown>;
+  defaultHeaders: { [key: string]: string };
 }
 
 export interface Context {

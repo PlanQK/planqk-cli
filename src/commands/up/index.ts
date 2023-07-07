@@ -5,12 +5,17 @@ import {tmpdir} from 'os'
 import Path from 'path'
 import AdmZip from 'adm-zip'
 import {AuthenticatedCommand} from '../../model/command'
-import {BuildJobDto} from '../../client/model/buildJobDto'
 import ManagedServiceConfig from '../../model/managed-service-config'
 import PlanqkService from '../../service/planqk-service'
-import {ServiceDto} from '../../client/model/serviceDto'
-import {ValidationResult} from '../../client/model/validationResult'
 import {readServiceConfig, writeServiceConfig} from '../../service/service-config-service'
+import {streamToBlob} from '../../helper/stream-to-blob'
+import {
+  BuildJobDto,
+  BuildJobDtoStatusEnum,
+  BuildJobDtoStepEnum,
+  ServiceDto,
+  ValidationResultStateEnum,
+} from '../../client'
 
 export default class Up extends AuthenticatedCommand {
   planqkService!: PlanqkService
@@ -38,6 +43,7 @@ export default class Up extends AuthenticatedCommand {
 
     const serviceConfig: ManagedServiceConfig = readServiceConfig(process.cwd())
     const userCode = await this.zipUserCode()
+    const blob = await streamToBlob(userCode)
 
     let updateMode = false
     const silentMode = flags.silent
@@ -50,13 +56,13 @@ export default class Up extends AuthenticatedCommand {
       }
 
       updateMode = true
-      service = await this.planqkService.updateService(serviceConfig.serviceId, userCode)
+      service = await this.planqkService.updateService(serviceConfig.serviceId, blob)
     } else {
       if (!silentMode) {
         ux.action.start('Creating service')
       }
 
-      service = await this.planqkService.createService(serviceConfig, userCode)
+      service = await this.planqkService.createService(serviceConfig, blob)
       serviceConfig.serviceId = service?.id
       writeServiceConfig(process.cwd(), serviceConfig)
     }
@@ -73,14 +79,14 @@ export default class Up extends AuthenticatedCommand {
           buildJob = await this.planqkService!.getBuildJob(service!, serviceDefinition!)
 
           if (!silentMode) {
-            if (buildJob.step === BuildJobDto.StepEnum.BuildImage) {
+            if (buildJob.step === BuildJobDtoStepEnum.BuildImage) {
               ux.action.start('Building Image (1/2)')
-            } else if (buildJob.step === BuildJobDto.StepEnum.PushImage) {
+            } else if (buildJob.step === BuildJobDtoStepEnum.PushImage) {
               ux.action.start('Pushing Image (2/2)')
             }
           }
 
-          return buildJob.status === BuildJobDto.StatusEnum.Success || buildJob.status === BuildJobDto.StatusEnum.Failure
+          return buildJob.status === BuildJobDtoStatusEnum.Success || buildJob.status === BuildJobDtoStatusEnum.Failure
         },
         {
           timeout: 10 * 60 * 1000, // 10 minute timeout
@@ -91,7 +97,7 @@ export default class Up extends AuthenticatedCommand {
       buildJob = undefined
     }
 
-    if (buildJob && buildJob.status === BuildJobDto.StatusEnum.Success) {
+    if (buildJob && buildJob.status === BuildJobDtoStatusEnum.Success) {
       let msg = 'Service created \u{1F680}'
       if (updateMode) {
         msg = 'Service updated \u{1F680}'
@@ -102,11 +108,11 @@ export default class Up extends AuthenticatedCommand {
       } else {
         ux.action.stop(msg)
       }
-    } else if (buildJob && buildJob.status === BuildJobDto.StatusEnum.Failure) {
+    } else if (buildJob && buildJob.status === BuildJobDtoStatusEnum.Failure) {
       const {validationResult} = buildJob
       let reason = 'Failed creating service'
 
-      if (validationResult?.state === ValidationResult.StateEnum.Error && validationResult.summary) {
+      if (validationResult?.state === ValidationResultStateEnum.Error && validationResult.summary) {
         reason = `${reason}: ${validationResult.summary}`
       }
 

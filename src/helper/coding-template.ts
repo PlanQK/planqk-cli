@@ -1,4 +1,3 @@
-import axios, {ResponseType} from 'axios'
 import AdmZip from 'adm-zip'
 import YAML from 'js-yaml'
 
@@ -15,8 +14,9 @@ export const downloadArchive = async (): Promise<AdmZip> => {
   let zip: AdmZip
 
   try {
-    const t = await axios.get('https://github.com/PlanQK/planqk-platform-samples/archive/refs/heads/master.zip', config)
-    zip = new AdmZip(t.data, {})
+    const response = await fetch('https://github.com/PlanQK/planqk-platform-samples/archive/refs/heads/master.zip', config)
+    const buffer = await response.arrayBuffer()
+    zip = new AdmZip(Buffer.from(buffer), {})
   } catch (error) {
     throw new Error(`Internal error occurred, please contact your PlanQK administrator: ${error}`)
   }

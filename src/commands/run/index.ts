@@ -3,11 +3,11 @@ import * as fs from 'fs-extra'
 import * as path from 'path'
 import * as inquirer from 'inquirer'
 import waitUntil from 'async-wait-until'
-import {JobDto} from '../../client/model/jobDto'
 import {AuthenticatedCommand} from '../../model/command'
 import PlanqkService from '../../service/planqk-service'
 import ManagedServiceConfig from '../../model/managed-service-config'
 import {readServiceConfig} from '../../service/service-config-service'
+import {JobDto, JobDtoStatusEnum} from '../../client'
 
 export default class Run extends AuthenticatedCommand {
   planqkService!: PlanqkService
@@ -93,7 +93,7 @@ export default class Run extends AuthenticatedCommand {
     try {
       await waitUntil(async () => {
           job = await this.planqkService.getJobById(job.id as string)
-          return job.status === JobDto.StatusEnum.Succeeded || job.status === JobDto.StatusEnum.Failed || job.status === JobDto.StatusEnum.Cancelled
+          return job.status === JobDtoStatusEnum.Succeeded || job.status === JobDtoStatusEnum.Failed || job.status === JobDtoStatusEnum.Cancelled
         },
         {
           timeout: 10 * 60 * 1000, // 10 minute timeout
@@ -104,13 +104,13 @@ export default class Run extends AuthenticatedCommand {
     }
 
     const jobDetailsLink = `https://platform.planqk.de/jobs/${job.id}`
-    if (job.status === JobDto.StatusEnum.Succeeded) {
+    if (job.status === JobDtoStatusEnum.Succeeded) {
       ux.action.stop('Job succeeded.')
       ux.info(`See result at \u001B]8;;${jobDetailsLink}\u0007${jobDetailsLink}\u001B]8;;\u0007\``)
-    } else if (job.status === JobDto.StatusEnum.Failed) {
+    } else if (job.status === JobDtoStatusEnum.Failed) {
       ux.action.stop('Job failed.')
       ux.info(`See details at \u001B]8;;${jobDetailsLink}\u0007${jobDetailsLink}\u001B]8;;\u0007\``)
-    } else if (job.status === JobDto.StatusEnum.Cancelled) {
+    } else if (job.status === JobDtoStatusEnum.Cancelled) {
       ux.action.stop('Job canceled.')
       ux.info(`See details at \u001B]8;;${jobDetailsLink}\u0007${jobDetailsLink}\u001B]8;;\u0007\``)
     } else {
