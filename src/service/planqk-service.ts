@@ -15,13 +15,8 @@ import {
   ServicePlatformJobsApi,
   ServicePlatformServicesApi,
 } from '../client'
+import {fetchOrThrow, PlanqkError} from '../helper/fetch'
 
-// TODO: Handle fetch errors
-// const response = await fetch(input, init);
-// if (!response.ok) {
-//   throw new MptError(response);
-// }
-// return response;
 export default class PlanqkService extends CommandService {
   serviceApi: ServicePlatformServicesApi
   jobApi: ServicePlatformJobsApi
@@ -107,8 +102,9 @@ export default class PlanqkService extends CommandService {
         xOrganizationId: organizationId,
       })
       return service
-    } catch {
-      throw new Error('Internal error occurred, please contact your PlanQK administrator')
+    } catch (error) {
+
+      throw new Error('Internal error occurred, please contact your PlanQK administrator' + error)
     }
   }
 
@@ -146,12 +142,17 @@ export default class PlanqkService extends CommandService {
   async getAccounts(): Promise<Account[]> {
     try {
       const basePath = this.userConfig.endpoint?.basePath || defaultBasePath
-      const payload = await fetch(basePath + '/my/accounts', {
+      const response = await fetchOrThrow(basePath + '/my/accounts', {
         headers: {'X-Auth-Token': this.userConfig.auth!.value},
       })
-      return (await payload.json()) as Account[]
-    } catch {
-      throw new Error('Failed fetching available user contexts.')
+      return (await response.json()) as Account[]
+    } catch (error) {
+      if (error instanceof PlanqkError) {
+        const errorMessage = await error.getErrorMessage()
+        throw new Error(errorMessage)
+      }
+
+      throw new Error('Internal error occurred, please contact your PlanQK administrator')
     }
   }
 }

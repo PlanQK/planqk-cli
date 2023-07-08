@@ -1,6 +1,7 @@
 import {Config} from '@oclif/core/lib/config'
 import UserConfig, {defaultBasePath} from '../model/user-config'
 import AuthPrincipal from '../model/auth-principal'
+import {fetchOrThrow, PlanqkError} from '../helper/fetch'
 
 export default class AuthService {
   userConfig!: UserConfig
@@ -12,12 +13,17 @@ export default class AuthService {
   async authenticate(apiKey: string): Promise<AuthPrincipal> {
     try {
       const basePath = this.userConfig.endpoint?.basePath || defaultBasePath
-      const payload = await fetch(basePath + '/authorize', {
+      const response = await fetchOrThrow(basePath + '/authorize', {
         method: 'POST',
         headers: {'X-Auth-Token': apiKey},
       })
-      return (await payload.json()) as AuthPrincipal
-    } catch {
+      return (await response.json()) as AuthPrincipal
+    } catch (error) {
+      if (error instanceof PlanqkError) {
+        const errorMessage = await error.getErrorMessage()
+        throw new Error(errorMessage)
+      }
+
       throw new Error('Internal error occurred, please contact your PlanQK administrator')
     }
   }
