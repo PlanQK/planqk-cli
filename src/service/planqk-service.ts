@@ -4,18 +4,19 @@ import {CommandService} from './command-service'
 import Account from '../model/account'
 import UserConfig, {defaultBasePath} from '../model/user-config'
 import ManagedServiceConfig, {QuantumBackend} from '../model/managed-service-config'
+import {fetchOrThrow, getErrorMessage, PlanqkError} from '../helper/fetch'
 import {
   BuildJobDto,
   Configuration,
   CreateJobRequest,
   JobDto,
+  ResponseError,
   ServiceDefinitionDto,
   ServiceDto,
   ServiceOverviewDto,
   ServicePlatformJobsApi,
   ServicePlatformServicesApi,
 } from '../client'
-import {fetchOrThrow, PlanqkError} from '../helper/fetch'
 
 export default class PlanqkService extends CommandService {
   serviceApi: ServicePlatformServicesApi
@@ -41,24 +42,36 @@ export default class PlanqkService extends CommandService {
   }
 
   async getServices(): Promise<ServiceOverviewDto[]> {
+    const organizationId = this.userConfig.context?.isOrganization ? this.userConfig.context.id : undefined
     try {
-      const organizationId = this.userConfig.context?.isOrganization ? this.userConfig.context.id : undefined
       return await this.serviceApi.getServices({xOrganizationId: organizationId})
-    } catch {
+    } catch (error) {
+      if (error instanceof ResponseError) {
+        const errorMessage = await getErrorMessage(error.response)
+        throw new Error(errorMessage)
+      }
+
       throw new Error('Internal error occurred, please contact your PlanQK administrator')
     }
   }
 
   async getService(id: string): Promise<ServiceDto> {
+    const organizationId = this.userConfig.context?.isOrganization ? this.userConfig.context.id : undefined
     try {
-      const organizationId = this.userConfig.context?.isOrganization ? this.userConfig.context.id : undefined
       return await this.serviceApi.getService({id, xOrganizationId: organizationId})
-    } catch {
+    } catch (error) {
+      if (error instanceof ResponseError) {
+        const errorMessage = await getErrorMessage(error.response)
+        throw new Error(errorMessage)
+      }
+
       throw new Error('Internal error occurred, please contact your PlanQK administrator')
     }
   }
 
   async createService(serviceConfig: ManagedServiceConfig, userCode: Blob): Promise<ServiceDto> {
+    const organizationId = this.userConfig.context?.isOrganization ? this.userConfig.context.id : undefined
+
     const milliCpus = (serviceConfig.resources?.cpu || 1) * 1000
     const memoryInMegabytes = (serviceConfig.resources?.memory || 2) * 1024
 
@@ -81,20 +94,25 @@ export default class PlanqkService extends CommandService {
           runtime: serviceConfig.runtime,
           gpuCount: gpuCount,
           gpuAccelerator: gpuAccelerator,
-          xOrganizationId: this.userConfig.context?.isOrganization ? this.userConfig.context.id : undefined,
+          xOrganizationId: organizationId,
           userCode: userCode,
         },
       )
-    } catch {
+    } catch (error) {
+      if (error instanceof ResponseError) {
+        const errorMessage = await getErrorMessage(error.response)
+        throw new Error(errorMessage)
+      }
+
       throw new Error('Internal error occurred, please contact your PlanQK administrator')
     }
   }
 
   async updateService(serviceId: string, userCode: Blob): Promise<ServiceDto> {
     const organizationId = this.userConfig.context?.isOrganization ? this.userConfig.context.id : undefined
+    const service = await this.serviceApi.getService({id: serviceId, xOrganizationId: organizationId})
+    const serviceDefinition = service && service.serviceDefinitions && service.serviceDefinitions[0]
     try {
-      const service = await this.serviceApi.getService({id: serviceId, xOrganizationId: organizationId})
-      const serviceDefinition = service && service.serviceDefinitions && service.serviceDefinitions[0]
       await this.serviceApi.updateSourceCode({
         serviceId: serviceId,
         versionId: serviceDefinition!.id!,
@@ -103,6 +121,10 @@ export default class PlanqkService extends CommandService {
       })
       return service
     } catch (error) {
+      if (error instanceof ResponseError) {
+        const errorMessage = await getErrorMessage(error.response)
+        throw new Error(errorMessage)
+      }
 
       throw new Error('Internal error occurred, please contact your PlanQK administrator' + error)
     }
@@ -116,7 +138,12 @@ export default class PlanqkService extends CommandService {
         versionId: serviceDefinition.id!,
         xOrganizationId: organizationId,
       })
-    } catch {
+    } catch (error) {
+      if (error instanceof ResponseError) {
+        const errorMessage = await getErrorMessage(error.response)
+        throw new Error(errorMessage)
+      }
+
       throw new Error('Internal error occurred, please contact your PlanQK administrator')
     }
   }
@@ -125,7 +152,12 @@ export default class PlanqkService extends CommandService {
     const organizationId = this.userConfig.context?.isOrganization ? this.userConfig.context.id : undefined
     try {
       return await this.jobApi.createJob({createJobRequest: payload, xOrganizationId: organizationId})
-    } catch {
+    } catch (error) {
+      if (error instanceof ResponseError) {
+        const errorMessage = await getErrorMessage(error.response)
+        throw new Error(errorMessage)
+      }
+
       throw new Error('Internal error occurred, please contact your PlanQK administrator')
     }
   }
@@ -134,14 +166,19 @@ export default class PlanqkService extends CommandService {
     const organizationId = this.userConfig.context?.isOrganization ? this.userConfig.context.id : undefined
     try {
       return await this.jobApi.getJob({id, xOrganizationId: organizationId})
-    } catch {
+    } catch (error) {
+      if (error instanceof ResponseError) {
+        const errorMessage = await getErrorMessage(error.response)
+        throw new Error(errorMessage)
+      }
+
       throw new Error('Internal error occurred, please contact your PlanQK administrator')
     }
   }
 
   async getAccounts(): Promise<Account[]> {
+    const basePath = this.userConfig.endpoint?.basePath || defaultBasePath
     try {
-      const basePath = this.userConfig.endpoint?.basePath || defaultBasePath
       const response = await fetchOrThrow(basePath + '/my/accounts', {
         headers: {'X-Auth-Token': this.userConfig.auth!.value},
       })

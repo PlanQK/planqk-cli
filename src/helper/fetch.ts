@@ -7,23 +7,27 @@ export class PlanqkError extends Error {
   }
 
   async getErrorMessage(): Promise<string> {
-    let body: any
-    try {
-      body = await this.response.json()
-    } catch {
-      // ignore
-    }
-
-    const errorMessage = body && body.errorMessage ? body.errorMessage : undefined
-    return errorMessage ? `${errorMessage} (${this.response.status} - ${this.response.statusText})` : `${this.response.status} - ${this.response.statusText}`
+    return getErrorMessage(this.response)
   }
 }
 
-export async function fetchOrThrow(input: RequestInfo | URL, init?: RequestInit): Promise<Response> {
+export const fetchOrThrow = async (input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
   const response = await fetch(input, init)
   if (!response.ok) {
     throw new PlanqkError(response)
   }
 
   return response
+}
+
+export const getErrorMessage = async (response: Response): Promise<string> => {
+  let body: any
+  try {
+    body = await response.json()
+  } catch {
+    // ignore
+  }
+
+  const errorMessage = body && body.errorMessage ? body.errorMessage : undefined
+  return errorMessage ? `${errorMessage} (${response.status} - ${response.statusText})` : `${response.status} - ${response.statusText}`
 }

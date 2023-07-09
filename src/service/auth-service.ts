@@ -20,6 +20,10 @@ export default class AuthService {
       return (await response.json()) as AuthPrincipal
     } catch (error) {
       if (error instanceof PlanqkError) {
+        if (error.response.status === 401) {
+          throw new Error('Invalid API key')
+        }
+
         const errorMessage = await error.getErrorMessage()
         throw new Error(errorMessage)
       }
