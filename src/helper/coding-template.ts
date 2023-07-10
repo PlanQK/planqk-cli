@@ -1,5 +1,5 @@
+import YAML from 'yaml'
 import AdmZip from 'adm-zip'
-import YAML from 'js-yaml'
 import {fetchOrThrow, PlanqkError} from './fetch'
 
 export const downloadArchive = async (): Promise<AdmZip> => {
@@ -78,7 +78,7 @@ export const getTemplateVariables = (zip: AdmZip, templatePath: string): NameVal
       const variableFile = entry.entryName.replace(variableFilesLocation, '')
       if (variableFile.includes(`${templateName}.yaml`)) {
         const data = zip.readAsText(entry)
-        const yamlObject: any = YAML.load(data)
+        const yamlObject: any = YAML.parse(data)
         if (yamlObject.vars) {
           return yamlObject.vars as NameValuePair[]
         }

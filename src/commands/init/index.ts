@@ -2,7 +2,7 @@ import {ux} from '@oclif/core'
 import inquirer from 'inquirer'
 import fs from 'fs-extra'
 import path from 'path'
-import YAML from 'js-yaml'
+import YAML from 'yaml'
 import {AbstractCommand} from '../../model/command'
 import ManagedServiceConfig, {GpuType, QuantumBackend, Runtime} from '../../model/managed-service-config'
 import {writeServiceConfig} from '../../service/service-config-service'
@@ -189,10 +189,11 @@ export default class Init extends AbstractCommand {
     }
 
     const data = fs.readFileSync(destination, 'utf8')
-    const yamlObject: any = YAML.load(data)
-    yamlObject.name = serviceName
+    const yamlObject = YAML.parseDocument(data)
 
-    const updatedContent = YAML.dump(yamlObject)
+    yamlObject.set('name', serviceName)
+
+    const updatedContent = YAML.stringify(yamlObject)
     fs.writeFileSync(destination, updatedContent)
   }
 
