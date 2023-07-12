@@ -8,8 +8,10 @@ import {fetchOrThrow, getErrorMessage, PlanqkError} from '../helper/fetch'
 import {
   BuildJobDto,
   Configuration,
+  CpuConfiguration,
   CreateJobRequest,
   JobDto,
+  MemoryConfiguration,
   ResponseError,
   ServiceDefinitionDto,
   ServiceDto,
@@ -69,7 +71,7 @@ export default class PlanqkService extends CommandService {
     }
   }
 
-  async createService(serviceConfig: ManagedServiceConfig, userCode: Blob): Promise<ServiceDto> {
+  async createService(serviceConfig: ManagedServiceConfig, sourceCode: Blob, apiDefinition?: Blob): Promise<ServiceDto> {
     const organizationId = this.userConfig.context?.isOrganization ? this.userConfig.context.id : undefined
 
     const milliCpus = (serviceConfig.resources?.cpu || 1) * 1000
@@ -95,7 +97,8 @@ export default class PlanqkService extends CommandService {
           gpuCount: gpuCount,
           gpuAccelerator: gpuAccelerator,
           xOrganizationId: organizationId,
-          userCode: userCode,
+          userCode: sourceCode,
+          apiDefinition: apiDefinition,
         },
       )
     } catch (error) {
@@ -108,15 +111,81 @@ export default class PlanqkService extends CommandService {
     }
   }
 
-  async updateService(serviceId: string, userCode: Blob): Promise<ServiceDto> {
+  async updateService(serviceConfig: ManagedServiceConfig, sourceCode: Blob, apiDefinition?: Blob): Promise<ServiceDto> {
     const organizationId = this.userConfig.context?.isOrganization ? this.userConfig.context.id : undefined
-    const service = await this.serviceApi.getService({id: serviceId, xOrganizationId: organizationId})
+    const service = await this.serviceApi.getService({id: serviceConfig.serviceId!, xOrganizationId: organizationId})
     const serviceDefinition = service && service.serviceDefinitions && service.serviceDefinitions[0]
+
+    const milliCpus = (serviceConfig.resources?.cpu || 1) * 1000
+    const cpuConfiguration: CpuConfiguration = {
+      type: 'cpu',
+      amount: milliCpus,
+      unit: 'm',
+    }
+
+    const memoryInMegabytes = (serviceConfig.resources?.memory || 2) * 1024
+    const memoryConfiguration: MemoryConfiguration = {
+      type: 'memory',
+      amount: memoryInMegabytes,
+      unit: 'M',
+    }
+
+    // TODO: activate once latest qc-catalog is released
+    // const gpuAccelerator = serviceConfig.resources?.gpu?.type || 'NONE'
+    // const gpuCount = serviceConfig.resources?.gpu?.count || 0
+    // const gpuConfiguration: GpuConfiguration = {
+    //   type: 'gpu',
+    //   amount: gpuCount,
+    //   accelerator: gpuAccelerator,
+    // }
+
     try {
-      await this.serviceApi.updateSourceCode({
-        serviceId: serviceId,
+      if (serviceConfig.description) {
+        await this.serviceApi.updateServiceVersion({
+          serviceId: service.id!,
+          versionId: serviceDefinition!.id!,
+          updateVersionRequest: {
+            description: serviceConfig.description,
+          },
+          xOrganizationId: organizationId,
+        })
+      }
+
+      await this.serviceApi.updateResourceConfiguration({
+        serviceId: service.id!,
         versionId: serviceDefinition!.id!,
-        sourceCode: userCode,
+        updateResourceConfigurationRequest: cpuConfiguration,
+        xOrganizationId: organizationId,
+      })
+
+      await this.serviceApi.updateResourceConfiguration({
+        serviceId: service.id!,
+        versionId: serviceDefinition!.id!,
+        updateResourceConfigurationRequest: memoryConfiguration,
+        xOrganizationId: organizationId,
+      })
+
+      // TODO: activate once latest qc-catalog is released
+      // await this.serviceApi.updateResourceConfiguration({
+      //   serviceId: service.id!,
+      //   versionId: serviceDefinition!.id!,
+      //   updateResourceConfigurationRequest: gpuConfiguration,
+      //   xOrganizationId: organizationId,
+      // })
+
+      if (apiDefinition) {
+        await this.serviceApi.updateApiDefinition({
+          serviceId: service.id!,
+          versionId: serviceDefinition!.id!,
+          file: apiDefinition,
+          xOrganizationId: organizationId,
+        })
+      }
+
+      await this.serviceApi.updateSourceCode({
+        serviceId: service.id!,
+        versionId: serviceDefinition!.id!,
+        sourceCode: sourceCode,
         xOrganizationId: organizationId,
       })
       return service

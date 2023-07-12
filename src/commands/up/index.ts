@@ -1,6 +1,6 @@
 import {Flags, ux} from '@oclif/core'
 import waitUntil from 'async-wait-until'
-import fs, {ReadStream} from 'fs-extra'
+import fs from 'fs-extra'
 import {tmpdir} from 'os'
 import Path from 'path'
 import AdmZip from 'adm-zip'
@@ -42,8 +42,8 @@ export default class Up extends AuthenticatedCommand {
     const {flags} = await this.parse(Up)
 
     const serviceConfig: ManagedServiceConfig = readServiceConfig(process.cwd())
-    const userCode = await this.zipUserCode()
-    const blob = await streamToBlob(userCode)
+    const sourceCode = await this.zipProjectFolder()
+    const apiDefinition = await this.getApiDefinition()
 
     let updateMode = false
     const silentMode = flags.silent
@@ -56,20 +56,15 @@ export default class Up extends AuthenticatedCommand {
       }
 
       updateMode = true
-      service = await this.planqkService.updateService(serviceConfig.serviceId, blob)
+      service = await this.planqkService.updateService(serviceConfig, sourceCode, apiDefinition)
     } else {
       if (!silentMode) {
         ux.action.start('Creating service')
       }
 
-      service = await this.planqkService.createService(serviceConfig, blob)
+      service = await this.planqkService.createService(serviceConfig, sourceCode, apiDefinition)
       serviceConfig.serviceId = service?.id
       writeServiceConfig(process.cwd(), serviceConfig)
-    }
-
-    // delete the temp file after create service call
-    if (fs.existsSync(userCode.path)) {
-      fs.unlinkSync(userCode.path)
     }
 
     const serviceDefinition = service && service.serviceDefinitions && service.serviceDefinitions[0]
@@ -133,7 +128,7 @@ export default class Up extends AuthenticatedCommand {
     this.exit()
   }
 
-  zipUserCode(): ReadStream {
+  async zipProjectFolder(): Promise<Blob> {
     const tmpFilePath = Path.join(tmpdir() + '/user_code.zip')
 
     if (fs.existsSync(tmpFilePath)) {
@@ -143,6 +138,18 @@ export default class Up extends AuthenticatedCommand {
     const zip = new AdmZip()
     zip.addLocalFolder(process.cwd())
     zip.writeZip(tmpFilePath)
-    return fs.createReadStream(Path.join(tmpFilePath))
+
+    const userCode = fs.createReadStream(Path.join(tmpFilePath))
+    return streamToBlob(userCode)
+  }
+
+  async getApiDefinition(): Promise<Blob | undefined> {
+    const apiDefinitionPath = Path.join(process.cwd(), 'openapi-spec.yml')
+    if (fs.existsSync(apiDefinitionPath)) {
+      const apiDefinition = fs.createReadStream(apiDefinitionPath, 'utf8')
+      return streamToBlob(apiDefinition)
+    }
+
+    return undefined
   }
 }
