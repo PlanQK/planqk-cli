@@ -10,6 +10,8 @@ import {
   Configuration,
   CpuConfiguration,
   CreateJobRequest,
+  FetchError,
+  GpuConfiguration,
   JobDto,
   MemoryConfiguration,
   ResponseError,
@@ -51,6 +53,9 @@ export default class PlanqkService extends CommandService {
       if (error instanceof ResponseError) {
         const errorMessage = await getErrorMessage(error.response)
         throw new Error(errorMessage)
+      } else if (error instanceof FetchError) {
+        const errorMessage = error.cause ? error.cause.message : error.message
+        throw new Error(`Internal error occurred, please try again later (${errorMessage})`)
       }
 
       throw new Error('Internal error occurred, please contact your PlanQK administrator')
@@ -65,6 +70,9 @@ export default class PlanqkService extends CommandService {
       if (error instanceof ResponseError) {
         const errorMessage = await getErrorMessage(error.response)
         throw new Error(errorMessage)
+      } else if (error instanceof FetchError) {
+        const errorMessage = error.cause ? error.cause.message : error.message
+        throw new Error(`Internal error occurred, please try again later (${errorMessage})`)
       }
 
       throw new Error('Internal error occurred, please contact your PlanQK administrator')
@@ -105,6 +113,9 @@ export default class PlanqkService extends CommandService {
       if (error instanceof ResponseError) {
         const errorMessage = await getErrorMessage(error.response)
         throw new Error(errorMessage)
+      } else if (error instanceof FetchError) {
+        const errorMessage = error.cause ? error.cause.message : error.message
+        throw new Error(`Internal error occurred, please try again later (${errorMessage})`)
       }
 
       throw new Error('Internal error occurred, please contact your PlanQK administrator')
@@ -130,14 +141,13 @@ export default class PlanqkService extends CommandService {
       unit: 'M',
     }
 
-    // TODO: activate once latest qc-catalog is released
-    // const gpuAccelerator = serviceConfig.resources?.gpu?.type || 'NONE'
-    // const gpuCount = serviceConfig.resources?.gpu?.count || 0
-    // const gpuConfiguration: GpuConfiguration = {
-    //   type: 'gpu',
-    //   amount: gpuCount,
-    //   accelerator: gpuAccelerator,
-    // }
+    const gpuAccelerator = serviceConfig.resources?.gpu?.type || 'NONE'
+    const gpuCount = serviceConfig.resources?.gpu?.count || 0
+    const gpuConfiguration: GpuConfiguration = {
+      type: 'gpu',
+      amount: gpuCount,
+      accelerator: gpuAccelerator,
+    }
 
     try {
       if (serviceConfig.description) {
@@ -165,13 +175,12 @@ export default class PlanqkService extends CommandService {
         xOrganizationId: organizationId,
       })
 
-      // TODO: activate once latest qc-catalog is released
-      // await this.serviceApi.updateResourceConfiguration({
-      //   serviceId: service.id!,
-      //   versionId: serviceDefinition!.id!,
-      //   updateResourceConfigurationRequest: gpuConfiguration,
-      //   xOrganizationId: organizationId,
-      // })
+      await this.serviceApi.updateResourceConfiguration({
+        serviceId: service.id!,
+        versionId: serviceDefinition!.id!,
+        updateResourceConfigurationRequest: gpuConfiguration,
+        xOrganizationId: organizationId,
+      })
 
       if (apiDefinition) {
         await this.serviceApi.updateApiDefinition({
@@ -193,9 +202,12 @@ export default class PlanqkService extends CommandService {
       if (error instanceof ResponseError) {
         const errorMessage = await getErrorMessage(error.response)
         throw new Error(errorMessage)
+      } else if (error instanceof FetchError) {
+        const errorMessage = error.cause ? error.cause.message : error.message
+        throw new Error(`Internal error occurred, please try again later (${errorMessage})`)
       }
 
-      throw new Error('Internal error occurred, please contact your PlanQK administrator' + error)
+      throw new Error('Internal error occurred, please contact your PlanQK administrator')
     }
   }
 
@@ -211,6 +223,9 @@ export default class PlanqkService extends CommandService {
       if (error instanceof ResponseError) {
         const errorMessage = await getErrorMessage(error.response)
         throw new Error(errorMessage)
+      } else if (error instanceof FetchError) {
+        const errorMessage = error.cause ? error.cause.message : error.message
+        throw new Error(`Internal error occurred, please try again later (${errorMessage})`)
       }
 
       throw new Error('Internal error occurred, please contact your PlanQK administrator')
@@ -225,6 +240,9 @@ export default class PlanqkService extends CommandService {
       if (error instanceof ResponseError) {
         const errorMessage = await getErrorMessage(error.response)
         throw new Error(errorMessage)
+      } else if (error instanceof FetchError) {
+        const errorMessage = error.cause ? error.cause.message : error.message
+        throw new Error(`Internal error occurred, please try again later (${errorMessage})`)
       }
 
       throw new Error('Internal error occurred, please contact your PlanQK administrator')
@@ -239,6 +257,9 @@ export default class PlanqkService extends CommandService {
       if (error instanceof ResponseError) {
         const errorMessage = await getErrorMessage(error.response)
         throw new Error(errorMessage)
+      } else if (error instanceof FetchError) {
+        const errorMessage = error.cause ? error.cause.message : error.message
+        throw new Error(`Internal error occurred, please try again later (${errorMessage})`)
       }
 
       throw new Error('Internal error occurred, please contact your PlanQK administrator')
