@@ -20,55 +20,55 @@ import {exists} from '../runtime'
  * @interface AmountMajorDto
  */
 export interface AmountMajorDto {
-    /**
-     *
-     * @type {number}
-     * @memberof AmountMajorDto
-     */
-    value?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof AmountMajorDto
-     */
-    currency?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof AmountMajorDto
+   */
+  value?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof AmountMajorDto
+   */
+  currency?: string;
 }
 
 /**
  * Check if a given object implements the AmountMajorDto interface.
  */
 export function instanceOfAmountMajorDto(value: object): boolean {
-    let isInstance = true;
+  let isInstance = true
 
-    return isInstance;
+  return isInstance
 }
 
 export function AmountMajorDtoFromJSON(json: any): AmountMajorDto {
-    return AmountMajorDtoFromJSONTyped(json, false);
+  return AmountMajorDtoFromJSONTyped(json, false)
 }
 
 export function AmountMajorDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): AmountMajorDto {
-    if ((json === undefined) || (json === null)) {
-        return json;
-    }
-    return {
+  if ((json === undefined) || (json === null)) {
+    return json
+  }
+  return {
 
-        'value': !exists(json, 'value') ? undefined : json['value'],
-        'currency': !exists(json, 'currency') ? undefined : json['currency'],
-    };
+    'value': !exists(json, 'value') ? undefined : json['value'],
+    'currency': !exists(json, 'currency') ? undefined : json['currency'],
+  }
 }
 
 export function AmountMajorDtoToJSON(value?: AmountMajorDto | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
-    }
-    return {
+  if (value === undefined) {
+    return undefined
+  }
+  if (value === null) {
+    return null
+  }
+  return {
 
-        'value': value.value,
-        'currency': value.currency,
-    };
+    'value': value.value,
+    'currency': value.currency,
+  }
 }
 

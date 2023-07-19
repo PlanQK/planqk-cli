@@ -20,58 +20,56 @@ import {exists} from '../runtime'
  * @interface ServiceDefinitionCommand
  */
 export interface ServiceDefinitionCommand {
-    /**
-     *
-     * @type {string}
-     * @memberof ServiceDefinitionCommand
-     */
-    type?: ServiceDefinitionCommandTypeEnum;
+  /**
+   *
+   * @type {string}
+   * @memberof ServiceDefinitionCommand
+   */
+  type?: ServiceDefinitionCommandTypeEnum;
 }
-
 
 /**
  * @export
  */
 export const ServiceDefinitionCommandTypeEnum = {
-    Unpublish: 'UNPUBLISH',
-    UnpublishForce: 'UNPUBLISH_FORCE'
-} as const;
+  Unpublish: 'UNPUBLISH',
+  UnpublishForce: 'UNPUBLISH_FORCE',
+} as const
 export type ServiceDefinitionCommandTypeEnum = typeof ServiceDefinitionCommandTypeEnum[keyof typeof ServiceDefinitionCommandTypeEnum];
-
 
 /**
  * Check if a given object implements the ServiceDefinitionCommand interface.
  */
 export function instanceOfServiceDefinitionCommand(value: object): boolean {
-    let isInstance = true;
+  let isInstance = true
 
-    return isInstance;
+  return isInstance
 }
 
 export function ServiceDefinitionCommandFromJSON(json: any): ServiceDefinitionCommand {
-    return ServiceDefinitionCommandFromJSONTyped(json, false);
+  return ServiceDefinitionCommandFromJSONTyped(json, false)
 }
 
 export function ServiceDefinitionCommandFromJSONTyped(json: any, ignoreDiscriminator: boolean): ServiceDefinitionCommand {
-    if ((json === undefined) || (json === null)) {
-        return json;
-    }
-    return {
+  if ((json === undefined) || (json === null)) {
+    return json
+  }
+  return {
 
-        'type': !exists(json, 'type') ? undefined : json['type'],
-    };
+    'type': !exists(json, 'type') ? undefined : json['type'],
+  }
 }
 
 export function ServiceDefinitionCommandToJSON(value?: ServiceDefinitionCommand | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
-    }
-    return {
+  if (value === undefined) {
+    return undefined
+  }
+  if (value === null) {
+    return null
+  }
+  return {
 
-        'type': value.type,
-    };
+    'type': value.type,
+  }
 }
 

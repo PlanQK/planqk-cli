@@ -22,101 +22,99 @@ import {ValidationResultFromJSON, ValidationResultToJSON} from './ValidationResu
  * @interface BuildJobDto
  */
 export interface BuildJobDto {
-    /**
-     *
-     * @type {string}
-     * @memberof BuildJobDto
-     */
-    status?: BuildJobDtoStatusEnum;
-    /**
-     *
-     * @type {string}
-     * @memberof BuildJobDto
-     */
-    step?: BuildJobDtoStepEnum;
-    /**
-     *
-     * @type {string}
-     * @memberof BuildJobDto
-     */
-    createdAt?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof BuildJobDto
-     */
-    finishedAt?: string;
-    /**
-     *
-     * @type {ValidationResult}
-     * @memberof BuildJobDto
-     */
-    validationResult?: ValidationResult;
+  /**
+   *
+   * @type {string}
+   * @memberof BuildJobDto
+   */
+  status?: BuildJobDtoStatusEnum;
+  /**
+   *
+   * @type {string}
+   * @memberof BuildJobDto
+   */
+  step?: BuildJobDtoStepEnum;
+  /**
+   *
+   * @type {string}
+   * @memberof BuildJobDto
+   */
+  createdAt?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BuildJobDto
+   */
+  finishedAt?: string;
+  /**
+   *
+   * @type {ValidationResult}
+   * @memberof BuildJobDto
+   */
+  validationResult?: ValidationResult;
 }
-
 
 /**
  * @export
  */
 export const BuildJobDtoStatusEnum = {
-    Working: 'WORKING',
-    Success: 'SUCCESS',
-    Failure: 'FAILURE'
-} as const;
+  Working: 'WORKING',
+  Success: 'SUCCESS',
+  Failure: 'FAILURE',
+} as const
 export type BuildJobDtoStatusEnum = typeof BuildJobDtoStatusEnum[keyof typeof BuildJobDtoStatusEnum];
 
 /**
  * @export
  */
 export const BuildJobDtoStepEnum = {
-    Init: 'INIT',
-    BuildImage: 'BUILD_IMAGE',
-    PushImage: 'PUSH_IMAGE'
-} as const;
+  Init: 'INIT',
+  BuildImage: 'BUILD_IMAGE',
+  PushImage: 'PUSH_IMAGE',
+} as const
 export type BuildJobDtoStepEnum = typeof BuildJobDtoStepEnum[keyof typeof BuildJobDtoStepEnum];
-
 
 /**
  * Check if a given object implements the BuildJobDto interface.
  */
 export function instanceOfBuildJobDto(value: object): boolean {
-    let isInstance = true;
+  let isInstance = true
 
-    return isInstance;
+  return isInstance
 }
 
 export function BuildJobDtoFromJSON(json: any): BuildJobDto {
-    return BuildJobDtoFromJSONTyped(json, false);
+  return BuildJobDtoFromJSONTyped(json, false)
 }
 
 export function BuildJobDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): BuildJobDto {
-    if ((json === undefined) || (json === null)) {
-        return json;
-    }
-    return {
+  if ((json === undefined) || (json === null)) {
+    return json
+  }
+  return {
 
-        'status': !exists(json, 'status') ? undefined : json['status'],
-        'step': !exists(json, 'step') ? undefined : json['step'],
-        'createdAt': !exists(json, 'createdAt') ? undefined : json['createdAt'],
-        'finishedAt': !exists(json, 'finishedAt') ? undefined : json['finishedAt'],
-        'validationResult': !exists(json, 'validationResult') ? undefined : ValidationResultFromJSON(json['validationResult']),
-    };
+    'status': !exists(json, 'status') ? undefined : json['status'],
+    'step': !exists(json, 'step') ? undefined : json['step'],
+    'createdAt': !exists(json, 'createdAt') ? undefined : json['createdAt'],
+    'finishedAt': !exists(json, 'finishedAt') ? undefined : json['finishedAt'],
+    'validationResult': !exists(json, 'validationResult') ? undefined : ValidationResultFromJSON(json['validationResult']),
+  }
 }
 
 export function BuildJobDtoToJSON(value?: BuildJobDto | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
-    }
-    return {
+  if (value === undefined) {
+    return undefined
+  }
+  if (value === null) {
+    return null
+  }
+  return {
 
-        'status': value.status,
-        'step': value.step,
-        'createdAt': value.createdAt,
-        'finishedAt': value.finishedAt,
-        'validationResult': ValidationResultToJSON(value.validationResult),
-    };
+    'status': value.status,
+    'step': value.step,
+    'createdAt': value.createdAt,
+    'finishedAt': value.finishedAt,
+    'validationResult': ValidationResultToJSON(value.validationResult),
+  }
 }
 

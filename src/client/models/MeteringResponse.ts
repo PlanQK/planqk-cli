@@ -20,71 +20,71 @@ import {exists} from '../runtime'
  * @interface MeteringResponse
  */
 export interface MeteringResponse {
-    /**
-     *
-     * @type {boolean}
-     * @memberof MeteringResponse
-     */
-    testMode?: boolean;
-    /**
-     *
-     * @type {number}
-     * @memberof MeteringResponse
-     */
-    count?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof MeteringResponse
-     */
-    correlationId?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MeteringResponse
-     */
-    productId?: string;
+  /**
+   *
+   * @type {boolean}
+   * @memberof MeteringResponse
+   */
+  testMode?: boolean;
+  /**
+   *
+   * @type {number}
+   * @memberof MeteringResponse
+   */
+  count?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof MeteringResponse
+   */
+  correlationId?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MeteringResponse
+   */
+  productId?: string;
 }
 
 /**
  * Check if a given object implements the MeteringResponse interface.
  */
 export function instanceOfMeteringResponse(value: object): boolean {
-    let isInstance = true;
+  let isInstance = true
 
-    return isInstance;
+  return isInstance
 }
 
 export function MeteringResponseFromJSON(json: any): MeteringResponse {
-    return MeteringResponseFromJSONTyped(json, false);
+  return MeteringResponseFromJSONTyped(json, false)
 }
 
 export function MeteringResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): MeteringResponse {
-    if ((json === undefined) || (json === null)) {
-        return json;
-    }
-    return {
+  if ((json === undefined) || (json === null)) {
+    return json
+  }
+  return {
 
-        'testMode': !exists(json, 'testMode') ? undefined : json['testMode'],
-        'count': !exists(json, 'count') ? undefined : json['count'],
-        'correlationId': !exists(json, 'correlationId') ? undefined : json['correlationId'],
-        'productId': !exists(json, 'productId') ? undefined : json['productId'],
-    };
+    'testMode': !exists(json, 'testMode') ? undefined : json['testMode'],
+    'count': !exists(json, 'count') ? undefined : json['count'],
+    'correlationId': !exists(json, 'correlationId') ? undefined : json['correlationId'],
+    'productId': !exists(json, 'productId') ? undefined : json['productId'],
+  }
 }
 
 export function MeteringResponseToJSON(value?: MeteringResponse | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
-    }
-    return {
+  if (value === undefined) {
+    return undefined
+  }
+  if (value === null) {
+    return null
+  }
+  return {
 
-        'testMode': value.testMode,
-        'count': value.count,
-        'correlationId': value.correlationId,
-        'productId': value.productId,
-    };
+    'testMode': value.testMode,
+    'count': value.count,
+    'correlationId': value.correlationId,
+    'productId': value.productId,
+  }
 }
 

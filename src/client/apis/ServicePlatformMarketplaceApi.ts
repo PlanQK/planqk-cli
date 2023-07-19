@@ -17,16 +17,16 @@ import type {ApiDto, ApiOverviewDto, CreateSubscriptionRequest} from '../models'
 import {ApiDtoFromJSON, ApiOverviewDtoFromJSON, CreateSubscriptionRequestToJSON} from '../models'
 
 export interface CreateSubscriptionOperationRequest {
-    id: string;
-    createSubscriptionRequest: CreateSubscriptionRequest;
+  id: string;
+  createSubscriptionRequest: CreateSubscriptionRequest;
 }
 
 export interface FindServiceRequest {
-    id: string;
+  id: string;
 }
 
 export interface GetLogoRequest {
-    id: string;
+  id: string;
 }
 
 /**
@@ -34,162 +34,162 @@ export interface GetLogoRequest {
  */
 export class ServicePlatformMarketplaceApi extends runtime.BaseAPI {
 
-    /**
-     * Creates a subscription to a publicly published service. To subscribe a service, you must supply the ID of an application as well as the ID of your selected pricing plan. The ID of a pricing plan can be found in the service details.
-     */
-    async createSubscriptionRaw(requestParameters: CreateSubscriptionOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling createSubscription.');
-        }
-
-        if (requestParameters.createSubscriptionRequest === null || requestParameters.createSubscriptionRequest === undefined) {
-            throw new runtime.RequiredError('createSubscriptionRequest','Required parameter requestParameters.createSubscriptionRequest was null or undefined when calling createSubscription.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/v2/apis/{id}/subscriptions`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: CreateSubscriptionRequestToJSON(requestParameters.createSubscriptionRequest),
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
+  /**
+   * Creates a subscription to a publicly published service. To subscribe a service, you must supply the ID of an application as well as the ID of your selected pricing plan. The ID of a pricing plan can be found in the service details.
+   */
+  async createSubscriptionRaw(requestParameters: CreateSubscriptionOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError('id', 'Required parameter requestParameters.id was null or undefined when calling createSubscription.')
     }
 
-    /**
-     * Creates a subscription to a publicly published service. To subscribe a service, you must supply the ID of an application as well as the ID of your selected pricing plan. The ID of a pricing plan can be found in the service details.
-     */
-    async createSubscription(requestParameters: CreateSubscriptionOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.createSubscriptionRaw(requestParameters, initOverrides);
+    if (requestParameters.createSubscriptionRequest === null || requestParameters.createSubscriptionRequest === undefined) {
+      throw new runtime.RequiredError('createSubscriptionRequest', 'Required parameter requestParameters.createSubscriptionRequest was null or undefined when calling createSubscription.')
     }
 
-    /**
-     * Gets a specific publicly published service and its basic properties.
-     */
-    async findServiceRaw(requestParameters: FindServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiDto>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling findService.');
-        }
+    const queryParameters: any = {}
 
-        const queryParameters: any = {};
+    const headerParameters: runtime.HTTPHeaders = {}
 
-        const headerParameters: runtime.HTTPHeaders = {};
+    headerParameters['Content-Type'] = 'application/json'
 
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/v2/apis/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => ApiDtoFromJSON(jsonValue));
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
     }
 
-    /**
-     * Gets a specific publicly published service and its basic properties.
-     */
-    async findService(requestParameters: FindServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiDto> {
-        const response = await this.findServiceRaw(requestParameters, initOverrides);
-        return await response.value();
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
     }
 
-    /**
-     * Gets a list of all publicly published service on the PlanQK platform.
-     */
-    async findServicesRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<ApiOverviewDto>>> {
-        const queryParameters: any = {};
+    const response = await this.request({
+      path: `/v2/apis/{id}/subscriptions`.replace(`{${'id'}}`, encodeURIComponent(String(requestParameters.id))),
+      method: 'POST',
+      headers: headerParameters,
+      query: queryParameters,
+      body: CreateSubscriptionRequestToJSON(requestParameters.createSubscriptionRequest),
+    }, initOverrides)
 
-        const headerParameters: runtime.HTTPHeaders = {};
+    return new runtime.VoidApiResponse(response)
+  }
 
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
+  /**
+   * Creates a subscription to a publicly published service. To subscribe a service, you must supply the ID of an application as well as the ID of your selected pricing plan. The ID of a pricing plan can be found in the service details.
+   */
+  async createSubscription(requestParameters: CreateSubscriptionOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+    await this.createSubscriptionRaw(requestParameters, initOverrides)
+  }
 
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/v2/apis`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ApiOverviewDtoFromJSON));
+  /**
+   * Gets a specific publicly published service and its basic properties.
+   */
+  async findServiceRaw(requestParameters: FindServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiDto>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError('id', 'Required parameter requestParameters.id was null or undefined when calling findService.')
     }
 
-    /**
-     * Gets a list of all publicly published service on the PlanQK platform.
-     */
-    async findServices(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ApiOverviewDto>> {
-        const response = await this.findServicesRaw(initOverrides);
-        return await response.value();
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
     }
 
-    /**
-     * Retrieves the logo of an API.
-     */
-    async getLogoRaw(requestParameters: GetLogoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<string>>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getLogo.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/v2/apis/{id}/logo`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse<any>(response);
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
     }
 
-    /**
-     * Retrieves the logo of an API.
-     */
-    async getLogo(requestParameters: GetLogoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<string>> {
-        const response = await this.getLogoRaw(requestParameters, initOverrides);
-        return await response.value();
+    const response = await this.request({
+      path: `/v2/apis/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(requestParameters.id))),
+      method: 'GET',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
+
+    return new runtime.JSONApiResponse(response, (jsonValue) => ApiDtoFromJSON(jsonValue))
+  }
+
+  /**
+   * Gets a specific publicly published service and its basic properties.
+   */
+  async findService(requestParameters: FindServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiDto> {
+    const response = await this.findServiceRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
+
+  /**
+   * Gets a list of all publicly published service on the PlanQK platform.
+   */
+  async findServicesRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<ApiOverviewDto>>> {
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
     }
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
+    }
+
+    const response = await this.request({
+      path: `/v2/apis`,
+      method: 'GET',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
+
+    return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ApiOverviewDtoFromJSON))
+  }
+
+  /**
+   * Gets a list of all publicly published service on the PlanQK platform.
+   */
+  async findServices(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ApiOverviewDto>> {
+    const response = await this.findServicesRaw(initOverrides)
+    return await response.value()
+  }
+
+  /**
+   * Retrieves the logo of an API.
+   */
+  async getLogoRaw(requestParameters: GetLogoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<string>>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError('id', 'Required parameter requestParameters.id was null or undefined when calling getLogo.')
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
+    }
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
+    }
+
+    const response = await this.request({
+      path: `/v2/apis/{id}/logo`.replace(`{${'id'}}`, encodeURIComponent(String(requestParameters.id))),
+      method: 'GET',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
+
+    return new runtime.JSONApiResponse<any>(response)
+  }
+
+  /**
+   * Retrieves the logo of an API.
+   */
+  async getLogo(requestParameters: GetLogoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<string>> {
+    const response = await this.getLogoRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
 
 }

@@ -20,55 +20,55 @@ import {exists} from '../runtime'
  * @interface MemoryConfigurationAllOf
  */
 export interface MemoryConfigurationAllOf {
-    /**
-     *
-     * @type {number}
-     * @memberof MemoryConfigurationAllOf
-     */
-    amount?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof MemoryConfigurationAllOf
-     */
-    unit?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof MemoryConfigurationAllOf
+   */
+  amount?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof MemoryConfigurationAllOf
+   */
+  unit?: string;
 }
 
 /**
  * Check if a given object implements the MemoryConfigurationAllOf interface.
  */
 export function instanceOfMemoryConfigurationAllOf(value: object): boolean {
-    let isInstance = true;
+  let isInstance = true
 
-    return isInstance;
+  return isInstance
 }
 
 export function MemoryConfigurationAllOfFromJSON(json: any): MemoryConfigurationAllOf {
-    return MemoryConfigurationAllOfFromJSONTyped(json, false);
+  return MemoryConfigurationAllOfFromJSONTyped(json, false)
 }
 
 export function MemoryConfigurationAllOfFromJSONTyped(json: any, ignoreDiscriminator: boolean): MemoryConfigurationAllOf {
-    if ((json === undefined) || (json === null)) {
-        return json;
-    }
-    return {
+  if ((json === undefined) || (json === null)) {
+    return json
+  }
+  return {
 
-        'amount': !exists(json, 'amount') ? undefined : json['amount'],
-        'unit': !exists(json, 'unit') ? undefined : json['unit'],
-    };
+    'amount': !exists(json, 'amount') ? undefined : json['amount'],
+    'unit': !exists(json, 'unit') ? undefined : json['unit'],
+  }
 }
 
 export function MemoryConfigurationAllOfToJSON(value?: MemoryConfigurationAllOf | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
-    }
-    return {
+  if (value === undefined) {
+    return undefined
+  }
+  if (value === null) {
+    return null
+  }
+  return {
 
-        'amount': value.amount,
-        'unit': value.unit,
-    };
+    'amount': value.amount,
+    'unit': value.unit,
+  }
 }
 

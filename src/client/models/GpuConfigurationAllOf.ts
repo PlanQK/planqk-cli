@@ -20,69 +20,67 @@ import {exists} from '../runtime'
  * @interface GpuConfigurationAllOf
  */
 export interface GpuConfigurationAllOf {
-    /**
-     *
-     * @type {number}
-     * @memberof GpuConfigurationAllOf
-     */
-    amount?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof GpuConfigurationAllOf
-     */
-    accelerator?: GpuConfigurationAllOfAcceleratorEnum;
+  /**
+   *
+   * @type {number}
+   * @memberof GpuConfigurationAllOf
+   */
+  amount?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof GpuConfigurationAllOf
+   */
+  accelerator?: GpuConfigurationAllOfAcceleratorEnum;
 }
-
 
 /**
  * @export
  */
 export const GpuConfigurationAllOfAcceleratorEnum = {
-    NvidiaTeslaT4: 'NVIDIA_TESLA_T4',
-    NvidiaTeslaV100: 'NVIDIA_TESLA_V100',
-    NvidiaTeslaA100: 'NVIDIA_TESLA_A100',
-    NvidiaTeslaP100: 'NVIDIA_TESLA_P100',
-    None: 'NONE'
-} as const;
+  NvidiaTeslaT4: 'NVIDIA_TESLA_T4',
+  NvidiaTeslaV100: 'NVIDIA_TESLA_V100',
+  NvidiaTeslaA100: 'NVIDIA_TESLA_A100',
+  NvidiaTeslaP100: 'NVIDIA_TESLA_P100',
+  None: 'NONE',
+} as const
 export type GpuConfigurationAllOfAcceleratorEnum = typeof GpuConfigurationAllOfAcceleratorEnum[keyof typeof GpuConfigurationAllOfAcceleratorEnum];
-
 
 /**
  * Check if a given object implements the GpuConfigurationAllOf interface.
  */
 export function instanceOfGpuConfigurationAllOf(value: object): boolean {
-    let isInstance = true;
+  let isInstance = true
 
-    return isInstance;
+  return isInstance
 }
 
 export function GpuConfigurationAllOfFromJSON(json: any): GpuConfigurationAllOf {
-    return GpuConfigurationAllOfFromJSONTyped(json, false);
+  return GpuConfigurationAllOfFromJSONTyped(json, false)
 }
 
 export function GpuConfigurationAllOfFromJSONTyped(json: any, ignoreDiscriminator: boolean): GpuConfigurationAllOf {
-    if ((json === undefined) || (json === null)) {
-        return json;
-    }
-    return {
+  if ((json === undefined) || (json === null)) {
+    return json
+  }
+  return {
 
-        'amount': !exists(json, 'amount') ? undefined : json['amount'],
-        'accelerator': !exists(json, 'accelerator') ? undefined : json['accelerator'],
-    };
+    'amount': !exists(json, 'amount') ? undefined : json['amount'],
+    'accelerator': !exists(json, 'accelerator') ? undefined : json['accelerator'],
+  }
 }
 
 export function GpuConfigurationAllOfToJSON(value?: GpuConfigurationAllOf | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
-    }
-    return {
+  if (value === undefined) {
+    return undefined
+  }
+  if (value === null) {
+    return null
+  }
+  return {
 
-        'amount': value.amount,
-        'accelerator': value.accelerator,
-    };
+    'amount': value.amount,
+    'accelerator': value.accelerator,
+  }
 }
 

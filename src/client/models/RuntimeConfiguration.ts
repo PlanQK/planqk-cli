@@ -20,59 +20,57 @@ import {exists} from '../runtime'
  * @interface RuntimeConfiguration
  */
 export interface RuntimeConfiguration {
-    /**
-     *
-     * @type {string}
-     * @memberof RuntimeConfiguration
-     */
-    runtime?: RuntimeConfigurationRuntimeEnum;
+  /**
+   *
+   * @type {string}
+   * @memberof RuntimeConfiguration
+   */
+  runtime?: RuntimeConfigurationRuntimeEnum;
 }
-
 
 /**
  * @export
  */
 export const RuntimeConfigurationRuntimeEnum = {
-    Docker: 'DOCKER',
-    PythonTemplate: 'PYTHON_TEMPLATE',
-    Python: 'PYTHON'
-} as const;
+  Docker: 'DOCKER',
+  PythonTemplate: 'PYTHON_TEMPLATE',
+  Python: 'PYTHON',
+} as const
 export type RuntimeConfigurationRuntimeEnum = typeof RuntimeConfigurationRuntimeEnum[keyof typeof RuntimeConfigurationRuntimeEnum];
-
 
 /**
  * Check if a given object implements the RuntimeConfiguration interface.
  */
 export function instanceOfRuntimeConfiguration(value: object): boolean {
-    let isInstance = true;
+  let isInstance = true
 
-    return isInstance;
+  return isInstance
 }
 
 export function RuntimeConfigurationFromJSON(json: any): RuntimeConfiguration {
-    return RuntimeConfigurationFromJSONTyped(json, false);
+  return RuntimeConfigurationFromJSONTyped(json, false)
 }
 
 export function RuntimeConfigurationFromJSONTyped(json: any, ignoreDiscriminator: boolean): RuntimeConfiguration {
-    if ((json === undefined) || (json === null)) {
-        return json;
-    }
-    return {
+  if ((json === undefined) || (json === null)) {
+    return json
+  }
+  return {
 
-        'runtime': !exists(json, 'runtime') ? undefined : json['runtime'],
-    };
+    'runtime': !exists(json, 'runtime') ? undefined : json['runtime'],
+  }
 }
 
 export function RuntimeConfigurationToJSON(value?: RuntimeConfiguration | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
-    }
-    return {
+  if (value === undefined) {
+    return undefined
+  }
+  if (value === null) {
+    return null
+  }
+  return {
 
-        'runtime': value.runtime,
-    };
+    'runtime': value.runtime,
+  }
 }
 

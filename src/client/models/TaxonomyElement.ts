@@ -20,63 +20,63 @@ import {exists} from '../runtime'
  * @interface TaxonomyElement
  */
 export interface TaxonomyElement {
-    /**
-     *
-     * @type {string}
-     * @memberof TaxonomyElement
-     */
-    uuid?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof TaxonomyElement
-     */
-    label?: string;
-    /**
-     *
-     * @type {Array<TaxonomyElement>}
-     * @memberof TaxonomyElement
-     */
-    children?: Array<TaxonomyElement>;
+  /**
+   *
+   * @type {string}
+   * @memberof TaxonomyElement
+   */
+  uuid?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof TaxonomyElement
+   */
+  label?: string;
+  /**
+   *
+   * @type {Array<TaxonomyElement>}
+   * @memberof TaxonomyElement
+   */
+  children?: Array<TaxonomyElement>;
 }
 
 /**
  * Check if a given object implements the TaxonomyElement interface.
  */
 export function instanceOfTaxonomyElement(value: object): boolean {
-    let isInstance = true;
+  let isInstance = true
 
-    return isInstance;
+  return isInstance
 }
 
 export function TaxonomyElementFromJSON(json: any): TaxonomyElement {
-    return TaxonomyElementFromJSONTyped(json, false);
+  return TaxonomyElementFromJSONTyped(json, false)
 }
 
 export function TaxonomyElementFromJSONTyped(json: any, ignoreDiscriminator: boolean): TaxonomyElement {
-    if ((json === undefined) || (json === null)) {
-        return json;
-    }
-    return {
+  if ((json === undefined) || (json === null)) {
+    return json
+  }
+  return {
 
-        'uuid': !exists(json, 'uuid') ? undefined : json['uuid'],
-        'label': !exists(json, 'label') ? undefined : json['label'],
-        'children': !exists(json, 'children') ? undefined : ((json['children'] as Array<any>).map(TaxonomyElementFromJSON)),
-    };
+    'uuid': !exists(json, 'uuid') ? undefined : json['uuid'],
+    'label': !exists(json, 'label') ? undefined : json['label'],
+    'children': !exists(json, 'children') ? undefined : ((json['children'] as Array<any>).map(TaxonomyElementFromJSON)),
+  }
 }
 
 export function TaxonomyElementToJSON(value?: TaxonomyElement | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
-    }
-    return {
+  if (value === undefined) {
+    return undefined
+  }
+  if (value === null) {
+    return null
+  }
+  return {
 
-        'uuid': value.uuid,
-        'label': value.label,
-        'children': value.children === undefined ? undefined : ((value.children as Array<any>).map(TaxonomyElementToJSON)),
-    };
+    'uuid': value.uuid,
+    'label': value.label,
+    'children': value.children === undefined ? undefined : ((value.children as Array<any>).map(TaxonomyElementToJSON)),
+  }
 }
 

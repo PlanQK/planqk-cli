@@ -26,79 +26,79 @@ import {PricingPlanDtoFromJSON, PricingPlanDtoToJSON} from './PricingPlanDto'
  * @interface SubscriptionDto
  */
 export interface SubscriptionDto {
-    /**
-     *
-     * @type {string}
-     * @memberof SubscriptionDto
-     */
-    id?: string;
-    /**
-     *
-     * @type {ApplicationDto}
-     * @memberof SubscriptionDto
-     */
-    application?: ApplicationDto;
-    /**
-     *
-     * @type {ApiDto}
-     * @memberof SubscriptionDto
-     */
-    api?: ApiDto;
-    /**
-     *
-     * @type {PricingPlanDto}
-     * @memberof SubscriptionDto
-     */
-    pricingPlan?: PricingPlanDto;
-    /**
-     *
-     * @type {boolean}
-     * @memberof SubscriptionDto
-     */
-    logsAvailable?: boolean;
+  /**
+   *
+   * @type {string}
+   * @memberof SubscriptionDto
+   */
+  id?: string;
+  /**
+   *
+   * @type {ApplicationDto}
+   * @memberof SubscriptionDto
+   */
+  application?: ApplicationDto;
+  /**
+   *
+   * @type {ApiDto}
+   * @memberof SubscriptionDto
+   */
+  api?: ApiDto;
+  /**
+   *
+   * @type {PricingPlanDto}
+   * @memberof SubscriptionDto
+   */
+  pricingPlan?: PricingPlanDto;
+  /**
+   *
+   * @type {boolean}
+   * @memberof SubscriptionDto
+   */
+  logsAvailable?: boolean;
 }
 
 /**
  * Check if a given object implements the SubscriptionDto interface.
  */
 export function instanceOfSubscriptionDto(value: object): boolean {
-    let isInstance = true;
+  let isInstance = true
 
-    return isInstance;
+  return isInstance
 }
 
 export function SubscriptionDtoFromJSON(json: any): SubscriptionDto {
-    return SubscriptionDtoFromJSONTyped(json, false);
+  return SubscriptionDtoFromJSONTyped(json, false)
 }
 
 export function SubscriptionDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): SubscriptionDto {
-    if ((json === undefined) || (json === null)) {
-        return json;
-    }
-    return {
+  if ((json === undefined) || (json === null)) {
+    return json
+  }
+  return {
 
-        'id': !exists(json, 'id') ? undefined : json['id'],
-        'application': !exists(json, 'application') ? undefined : ApplicationDtoFromJSON(json['application']),
-        'api': !exists(json, 'api') ? undefined : ApiDtoFromJSON(json['api']),
-        'pricingPlan': !exists(json, 'pricingPlan') ? undefined : PricingPlanDtoFromJSON(json['pricingPlan']),
-        'logsAvailable': !exists(json, 'logsAvailable') ? undefined : json['logsAvailable'],
-    };
+    'id': !exists(json, 'id') ? undefined : json['id'],
+    'application': !exists(json, 'application') ? undefined : ApplicationDtoFromJSON(json['application']),
+    'api': !exists(json, 'api') ? undefined : ApiDtoFromJSON(json['api']),
+    'pricingPlan': !exists(json, 'pricingPlan') ? undefined : PricingPlanDtoFromJSON(json['pricingPlan']),
+    'logsAvailable': !exists(json, 'logsAvailable') ? undefined : json['logsAvailable'],
+  }
 }
 
 export function SubscriptionDtoToJSON(value?: SubscriptionDto | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
-    }
-    return {
+  if (value === undefined) {
+    return undefined
+  }
+  if (value === null) {
+    return null
+  }
+  return {
 
-        'id': value.id,
-        'application': ApplicationDtoToJSON(value.application),
-        'api': ApiDtoToJSON(value.api),
-        'pricingPlan': PricingPlanDtoToJSON(value.pricingPlan),
-        'logsAvailable': value.logsAvailable,
-    };
+    'id': value.id,
+    'application': ApplicationDtoToJSON(value.application),
+    'api': ApiDtoToJSON(value.api),
+    'pricingPlan': PricingPlanDtoToJSON(value.pricingPlan),
+    'logsAvailable': value.logsAvailable,
+  }
 }
 

@@ -20,55 +20,55 @@ import {exists} from '../runtime'
  * @interface UpdateVersionRequest
  */
 export interface UpdateVersionRequest {
-    /**
-     *
-     * @type {string}
-     * @memberof UpdateVersionRequest
-     */
-    description?: string;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof UpdateVersionRequest
-     */
-    industryUuids?: Array<string>;
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateVersionRequest
+   */
+  description?: string;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof UpdateVersionRequest
+   */
+  industryUuids?: Array<string>;
 }
 
 /**
  * Check if a given object implements the UpdateVersionRequest interface.
  */
 export function instanceOfUpdateVersionRequest(value: object): boolean {
-    let isInstance = true;
+  let isInstance = true
 
-    return isInstance;
+  return isInstance
 }
 
 export function UpdateVersionRequestFromJSON(json: any): UpdateVersionRequest {
-    return UpdateVersionRequestFromJSONTyped(json, false);
+  return UpdateVersionRequestFromJSONTyped(json, false)
 }
 
 export function UpdateVersionRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): UpdateVersionRequest {
-    if ((json === undefined) || (json === null)) {
-        return json;
-    }
-    return {
+  if ((json === undefined) || (json === null)) {
+    return json
+  }
+  return {
 
-        'description': !exists(json, 'description') ? undefined : json['description'],
-        'industryUuids': !exists(json, 'industryUuids') ? undefined : json['industryUuids'],
-    };
+    'description': !exists(json, 'description') ? undefined : json['description'],
+    'industryUuids': !exists(json, 'industryUuids') ? undefined : json['industryUuids'],
+  }
 }
 
 export function UpdateVersionRequestToJSON(value?: UpdateVersionRequest | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
-    }
-    return {
+  if (value === undefined) {
+    return undefined
+  }
+  if (value === null) {
+    return null
+  }
+  return {
 
-        'description': value.description,
-        'industryUuids': value.industryUuids,
-    };
+    'description': value.description,
+    'industryUuids': value.industryUuids,
+  }
 }
 

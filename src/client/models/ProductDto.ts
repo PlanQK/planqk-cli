@@ -20,107 +20,110 @@ import {exists} from '../runtime'
  * @interface ProductDto
  */
 export interface ProductDto {
-    /**
-     *
-     * @type {string}
-     * @memberof ProductDto
-     */
-    id?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof ProductDto
-     */
-    name?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof ProductDto
-     */
-    unitLabel?: string;
-    /**
-     *
-     * @type {number}
-     * @memberof ProductDto
-     */
-    amountMajor?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof ProductDto
-     */
-    currency?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof ProductDto
-     */
-    type?: ProductDtoTypeEnum;
+  /**
+   *
+   * @type {string}
+   * @memberof ProductDto
+   */
+  id?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof ProductDto
+   */
+  name?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof ProductDto
+   */
+  unitLabel?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof ProductDto
+   */
+  amountMajor?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof ProductDto
+   */
+  currency?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof ProductDto
+   */
+  type?: ProductDtoTypeEnum;
 }
-
 
 /**
  * @export
  */
 export const ProductDtoTypeEnum = {
-    Api: 'API',
-    Cpu: 'CPU',
-    Memory: 'MEMORY',
-    Ionq1GateShot: 'IONQ_1_GATE_SHOT',
-    Ionq2GateShot: 'IONQ_2_GATE_SHOT',
-    BracketSv1: 'BRACKET_SV1',
-    BracketDm1: 'BRACKET_DM1',
-    BracketTn1: 'BRACKET_TN1',
-    Custom: 'CUSTOM',
-    GpuNvidiaT4: 'GPU_NVIDIA_T4',
-    GpuNvidiaV100: 'GPU_NVIDIA_V100'
-} as const;
+  Api: 'API',
+  Cpu: 'CPU',
+  Memory: 'MEMORY',
+  Ionq1GateShot: 'IONQ_1_GATE_SHOT',
+  Ionq2GateShot: 'IONQ_2_GATE_SHOT',
+  AwsSv1: 'AWS_SV1',
+  AwsDm1: 'AWS_DM1',
+  AwsTn1: 'AWS_TN1',
+  AwsQuantumTask: 'AWS_QUANTUM_TASK',
+  AwsIonqHarmony: 'AWS_IONQ_HARMONY',
+  AwsIonqAria: 'AWS_IONQ_ARIA',
+  AwsOqcLucy: 'AWS_OQC_LUCY',
+  AwsRigettiAspenm: 'AWS_RIGETTI_ASPENM',
+  Custom: 'CUSTOM',
+  GpuNvidiaT4: 'GPU_NVIDIA_T4',
+  GpuNvidiaV100: 'GPU_NVIDIA_V100',
+} as const
 export type ProductDtoTypeEnum = typeof ProductDtoTypeEnum[keyof typeof ProductDtoTypeEnum];
-
 
 /**
  * Check if a given object implements the ProductDto interface.
  */
 export function instanceOfProductDto(value: object): boolean {
-    let isInstance = true;
+  let isInstance = true
 
-    return isInstance;
+  return isInstance
 }
 
 export function ProductDtoFromJSON(json: any): ProductDto {
-    return ProductDtoFromJSONTyped(json, false);
+  return ProductDtoFromJSONTyped(json, false)
 }
 
 export function ProductDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): ProductDto {
-    if ((json === undefined) || (json === null)) {
-        return json;
-    }
-    return {
+  if ((json === undefined) || (json === null)) {
+    return json
+  }
+  return {
 
-        'id': !exists(json, 'id') ? undefined : json['id'],
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'unitLabel': !exists(json, 'unitLabel') ? undefined : json['unitLabel'],
-        'amountMajor': !exists(json, 'amountMajor') ? undefined : json['amountMajor'],
-        'currency': !exists(json, 'currency') ? undefined : json['currency'],
-        'type': !exists(json, 'type') ? undefined : json['type'],
-    };
+    'id': !exists(json, 'id') ? undefined : json['id'],
+    'name': !exists(json, 'name') ? undefined : json['name'],
+    'unitLabel': !exists(json, 'unitLabel') ? undefined : json['unitLabel'],
+    'amountMajor': !exists(json, 'amountMajor') ? undefined : json['amountMajor'],
+    'currency': !exists(json, 'currency') ? undefined : json['currency'],
+    'type': !exists(json, 'type') ? undefined : json['type'],
+  }
 }
 
 export function ProductDtoToJSON(value?: ProductDto | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
-    }
-    return {
+  if (value === undefined) {
+    return undefined
+  }
+  if (value === null) {
+    return null
+  }
+  return {
 
-        'id': value.id,
-        'name': value.name,
-        'unitLabel': value.unitLabel,
-        'amountMajor': value.amountMajor,
-        'currency': value.currency,
-        'type': value.type,
-    };
+    'id': value.id,
+    'name': value.name,
+    'unitLabel': value.unitLabel,
+    'amountMajor': value.amountMajor,
+    'currency': value.currency,
+    'type': value.type,
+  }
 }
 

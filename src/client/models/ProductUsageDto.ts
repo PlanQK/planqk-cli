@@ -20,87 +20,87 @@ import {exists} from '../runtime'
  * @interface ProductUsageDto
  */
 export interface ProductUsageDto {
-    /**
-     *
-     * @type {string}
-     * @memberof ProductUsageDto
-     */
-    timestamp?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof ProductUsageDto
-     */
-    productName?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof ProductUsageDto
-     */
-    productId?: string;
-    /**
-     *
-     * @type {number}
-     * @memberof ProductUsageDto
-     */
-    unitPrice?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof ProductUsageDto
-     */
-    currency?: string;
-    /**
-     *
-     * @type {number}
-     * @memberof ProductUsageDto
-     */
-    count?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof ProductUsageDto
+   */
+  timestamp?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof ProductUsageDto
+   */
+  productName?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof ProductUsageDto
+   */
+  productId?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof ProductUsageDto
+   */
+  unitPrice?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof ProductUsageDto
+   */
+  currency?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof ProductUsageDto
+   */
+  count?: number;
 }
 
 /**
  * Check if a given object implements the ProductUsageDto interface.
  */
 export function instanceOfProductUsageDto(value: object): boolean {
-    let isInstance = true;
+  let isInstance = true
 
-    return isInstance;
+  return isInstance
 }
 
 export function ProductUsageDtoFromJSON(json: any): ProductUsageDto {
-    return ProductUsageDtoFromJSONTyped(json, false);
+  return ProductUsageDtoFromJSONTyped(json, false)
 }
 
 export function ProductUsageDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): ProductUsageDto {
-    if ((json === undefined) || (json === null)) {
-        return json;
-    }
-    return {
+  if ((json === undefined) || (json === null)) {
+    return json
+  }
+  return {
 
-        'timestamp': !exists(json, 'timestamp') ? undefined : json['timestamp'],
-        'productName': !exists(json, 'productName') ? undefined : json['productName'],
-        'productId': !exists(json, 'productId') ? undefined : json['productId'],
-        'unitPrice': !exists(json, 'unitPrice') ? undefined : json['unitPrice'],
-        'currency': !exists(json, 'currency') ? undefined : json['currency'],
-        'count': !exists(json, 'count') ? undefined : json['count'],
-    };
+    'timestamp': !exists(json, 'timestamp') ? undefined : json['timestamp'],
+    'productName': !exists(json, 'productName') ? undefined : json['productName'],
+    'productId': !exists(json, 'productId') ? undefined : json['productId'],
+    'unitPrice': !exists(json, 'unitPrice') ? undefined : json['unitPrice'],
+    'currency': !exists(json, 'currency') ? undefined : json['currency'],
+    'count': !exists(json, 'count') ? undefined : json['count'],
+  }
 }
 
 export function ProductUsageDtoToJSON(value?: ProductUsageDto | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
-    }
-    return {
+  if (value === undefined) {
+    return undefined
+  }
+  if (value === null) {
+    return null
+  }
+  return {
 
-        'timestamp': value.timestamp,
-        'productName': value.productName,
-        'productId': value.productId,
-        'unitPrice': value.unitPrice,
-        'currency': value.currency,
-        'count': value.count,
-    };
+    'timestamp': value.timestamp,
+    'productName': value.productName,
+    'productId': value.productId,
+    'unitPrice': value.unitPrice,
+    'currency': value.currency,
+    'count': value.count,
+  }
 }
 

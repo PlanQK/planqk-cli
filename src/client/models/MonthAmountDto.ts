@@ -24,71 +24,71 @@ import {ProductGroupDtoFromJSON, ProductGroupDtoToJSON} from './ProductGroupDto'
  * @interface MonthAmountDto
  */
 export interface MonthAmountDto {
-    /**
-     *
-     * @type {number}
-     * @memberof MonthAmountDto
-     */
-    year?: number;
-    /**
-     *
-     * @type {number}
-     * @memberof MonthAmountDto
-     */
-    month?: number;
-    /**
-     *
-     * @type {AmountMajorDto}
-     * @memberof MonthAmountDto
-     */
-    amountMajor?: AmountMajorDto;
-    /**
-     *
-     * @type {Array<ProductGroupDto>}
-     * @memberof MonthAmountDto
-     */
-    groups?: Array<ProductGroupDto>;
+  /**
+   *
+   * @type {number}
+   * @memberof MonthAmountDto
+   */
+  year?: number;
+  /**
+   *
+   * @type {number}
+   * @memberof MonthAmountDto
+   */
+  month?: number;
+  /**
+   *
+   * @type {AmountMajorDto}
+   * @memberof MonthAmountDto
+   */
+  amountMajor?: AmountMajorDto;
+  /**
+   *
+   * @type {Array<ProductGroupDto>}
+   * @memberof MonthAmountDto
+   */
+  groups?: Array<ProductGroupDto>;
 }
 
 /**
  * Check if a given object implements the MonthAmountDto interface.
  */
 export function instanceOfMonthAmountDto(value: object): boolean {
-    let isInstance = true;
+  let isInstance = true
 
-    return isInstance;
+  return isInstance
 }
 
 export function MonthAmountDtoFromJSON(json: any): MonthAmountDto {
-    return MonthAmountDtoFromJSONTyped(json, false);
+  return MonthAmountDtoFromJSONTyped(json, false)
 }
 
 export function MonthAmountDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): MonthAmountDto {
-    if ((json === undefined) || (json === null)) {
-        return json;
-    }
-    return {
+  if ((json === undefined) || (json === null)) {
+    return json
+  }
+  return {
 
-        'year': !exists(json, 'year') ? undefined : json['year'],
-        'month': !exists(json, 'month') ? undefined : json['month'],
-        'amountMajor': !exists(json, 'amountMajor') ? undefined : AmountMajorDtoFromJSON(json['amountMajor']),
-        'groups': !exists(json, 'groups') ? undefined : ((json['groups'] as Array<any>).map(ProductGroupDtoFromJSON)),
-    };
+    'year': !exists(json, 'year') ? undefined : json['year'],
+    'month': !exists(json, 'month') ? undefined : json['month'],
+    'amountMajor': !exists(json, 'amountMajor') ? undefined : AmountMajorDtoFromJSON(json['amountMajor']),
+    'groups': !exists(json, 'groups') ? undefined : ((json['groups'] as Array<any>).map(ProductGroupDtoFromJSON)),
+  }
 }
 
 export function MonthAmountDtoToJSON(value?: MonthAmountDto | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
-    }
-    return {
+  if (value === undefined) {
+    return undefined
+  }
+  if (value === null) {
+    return null
+  }
+  return {
 
-        'year': value.year,
-        'month': value.month,
-        'amountMajor': AmountMajorDtoToJSON(value.amountMajor),
-        'groups': value.groups === undefined ? undefined : ((value.groups as Array<any>).map(ProductGroupDtoToJSON)),
-    };
+    'year': value.year,
+    'month': value.month,
+    'amountMajor': AmountMajorDtoToJSON(value.amountMajor),
+    'groups': value.groups === undefined ? undefined : ((value.groups as Array<any>).map(ProductGroupDtoToJSON)),
+  }
 }
 

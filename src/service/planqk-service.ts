@@ -3,7 +3,7 @@ import {Config} from '@oclif/core/lib/config'
 import {CommandService} from './command-service'
 import Account from '../model/account'
 import UserConfig, {defaultBasePath} from '../model/user-config'
-import ManagedServiceConfig, {QuantumBackend} from '../model/managed-service-config'
+import ManagedServiceConfig from '../model/managed-service-config'
 import {fetchOrThrow, getErrorMessage, PlanqkError} from '../helper/fetch'
 import {
   BuildJobDto,
@@ -88,17 +88,10 @@ export default class PlanqkService extends CommandService {
     const gpuAccelerator = serviceConfig.resources?.gpu?.type || 'NONE'
     const gpuCount = serviceConfig.resources?.gpu?.count || 0
 
-    let usePlatformToken: 'TRUE' | 'FALSE' | undefined = 'FALSE'
-    if (serviceConfig.quantumBackend === QuantumBackend.IONQ) {
-      usePlatformToken = 'TRUE'
-    }
-
     try {
       return await this.serviceApi.createManagedService({
           name: serviceConfig.name,
           description: serviceConfig.description,
-          quantumBackend: serviceConfig.quantumBackend,
-          usePlatformToken: usePlatformToken,
           milliCpus: milliCpus,
           memoryInMegabytes: memoryInMegabytes,
           runtime: serviceConfig.runtime,

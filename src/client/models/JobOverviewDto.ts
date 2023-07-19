@@ -13,8 +13,8 @@
  */
 
 import {exists} from '../runtime'
-import type {ServiceDefinitionDto} from './ServiceDefinitionDto'
-import {ServiceDefinitionDtoFromJSON, ServiceDefinitionDtoToJSON} from './ServiceDefinitionDto'
+import type {ServiceDefinitionOverviewDto} from './ServiceDefinitionOverviewDto'
+import {ServiceDefinitionOverviewDtoFromJSON, ServiceDefinitionOverviewDtoToJSON} from './ServiceDefinitionOverviewDto'
 
 /**
  *
@@ -22,102 +22,100 @@ import {ServiceDefinitionDtoFromJSON, ServiceDefinitionDtoToJSON} from './Servic
  * @interface JobOverviewDto
  */
 export interface JobOverviewDto {
-    /**
-     *
-     * @type {string}
-     * @memberof JobOverviewDto
-     */
-    id?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof JobOverviewDto
-     */
-    status?: JobOverviewDtoStatusEnum;
-    /**
-     *
-     * @type {string}
-     * @memberof JobOverviewDto
-     */
-    createdAt?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof JobOverviewDto
-     */
-    startedAt?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof JobOverviewDto
-     */
-    endedAt?: string;
-    /**
-     *
-     * @type {ServiceDefinitionDto}
-     * @memberof JobOverviewDto
-     */
-    serviceDefinition?: ServiceDefinitionDto;
+  /**
+   *
+   * @type {string}
+   * @memberof JobOverviewDto
+   */
+  id?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof JobOverviewDto
+   */
+  status?: JobOverviewDtoStatusEnum;
+  /**
+   *
+   * @type {string}
+   * @memberof JobOverviewDto
+   */
+  createdAt?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof JobOverviewDto
+   */
+  startedAt?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof JobOverviewDto
+   */
+  endedAt?: string;
+  /**
+   *
+   * @type {ServiceDefinitionOverviewDto}
+   * @memberof JobOverviewDto
+   */
+  serviceDefinition?: ServiceDefinitionOverviewDto;
 }
-
 
 /**
  * @export
  */
 export const JobOverviewDtoStatusEnum = {
-    Unknown: 'UNKNOWN',
-    Pending: 'PENDING',
-    Running: 'RUNNING',
-    Succeeded: 'SUCCEEDED',
-    Failed: 'FAILED',
-    Cancelled: 'CANCELLED'
-} as const;
+  Unknown: 'UNKNOWN',
+  Pending: 'PENDING',
+  Running: 'RUNNING',
+  Succeeded: 'SUCCEEDED',
+  Failed: 'FAILED',
+  Cancelled: 'CANCELLED',
+} as const
 export type JobOverviewDtoStatusEnum = typeof JobOverviewDtoStatusEnum[keyof typeof JobOverviewDtoStatusEnum];
-
 
 /**
  * Check if a given object implements the JobOverviewDto interface.
  */
 export function instanceOfJobOverviewDto(value: object): boolean {
-    let isInstance = true;
+  let isInstance = true
 
-    return isInstance;
+  return isInstance
 }
 
 export function JobOverviewDtoFromJSON(json: any): JobOverviewDto {
-    return JobOverviewDtoFromJSONTyped(json, false);
+  return JobOverviewDtoFromJSONTyped(json, false)
 }
 
 export function JobOverviewDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): JobOverviewDto {
-    if ((json === undefined) || (json === null)) {
-        return json;
-    }
-    return {
+  if ((json === undefined) || (json === null)) {
+    return json
+  }
+  return {
 
-        'id': !exists(json, 'id') ? undefined : json['id'],
-        'status': !exists(json, 'status') ? undefined : json['status'],
-        'createdAt': !exists(json, 'createdAt') ? undefined : json['createdAt'],
-        'startedAt': !exists(json, 'startedAt') ? undefined : json['startedAt'],
-        'endedAt': !exists(json, 'endedAt') ? undefined : json['endedAt'],
-        'serviceDefinition': !exists(json, 'serviceDefinition') ? undefined : ServiceDefinitionDtoFromJSON(json['serviceDefinition']),
-    };
+    'id': !exists(json, 'id') ? undefined : json['id'],
+    'status': !exists(json, 'status') ? undefined : json['status'],
+    'createdAt': !exists(json, 'createdAt') ? undefined : json['createdAt'],
+    'startedAt': !exists(json, 'startedAt') ? undefined : json['startedAt'],
+    'endedAt': !exists(json, 'endedAt') ? undefined : json['endedAt'],
+    'serviceDefinition': !exists(json, 'serviceDefinition') ? undefined : ServiceDefinitionOverviewDtoFromJSON(json['serviceDefinition']),
+  }
 }
 
 export function JobOverviewDtoToJSON(value?: JobOverviewDto | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
-    }
-    return {
+  if (value === undefined) {
+    return undefined
+  }
+  if (value === null) {
+    return null
+  }
+  return {
 
-        'id': value.id,
-        'status': value.status,
-        'createdAt': value.createdAt,
-        'startedAt': value.startedAt,
-        'endedAt': value.endedAt,
-        'serviceDefinition': ServiceDefinitionDtoToJSON(value.serviceDefinition),
-    };
+    'id': value.id,
+    'status': value.status,
+    'createdAt': value.createdAt,
+    'startedAt': value.startedAt,
+    'endedAt': value.endedAt,
+    'serviceDefinition': ServiceDefinitionOverviewDtoToJSON(value.serviceDefinition),
+  }
 }
 

@@ -45,179 +45,176 @@ import {
 } from '../models'
 
 export interface AddPricingPlanExternalServiceRequest {
-    serviceId: string;
-    versionId: string;
-    createExternalServicePricingPlanRequest: CreateExternalServicePricingPlanRequest;
-    xOrganizationId?: string;
+  serviceId: string;
+  versionId: string;
+  createExternalServicePricingPlanRequest: CreateExternalServicePricingPlanRequest;
+  xOrganizationId?: string;
 }
 
 export interface AddPricingPlanManagedServiceRequest {
-    serviceId: string;
-    versionId: string;
-    createManagedServicePricingPlanRequest: CreateManagedServicePricingPlanRequest;
-    xOrganizationId?: string;
+  serviceId: string;
+  versionId: string;
+  createManagedServicePricingPlanRequest: CreateManagedServicePricingPlanRequest;
+  xOrganizationId?: string;
 }
 
 export interface CommandsRequest {
-    serviceId: string;
-    versionId: string;
-    serviceDefinitionCommand: ServiceDefinitionCommand;
-    xOrganizationId?: string;
+  serviceId: string;
+  versionId: string;
+  serviceDefinitionCommand: ServiceDefinitionCommand;
+  xOrganizationId?: string;
 }
 
 export interface CreateExternalServiceRequest {
-    name: string;
-    url: string;
-    description?: string;
-    quantumBackend?: CreateExternalServiceQuantumBackendEnum;
-    securityConfiguration?: CreateExternalServiceSecurityConfigurationEnum;
-    username?: string;
-    password?: string;
-    xOrganizationId?: string;
-    apiDefinition?: Blob;
+  name: string;
+  url: string;
+  description?: string;
+  securityConfiguration?: CreateExternalServiceSecurityConfigurationEnum;
+  username?: string;
+  password?: string;
+  xOrganizationId?: string;
+  apiDefinition?: Blob;
 }
 
 export interface CreateManagedServiceRequest {
-    name: string;
-    description?: string;
-    quantumBackend?: CreateManagedServiceQuantumBackendEnum;
-    usePlatformToken?: CreateManagedServiceUsePlatformTokenEnum;
-    milliCpus?: number;
-    memoryInMegabytes?: number;
-    runtime?: CreateManagedServiceRuntimeEnum;
-    gpuCount?: number;
-    gpuAccelerator?: CreateManagedServiceGpuAcceleratorEnum;
-    xOrganizationId?: string;
-    userCode?: Blob;
-    apiDefinition?: Blob;
+  name: string;
+  description?: string;
+  milliCpus?: number;
+  memoryInMegabytes?: number;
+  runtime?: CreateManagedServiceRuntimeEnum;
+  gpuCount?: number;
+  gpuAccelerator?: CreateManagedServiceGpuAcceleratorEnum;
+  xOrganizationId?: string;
+  userCode?: Blob;
+  apiDefinition?: Blob;
 }
 
 export interface DeletePricingPlanExternalServiceRequest {
-    serviceId: string;
-    versionId: string;
-    pricingPlanId: string;
-    xOrganizationId?: string;
+  serviceId: string;
+  versionId: string;
+  pricingPlanId: string;
+  xOrganizationId?: string;
 }
 
 export interface DeletePricingPlanManagedServiceRequest {
-    serviceId: string;
-    versionId: string;
-    pricingPlanId: string;
-    xOrganizationId?: string;
+  serviceId: string;
+  versionId: string;
+  pricingPlanId: string;
+  xOrganizationId?: string;
 }
 
 export interface DeleteServiceRequest {
-    id: string;
-    xOrganizationId?: string;
+  id: string;
+  xOrganizationId?: string;
 }
 
 export interface GetApiDefinitionRequest {
-    serviceId: string;
-    versionId: string;
-    xOrganizationId?: string;
+  serviceId: string;
+  versionId: string;
+  xOrganizationId?: string;
 }
 
 export interface GetBuildLogsRequest {
-    serviceId: string;
-    versionId: string;
-    xOrganizationId?: string;
+  serviceId: string;
+  versionId: string;
+  xOrganizationId?: string;
 }
 
 export interface GetBuildStatusRequest {
-    serviceId: string;
-    versionId: string;
-    xOrganizationId?: string;
+  serviceId: string;
+  versionId: string;
+  xOrganizationId?: string;
 }
 
 export interface GetExternalServiceMeteringEventsRequest {
-    serviceId: string;
-    versionId: string;
-    xOrganizationId?: string;
+  serviceId: string;
+  versionId: string;
+  xOrganizationId?: string;
 }
 
 export interface GetManagedServiceExecutionsRequest {
-    serviceId: string;
-    versionId: string;
-    xOrganizationId?: string;
+  serviceId: string;
+  versionId: string;
+  xOrganizationId?: string;
 }
 
 export interface GetServiceRequest {
-    id: string;
-    xOrganizationId?: string;
+  id: string;
+  xOrganizationId?: string;
 }
 
 export interface GetServiceSubscriptionsRequest {
-    serviceId: string;
-    versionId: string;
-    xOrganizationId?: string;
+  serviceId: string;
+  versionId: string;
+  xOrganizationId?: string;
 }
 
 export interface GetServiceVersionRequest {
-    serviceId: string;
-    versionId: string;
-    xOrganizationId?: string;
+  serviceId: string;
+  versionId: string;
+  xOrganizationId?: string;
 }
 
 export interface GetServiceVersionsRequest {
-    id: string;
-    xOrganizationId?: string;
+  id: string;
+  xOrganizationId?: string;
 }
 
 export interface GetServicesRequest {
-    lifecycle?: GetServicesLifecycleEnum;
-    xOrganizationId?: string;
+  lifecycle?: GetServicesLifecycleEnum;
+  xOrganizationId?: string;
 }
 
 export interface GetSourceCodeRequest {
-    serviceId: string;
-    versionId: string;
-    xOrganizationId?: string;
+  serviceId: string;
+  versionId: string;
+  xOrganizationId?: string;
 }
 
 export interface PublishServiceRequest {
-    serviceId: string;
-    versionId: string;
-    xOrganizationId?: string;
+  serviceId: string;
+  versionId: string;
+  xOrganizationId?: string;
 }
 
 export interface PublishServiceInternalRequest {
-    serviceId: string;
-    versionId: string;
-    xOrganizationId?: string;
+  serviceId: string;
+  versionId: string;
+  xOrganizationId?: string;
 }
 
 export interface UnpublishServiceRequest {
-    serviceId: string;
-    versionId: string;
-    xOrganizationId?: string;
+  serviceId: string;
+  versionId: string;
+  xOrganizationId?: string;
 }
 
 export interface UpdateApiDefinitionRequest {
-    serviceId: string;
-    versionId: string;
-    file: Blob;
-    xOrganizationId?: string;
+  serviceId: string;
+  versionId: string;
+  file: Blob;
+  xOrganizationId?: string;
 }
 
 export interface UpdateResourceConfigurationOperationRequest {
-    serviceId: string;
-    versionId: string;
-    updateResourceConfigurationRequest: UpdateResourceConfigurationRequest;
-    xOrganizationId?: string;
+  serviceId: string;
+  versionId: string;
+  updateResourceConfigurationRequest: UpdateResourceConfigurationRequest;
+  xOrganizationId?: string;
 }
 
 export interface UpdateServiceVersionRequest {
-    serviceId: string;
-    versionId: string;
-    updateVersionRequest: UpdateVersionRequest;
-    xOrganizationId?: string;
+  serviceId: string;
+  versionId: string;
+  updateVersionRequest: UpdateVersionRequest;
+  xOrganizationId?: string;
 }
 
 export interface UpdateSourceCodeRequest {
-    serviceId: string;
-    versionId: string;
-    sourceCode: Blob;
-    xOrganizationId?: string;
+  serviceId: string;
+  versionId: string;
+  sourceCode: Blob;
+  xOrganizationId?: string;
 }
 
 /**
@@ -225,1483 +222,1443 @@ export interface UpdateSourceCodeRequest {
  */
 export class ServicePlatformServicesApi extends runtime.BaseAPI {
 
-    /**
-     * Add a pricing plan to an external service.
-     */
-    async addPricingPlanExternalServiceRaw(requestParameters: AddPricingPlanExternalServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PricingPlanDto>> {
-        if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
-            throw new runtime.RequiredError('serviceId','Required parameter requestParameters.serviceId was null or undefined when calling addPricingPlanExternalService.');
-        }
-
-        if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
-            throw new runtime.RequiredError('versionId','Required parameter requestParameters.versionId was null or undefined when calling addPricingPlanExternalService.');
-        }
-
-        if (requestParameters.createExternalServicePricingPlanRequest === null || requestParameters.createExternalServicePricingPlanRequest === undefined) {
-            throw new runtime.RequiredError('createExternalServicePricingPlanRequest','Required parameter requestParameters.createExternalServicePricingPlanRequest was null or undefined when calling addPricingPlanExternalService.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/external-services/{serviceId}/versions/{versionId}/pricing-plans`.replace(`{${"serviceId"}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${"versionId"}}`, encodeURIComponent(String(requestParameters.versionId))),
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: CreateExternalServicePricingPlanRequestToJSON(requestParameters.createExternalServicePricingPlanRequest),
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => PricingPlanDtoFromJSON(jsonValue));
+  /**
+   * Add a pricing plan to an external service.
+   */
+  async addPricingPlanExternalServiceRaw(requestParameters: AddPricingPlanExternalServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PricingPlanDto>> {
+    if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
+      throw new runtime.RequiredError('serviceId', 'Required parameter requestParameters.serviceId was null or undefined when calling addPricingPlanExternalService.')
     }
 
-    /**
-     * Add a pricing plan to an external service.
-     */
-    async addPricingPlanExternalService(requestParameters: AddPricingPlanExternalServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PricingPlanDto> {
-        const response = await this.addPricingPlanExternalServiceRaw(requestParameters, initOverrides);
-        return await response.value();
+    if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
+      throw new runtime.RequiredError('versionId', 'Required parameter requestParameters.versionId was null or undefined when calling addPricingPlanExternalService.')
     }
 
-    /**
-     * Adds a pricing plan to a managed service.
-     */
-    async addPricingPlanManagedServiceRaw(requestParameters: AddPricingPlanManagedServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PricingPlanDto>> {
-        if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
-            throw new runtime.RequiredError('serviceId','Required parameter requestParameters.serviceId was null or undefined when calling addPricingPlanManagedService.');
-        }
-
-        if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
-            throw new runtime.RequiredError('versionId','Required parameter requestParameters.versionId was null or undefined when calling addPricingPlanManagedService.');
-        }
-
-        if (requestParameters.createManagedServicePricingPlanRequest === null || requestParameters.createManagedServicePricingPlanRequest === undefined) {
-            throw new runtime.RequiredError('createManagedServicePricingPlanRequest','Required parameter requestParameters.createManagedServicePricingPlanRequest was null or undefined when calling addPricingPlanManagedService.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/managed-services/{serviceId}/versions/{versionId}/pricing-plans`.replace(`{${"serviceId"}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${"versionId"}}`, encodeURIComponent(String(requestParameters.versionId))),
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: CreateManagedServicePricingPlanRequestToJSON(requestParameters.createManagedServicePricingPlanRequest),
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => PricingPlanDtoFromJSON(jsonValue));
+    if (requestParameters.createExternalServicePricingPlanRequest === null || requestParameters.createExternalServicePricingPlanRequest === undefined) {
+      throw new runtime.RequiredError('createExternalServicePricingPlanRequest', 'Required parameter requestParameters.createExternalServicePricingPlanRequest was null or undefined when calling addPricingPlanExternalService.')
     }
 
-    /**
-     * Adds a pricing plan to a managed service.
-     */
-    async addPricingPlanManagedService(requestParameters: AddPricingPlanManagedServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PricingPlanDto> {
-        const response = await this.addPricingPlanManagedServiceRaw(requestParameters, initOverrides);
-        return await response.value();
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    headerParameters['Content-Type'] = 'application/json'
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
     }
 
-    /**
-     * This endpoint is used to execute certain commands for a specific service definition. The \"UNPUBLISH\" command tries to unpublish a service (service definition), however it returns a 409 Conflict in case it still has active subscriptions or is used in use case relations. The \"UNPUBLISH_FORCE\" command will forcefully unpublish a service definition, i.e., it cancels all active subscriptions and all use case relations will be removed.
-     */
-    async commandsRaw(requestParameters: CommandsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
-            throw new runtime.RequiredError('serviceId','Required parameter requestParameters.serviceId was null or undefined when calling commands.');
-        }
-
-        if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
-            throw new runtime.RequiredError('versionId','Required parameter requestParameters.versionId was null or undefined when calling commands.');
-        }
-
-        if (requestParameters.serviceDefinitionCommand === null || requestParameters.serviceDefinitionCommand === undefined) {
-            throw new runtime.RequiredError('serviceDefinitionCommand','Required parameter requestParameters.serviceDefinitionCommand was null or undefined when calling commands.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/services/{serviceId}/versions/{versionId}/commands`.replace(`{${"serviceId"}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${"versionId"}}`, encodeURIComponent(String(requestParameters.versionId))),
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: ServiceDefinitionCommandToJSON(requestParameters.serviceDefinitionCommand),
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
     }
 
-    /**
-     * This endpoint is used to execute certain commands for a specific service definition. The \"UNPUBLISH\" command tries to unpublish a service (service definition), however it returns a 409 Conflict in case it still has active subscriptions or is used in use case relations. The \"UNPUBLISH_FORCE\" command will forcefully unpublish a service definition, i.e., it cancels all active subscriptions and all use case relations will be removed.
-     */
-    async commands(requestParameters: CommandsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.commandsRaw(requestParameters, initOverrides);
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
     }
 
-    /**
-     * Creates a new external service within your organization or for yourself, which is running somewhere (e.g., on your own infrastructure) and you just want the PlanQK platform to manage the access to it.
-     */
-    async createExternalServiceRaw(requestParameters: CreateExternalServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ServiceDto>> {
-        if (requestParameters.name === null || requestParameters.name === undefined) {
-            throw new runtime.RequiredError('name','Required parameter requestParameters.name was null or undefined when calling createExternalService.');
-        }
+    const response = await this.request({
+      path: `/external-services/{serviceId}/versions/{versionId}/pricing-plans`.replace(`{${'serviceId'}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${'versionId'}}`, encodeURIComponent(String(requestParameters.versionId))),
+      method: 'POST',
+      headers: headerParameters,
+      query: queryParameters,
+      body: CreateExternalServicePricingPlanRequestToJSON(requestParameters.createExternalServicePricingPlanRequest),
+    }, initOverrides)
 
-        if (requestParameters.url === null || requestParameters.url === undefined) {
-            throw new runtime.RequiredError('url','Required parameter requestParameters.url was null or undefined when calling createExternalService.');
-        }
+    return new runtime.JSONApiResponse(response, (jsonValue) => PricingPlanDtoFromJSON(jsonValue))
+  }
 
-        const queryParameters: any = {};
+  /**
+   * Add a pricing plan to an external service.
+   */
+  async addPricingPlanExternalService(requestParameters: AddPricingPlanExternalServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PricingPlanDto> {
+    const response = await this.addPricingPlanExternalServiceRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
 
-        if (requestParameters.name !== undefined) {
-            queryParameters['name'] = requestParameters.name;
-        }
-
-        if (requestParameters.description !== undefined) {
-            queryParameters['description'] = requestParameters.description;
-        }
-
-        if (requestParameters.quantumBackend !== undefined) {
-            queryParameters['quantumBackend'] = requestParameters.quantumBackend;
-        }
-
-        if (requestParameters.url !== undefined) {
-            queryParameters['url'] = requestParameters.url;
-        }
-
-        if (requestParameters.securityConfiguration !== undefined) {
-            queryParameters['securityConfiguration'] = requestParameters.securityConfiguration;
-        }
-
-        if (requestParameters.username !== undefined) {
-            queryParameters['username'] = requestParameters.username;
-        }
-
-        if (requestParameters.password !== undefined) {
-            queryParameters['password'] = requestParameters.password;
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const consumes: runtime.Consume[] = [
-            { contentType: 'multipart/form-data' },
-        ];
-        // @ts-ignore: canConsumeForm may be unused
-        const canConsumeForm = runtime.canConsumeForm(consumes);
-
-        let formParams: { append(param: string, value: any): any };
-        let useForm = false;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
-        if (useForm) {
-            formParams = new FormData();
-        } else {
-            formParams = new URLSearchParams();
-        }
-
-        if (requestParameters.apiDefinition !== undefined) {
-            formParams.append('apiDefinition', requestParameters.apiDefinition as any);
-        }
-
-        const response = await this.request({
-            path: `/v2/external-services`,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: formParams,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => ServiceDtoFromJSON(jsonValue));
+  /**
+   * Adds a pricing plan to a managed service.
+   */
+  async addPricingPlanManagedServiceRaw(requestParameters: AddPricingPlanManagedServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PricingPlanDto>> {
+    if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
+      throw new runtime.RequiredError('serviceId', 'Required parameter requestParameters.serviceId was null or undefined when calling addPricingPlanManagedService.')
     }
 
-    /**
-     * Creates a new external service within your organization or for yourself, which is running somewhere (e.g., on your own infrastructure) and you just want the PlanQK platform to manage the access to it.
-     */
-    async createExternalService(requestParameters: CreateExternalServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ServiceDto> {
-        const response = await this.createExternalServiceRaw(requestParameters, initOverrides);
-        return await response.value();
+    if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
+      throw new runtime.RequiredError('versionId', 'Required parameter requestParameters.versionId was null or undefined when calling addPricingPlanManagedService.')
     }
 
-    /**
-     * Creates a new managed service within your organization or for yourself, which is running on the PlanQK platform.
-     */
-    async createManagedServiceRaw(requestParameters: CreateManagedServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ServiceDto>> {
-        if (requestParameters.name === null || requestParameters.name === undefined) {
-            throw new runtime.RequiredError('name','Required parameter requestParameters.name was null or undefined when calling createManagedService.');
-        }
-
-        const queryParameters: any = {};
-
-        if (requestParameters.name !== undefined) {
-            queryParameters['name'] = requestParameters.name;
-        }
-
-        if (requestParameters.description !== undefined) {
-            queryParameters['description'] = requestParameters.description;
-        }
-
-        if (requestParameters.quantumBackend !== undefined) {
-            queryParameters['quantumBackend'] = requestParameters.quantumBackend;
-        }
-
-        if (requestParameters.usePlatformToken !== undefined) {
-            queryParameters['usePlatformToken'] = requestParameters.usePlatformToken;
-        }
-
-        if (requestParameters.milliCpus !== undefined) {
-            queryParameters['milliCpus'] = requestParameters.milliCpus;
-        }
-
-        if (requestParameters.memoryInMegabytes !== undefined) {
-            queryParameters['memoryInMegabytes'] = requestParameters.memoryInMegabytes;
-        }
-
-        if (requestParameters.runtime !== undefined) {
-            queryParameters['runtime'] = requestParameters.runtime;
-        }
-
-        if (requestParameters.gpuCount !== undefined) {
-            queryParameters['gpuCount'] = requestParameters.gpuCount;
-        }
-
-        if (requestParameters.gpuAccelerator !== undefined) {
-            queryParameters['gpuAccelerator'] = requestParameters.gpuAccelerator;
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const consumes: runtime.Consume[] = [
-            { contentType: 'multipart/form-data' },
-        ];
-        // @ts-ignore: canConsumeForm may be unused
-        const canConsumeForm = runtime.canConsumeForm(consumes);
-
-        let formParams: { append(param: string, value: any): any };
-        let useForm = false;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
-        if (useForm) {
-            formParams = new FormData();
-        } else {
-            formParams = new URLSearchParams();
-        }
-
-        if (requestParameters.userCode !== undefined) {
-            formParams.append('userCode', requestParameters.userCode as any);
-        }
-
-        if (requestParameters.apiDefinition !== undefined) {
-            formParams.append('apiDefinition', requestParameters.apiDefinition as any);
-        }
-
-        const response = await this.request({
-            path: `/v2/managed-services`,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: formParams,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => ServiceDtoFromJSON(jsonValue));
+    if (requestParameters.createManagedServicePricingPlanRequest === null || requestParameters.createManagedServicePricingPlanRequest === undefined) {
+      throw new runtime.RequiredError('createManagedServicePricingPlanRequest', 'Required parameter requestParameters.createManagedServicePricingPlanRequest was null or undefined when calling addPricingPlanManagedService.')
     }
 
-    /**
-     * Creates a new managed service within your organization or for yourself, which is running on the PlanQK platform.
-     */
-    async createManagedService(requestParameters: CreateManagedServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ServiceDto> {
-        const response = await this.createManagedServiceRaw(requestParameters, initOverrides);
-        return await response.value();
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    headerParameters['Content-Type'] = 'application/json'
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
     }
 
-    /**
-     * Delete a pricing plan of an external service.
-     */
-    async deletePricingPlanExternalServiceRaw(requestParameters: DeletePricingPlanExternalServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
-            throw new runtime.RequiredError('serviceId','Required parameter requestParameters.serviceId was null or undefined when calling deletePricingPlanExternalService.');
-        }
-
-        if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
-            throw new runtime.RequiredError('versionId','Required parameter requestParameters.versionId was null or undefined when calling deletePricingPlanExternalService.');
-        }
-
-        if (requestParameters.pricingPlanId === null || requestParameters.pricingPlanId === undefined) {
-            throw new runtime.RequiredError('pricingPlanId','Required parameter requestParameters.pricingPlanId was null or undefined when calling deletePricingPlanExternalService.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/external-services/{serviceId}/versions/{versionId}/pricing-plans/{pricingPlanId}`.replace(`{${"serviceId"}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${"versionId"}}`, encodeURIComponent(String(requestParameters.versionId))).replace(`{${"pricingPlanId"}}`, encodeURIComponent(String(requestParameters.pricingPlanId))),
-            method: 'DELETE',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
     }
 
-    /**
-     * Delete a pricing plan of an external service.
-     */
-    async deletePricingPlanExternalService(requestParameters: DeletePricingPlanExternalServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.deletePricingPlanExternalServiceRaw(requestParameters, initOverrides);
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
     }
 
-    /**
-     * Delete a pricing plan of a managed service.
-     */
-    async deletePricingPlanManagedServiceRaw(requestParameters: DeletePricingPlanManagedServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
-            throw new runtime.RequiredError('serviceId','Required parameter requestParameters.serviceId was null or undefined when calling deletePricingPlanManagedService.');
-        }
+    const response = await this.request({
+      path: `/managed-services/{serviceId}/versions/{versionId}/pricing-plans`.replace(`{${'serviceId'}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${'versionId'}}`, encodeURIComponent(String(requestParameters.versionId))),
+      method: 'POST',
+      headers: headerParameters,
+      query: queryParameters,
+      body: CreateManagedServicePricingPlanRequestToJSON(requestParameters.createManagedServicePricingPlanRequest),
+    }, initOverrides)
 
-        if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
-            throw new runtime.RequiredError('versionId','Required parameter requestParameters.versionId was null or undefined when calling deletePricingPlanManagedService.');
-        }
+    return new runtime.JSONApiResponse(response, (jsonValue) => PricingPlanDtoFromJSON(jsonValue))
+  }
 
-        if (requestParameters.pricingPlanId === null || requestParameters.pricingPlanId === undefined) {
-            throw new runtime.RequiredError('pricingPlanId','Required parameter requestParameters.pricingPlanId was null or undefined when calling deletePricingPlanManagedService.');
-        }
+  /**
+   * Adds a pricing plan to a managed service.
+   */
+  async addPricingPlanManagedService(requestParameters: AddPricingPlanManagedServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PricingPlanDto> {
+    const response = await this.addPricingPlanManagedServiceRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
 
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/managed-services/{serviceId}/versions/{versionId}/pricing-plans/{pricingPlanId}`.replace(`{${"serviceId"}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${"versionId"}}`, encodeURIComponent(String(requestParameters.versionId))).replace(`{${"pricingPlanId"}}`, encodeURIComponent(String(requestParameters.pricingPlanId))),
-            method: 'DELETE',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
+  /**
+   * This endpoint is used to execute certain commands for a specific service definition. The \"UNPUBLISH\" command tries to unpublish a service (service definition), however it returns a 409 Conflict in case it still has active subscriptions or is used in use case relations. The \"UNPUBLISH_FORCE\" command will forcefully unpublish a service definition, i.e., it cancels all active subscriptions and all use case relations will be removed.
+   */
+  async commandsRaw(requestParameters: CommandsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
+      throw new runtime.RequiredError('serviceId', 'Required parameter requestParameters.serviceId was null or undefined when calling commands.')
     }
 
-    /**
-     * Delete a pricing plan of a managed service.
-     */
-    async deletePricingPlanManagedService(requestParameters: DeletePricingPlanManagedServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.deletePricingPlanManagedServiceRaw(requestParameters, initOverrides);
+    if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
+      throw new runtime.RequiredError('versionId', 'Required parameter requestParameters.versionId was null or undefined when calling commands.')
     }
 
-    /**
-     * Deletes a service. Published services need to be unpublish before it can be deleted.
-     */
-    async deleteServiceRaw(requestParameters: DeleteServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling deleteService.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/services/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'DELETE',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
+    if (requestParameters.serviceDefinitionCommand === null || requestParameters.serviceDefinitionCommand === undefined) {
+      throw new runtime.RequiredError('serviceDefinitionCommand', 'Required parameter requestParameters.serviceDefinitionCommand was null or undefined when calling commands.')
     }
 
-    /**
-     * Deletes a service. Published services need to be unpublish before it can be deleted.
-     */
-    async deleteService(requestParameters: DeleteServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.deleteServiceRaw(requestParameters, initOverrides);
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    headerParameters['Content-Type'] = 'application/json'
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
     }
 
-    /**
-     * Gets the API definition of a service.
-     */
-    async getApiDefinitionRaw(requestParameters: GetApiDefinitionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
-        if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
-            throw new runtime.RequiredError('serviceId','Required parameter requestParameters.serviceId was null or undefined when calling getApiDefinition.');
-        }
-
-        if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
-            throw new runtime.RequiredError('versionId','Required parameter requestParameters.versionId was null or undefined when calling getApiDefinition.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/services/{serviceId}/versions/{versionId}/api-spec`.replace(`{${"serviceId"}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${"versionId"}}`, encodeURIComponent(String(requestParameters.versionId))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        if (this.isJsonMime(response.headers.get('content-type'))) {
-            return new runtime.JSONApiResponse<string>(response);
-        } else {
-            return new runtime.TextApiResponse(response) as any;
-        }
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
     }
 
-    /**
-     * Gets the API definition of a service.
-     */
-    async getApiDefinition(requestParameters: GetApiDefinitionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
-        const response = await this.getApiDefinitionRaw(requestParameters, initOverrides);
-        return await response.value();
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
     }
 
-    /**
-     * Returns the logs of the last build of a managed service.
-     */
-    async getBuildLogsRaw(requestParameters: GetBuildLogsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
-        if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
-            throw new runtime.RequiredError('serviceId','Required parameter requestParameters.serviceId was null or undefined when calling getBuildLogs.');
-        }
+    const response = await this.request({
+      path: `/services/{serviceId}/versions/{versionId}/commands`.replace(`{${'serviceId'}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${'versionId'}}`, encodeURIComponent(String(requestParameters.versionId))),
+      method: 'POST',
+      headers: headerParameters,
+      query: queryParameters,
+      body: ServiceDefinitionCommandToJSON(requestParameters.serviceDefinitionCommand),
+    }, initOverrides)
 
-        if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
-            throw new runtime.RequiredError('versionId','Required parameter requestParameters.versionId was null or undefined when calling getBuildLogs.');
-        }
+    return new runtime.VoidApiResponse(response)
+  }
 
-        const queryParameters: any = {};
+  /**
+   * This endpoint is used to execute certain commands for a specific service definition. The \"UNPUBLISH\" command tries to unpublish a service (service definition), however it returns a 409 Conflict in case it still has active subscriptions or is used in use case relations. The \"UNPUBLISH_FORCE\" command will forcefully unpublish a service definition, i.e., it cancels all active subscriptions and all use case relations will be removed.
+   */
+  async commands(requestParameters: CommandsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+    await this.commandsRaw(requestParameters, initOverrides)
+  }
 
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/services/{serviceId}/versions/{versionId}/build-logs`.replace(`{${"serviceId"}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${"versionId"}}`, encodeURIComponent(String(requestParameters.versionId))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        if (this.isJsonMime(response.headers.get('content-type'))) {
-            return new runtime.JSONApiResponse<string>(response);
-        } else {
-            return new runtime.TextApiResponse(response) as any;
-        }
+  /**
+   * Creates a new external service within your organization or for yourself, which is running somewhere (e.g., on your own infrastructure) and you just want the PlanQK platform to manage the access to it.
+   */
+  async createExternalServiceRaw(requestParameters: CreateExternalServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ServiceDto>> {
+    if (requestParameters.name === null || requestParameters.name === undefined) {
+      throw new runtime.RequiredError('name', 'Required parameter requestParameters.name was null or undefined when calling createExternalService.')
     }
 
-    /**
-     * Returns the logs of the last build of a managed service.
-     */
-    async getBuildLogs(requestParameters: GetBuildLogsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
-        const response = await this.getBuildLogsRaw(requestParameters, initOverrides);
-        return await response.value();
+    if (requestParameters.url === null || requestParameters.url === undefined) {
+      throw new runtime.RequiredError('url', 'Required parameter requestParameters.url was null or undefined when calling createExternalService.')
     }
 
-    /**
-     * Gets the build status of a managed service. For example, only after a successful build the service can be published, either internally or publicly.
-     */
-    async getBuildStatusRaw(requestParameters: GetBuildStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BuildJobDto>> {
-        if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
-            throw new runtime.RequiredError('serviceId','Required parameter requestParameters.serviceId was null or undefined when calling getBuildStatus.');
-        }
+    const queryParameters: any = {}
 
-        if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
-            throw new runtime.RequiredError('versionId','Required parameter requestParameters.versionId was null or undefined when calling getBuildStatus.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/services/{serviceId}/versions/{versionId}/build-status`.replace(`{${"serviceId"}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${"versionId"}}`, encodeURIComponent(String(requestParameters.versionId))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => BuildJobDtoFromJSON(jsonValue));
+    if (requestParameters.name !== undefined) {
+      queryParameters['name'] = requestParameters.name
     }
 
-    /**
-     * Gets the build status of a managed service. For example, only after a successful build the service can be published, either internally or publicly.
-     */
-    async getBuildStatus(requestParameters: GetBuildStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BuildJobDto> {
-        const response = await this.getBuildStatusRaw(requestParameters, initOverrides);
-        return await response.value();
+    if (requestParameters.description !== undefined) {
+      queryParameters['description'] = requestParameters.description
     }
 
-    /**
-     * Retrieves a list of metering events reported for this external service.
-     */
-    async getExternalServiceMeteringEventsRaw(requestParameters: GetExternalServiceMeteringEventsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<ProductUsageDto>>> {
-        if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
-            throw new runtime.RequiredError('serviceId','Required parameter requestParameters.serviceId was null or undefined when calling getExternalServiceMeteringEvents.');
-        }
-
-        if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
-            throw new runtime.RequiredError('versionId','Required parameter requestParameters.versionId was null or undefined when calling getExternalServiceMeteringEvents.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/external-services/{serviceId}/versions/{versionId}/metering-events`.replace(`{${"serviceId"}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${"versionId"}}`, encodeURIComponent(String(requestParameters.versionId))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ProductUsageDtoFromJSON));
+    if (requestParameters.url !== undefined) {
+      queryParameters['url'] = requestParameters.url
     }
 
-    /**
-     * Retrieves a list of metering events reported for this external service.
-     */
-    async getExternalServiceMeteringEvents(requestParameters: GetExternalServiceMeteringEventsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ProductUsageDto>> {
-        const response = await this.getExternalServiceMeteringEventsRaw(requestParameters, initOverrides);
-        return await response.value();
+    if (requestParameters.securityConfiguration !== undefined) {
+      queryParameters['securityConfiguration'] = requestParameters.securityConfiguration
     }
 
-    /**
-     * Retrieves the executions of a managed service.
-     */
-    async getManagedServiceExecutionsRaw(requestParameters: GetManagedServiceExecutionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<ServiceExecutionDto>>> {
-        if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
-            throw new runtime.RequiredError('serviceId','Required parameter requestParameters.serviceId was null or undefined when calling getManagedServiceExecutions.');
-        }
-
-        if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
-            throw new runtime.RequiredError('versionId','Required parameter requestParameters.versionId was null or undefined when calling getManagedServiceExecutions.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/managed-services/{serviceId}/versions/{versionId}/executions`.replace(`{${"serviceId"}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${"versionId"}}`, encodeURIComponent(String(requestParameters.versionId))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ServiceExecutionDtoFromJSON));
+    if (requestParameters.username !== undefined) {
+      queryParameters['username'] = requestParameters.username
     }
 
-    /**
-     * Retrieves the executions of a managed service.
-     */
-    async getManagedServiceExecutions(requestParameters: GetManagedServiceExecutionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ServiceExecutionDto>> {
-        const response = await this.getManagedServiceExecutionsRaw(requestParameters, initOverrides);
-        return await response.value();
+    if (requestParameters.password !== undefined) {
+      queryParameters['password'] = requestParameters.password
     }
 
-    /**
-     * Gets a specific service and its basic properties.
-     */
-    async getServiceRaw(requestParameters: GetServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ServiceDto>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getService.');
-        }
+    const headerParameters: runtime.HTTPHeaders = {}
 
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/services/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => ServiceDtoFromJSON(jsonValue));
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
     }
 
-    /**
-     * Gets a specific service and its basic properties.
-     */
-    async getService(requestParameters: GetServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ServiceDto> {
-        const response = await this.getServiceRaw(requestParameters, initOverrides);
-        return await response.value();
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
     }
 
-    /**
-     * Gets a list of all active subscriptions of a specific service version.
-     */
-    async getServiceSubscriptionsRaw(requestParameters: GetServiceSubscriptionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<SubscriptionDto>>> {
-        if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
-            throw new runtime.RequiredError('serviceId','Required parameter requestParameters.serviceId was null or undefined when calling getServiceSubscriptions.');
-        }
-
-        if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
-            throw new runtime.RequiredError('versionId','Required parameter requestParameters.versionId was null or undefined when calling getServiceSubscriptions.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/services/{serviceId}/versions/{versionId}/subscriptions`.replace(`{${"serviceId"}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${"versionId"}}`, encodeURIComponent(String(requestParameters.versionId))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(SubscriptionDtoFromJSON));
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
     }
 
-    /**
-     * Gets a list of all active subscriptions of a specific service version.
-     */
-    async getServiceSubscriptions(requestParameters: GetServiceSubscriptionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<SubscriptionDto>> {
-        const response = await this.getServiceSubscriptionsRaw(requestParameters, initOverrides);
-        return await response.value();
+    const consumes: runtime.Consume[] = [
+      {contentType: 'multipart/form-data'},
+    ]
+    // @ts-ignore: canConsumeForm may be unused
+    const canConsumeForm = runtime.canConsumeForm(consumes)
+
+    let formParams: { append(param: string, value: any): any }
+    let useForm = false
+    // use FormData to transmit files using content-type "multipart/form-data"
+    useForm = canConsumeForm
+    if (useForm) {
+      formParams = new FormData()
+    } else {
+      formParams = new URLSearchParams()
     }
 
-    /**
-     * Gets a specific service version and its basic properties.
-     */
-    async getServiceVersionRaw(requestParameters: GetServiceVersionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ServiceDefinitionDto>> {
-        if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
-            throw new runtime.RequiredError('serviceId','Required parameter requestParameters.serviceId was null or undefined when calling getServiceVersion.');
-        }
-
-        if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
-            throw new runtime.RequiredError('versionId','Required parameter requestParameters.versionId was null or undefined when calling getServiceVersion.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/services/{serviceId}/versions/{versionId}`.replace(`{${"serviceId"}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${"versionId"}}`, encodeURIComponent(String(requestParameters.versionId))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => ServiceDefinitionDtoFromJSON(jsonValue));
+    if (requestParameters.apiDefinition !== undefined) {
+      formParams.append('apiDefinition', requestParameters.apiDefinition as any)
     }
 
-    /**
-     * Gets a specific service version and its basic properties.
-     */
-    async getServiceVersion(requestParameters: GetServiceVersionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ServiceDefinitionDto> {
-        const response = await this.getServiceVersionRaw(requestParameters, initOverrides);
-        return await response.value();
+    const response = await this.request({
+      path: `/v2/external-services`,
+      method: 'POST',
+      headers: headerParameters,
+      query: queryParameters,
+      body: formParams,
+    }, initOverrides)
+
+    return new runtime.JSONApiResponse(response, (jsonValue) => ServiceDtoFromJSON(jsonValue))
+  }
+
+  /**
+   * Creates a new external service within your organization or for yourself, which is running somewhere (e.g., on your own infrastructure) and you just want the PlanQK platform to manage the access to it.
+   */
+  async createExternalService(requestParameters: CreateExternalServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ServiceDto> {
+    const response = await this.createExternalServiceRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
+
+  /**
+   * Creates a new managed service within your organization or for yourself, which is running on the PlanQK platform.
+   */
+  async createManagedServiceRaw(requestParameters: CreateManagedServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ServiceDto>> {
+    if (requestParameters.name === null || requestParameters.name === undefined) {
+      throw new runtime.RequiredError('name', 'Required parameter requestParameters.name was null or undefined when calling createManagedService.')
     }
 
-    /**
-     * Gets a list of all service versions. Note: At the moment, there is only one service version per service.
-     */
-    async getServiceVersionsRaw(requestParameters: GetServiceVersionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Set<ServiceDefinitionDto>>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getServiceVersions.');
-        }
+    const queryParameters: any = {}
 
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/services/{id}/versions`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => new Set(jsonValue.map(ServiceDefinitionDtoFromJSON)));
+    if (requestParameters.name !== undefined) {
+      queryParameters['name'] = requestParameters.name
     }
 
-    /**
-     * Gets a list of all service versions. Note: At the moment, there is only one service version per service.
-     */
-    async getServiceVersions(requestParameters: GetServiceVersionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Set<ServiceDefinitionDto>> {
-        const response = await this.getServiceVersionsRaw(requestParameters, initOverrides);
-        return await response.value();
+    if (requestParameters.description !== undefined) {
+      queryParameters['description'] = requestParameters.description
     }
 
-    /**
-     * Gets a list of all services. Use the \"lifecycle\" parameter to filter the resulting list based on the service\' lifecycle state.
-     */
-    async getServicesRaw(requestParameters: GetServicesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<ServiceOverviewDto>>> {
-        const queryParameters: any = {};
-
-        if (requestParameters.lifecycle !== undefined) {
-            queryParameters['lifecycle'] = requestParameters.lifecycle;
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/services`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ServiceOverviewDtoFromJSON));
+    if (requestParameters.milliCpus !== undefined) {
+      queryParameters['milliCpus'] = requestParameters.milliCpus
     }
 
-    /**
-     * Gets a list of all services. Use the \"lifecycle\" parameter to filter the resulting list based on the service\' lifecycle state.
-     */
-    async getServices(requestParameters: GetServicesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ServiceOverviewDto>> {
-        const response = await this.getServicesRaw(requestParameters, initOverrides);
-        return await response.value();
+    if (requestParameters.memoryInMegabytes !== undefined) {
+      queryParameters['memoryInMegabytes'] = requestParameters.memoryInMegabytes
     }
 
-    /**
-     * Returns the source code archive that was used to create the most recent version of the service.
-     */
-    async getSourceCodeRaw(requestParameters: GetSourceCodeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
-        if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
-            throw new runtime.RequiredError('serviceId','Required parameter requestParameters.serviceId was null or undefined when calling getSourceCode.');
-        }
-
-        if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
-            throw new runtime.RequiredError('versionId','Required parameter requestParameters.versionId was null or undefined when calling getSourceCode.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/services/{serviceId}/versions/{versionId}/source-code`.replace(`{${"serviceId"}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${"versionId"}}`, encodeURIComponent(String(requestParameters.versionId))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        if (this.isJsonMime(response.headers.get('content-type'))) {
-            return new runtime.JSONApiResponse<string>(response);
-        } else {
-            return new runtime.TextApiResponse(response) as any;
-        }
+    if (requestParameters.runtime !== undefined) {
+      queryParameters['runtime'] = requestParameters.runtime
     }
 
-    /**
-     * Returns the source code archive that was used to create the most recent version of the service.
-     */
-    async getSourceCode(requestParameters: GetSourceCodeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
-        const response = await this.getSourceCodeRaw(requestParameters, initOverrides);
-        return await response.value();
+    if (requestParameters.gpuCount !== undefined) {
+      queryParameters['gpuCount'] = requestParameters.gpuCount
     }
 
-    /**
-     * Publishes a service publicly to the marketplace. Publicly published services can be subscribed and consumed by other users of the PlanQK platform.
-     */
-    async publishServiceRaw(requestParameters: PublishServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ServiceDefinitionDto>> {
-        if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
-            throw new runtime.RequiredError('serviceId','Required parameter requestParameters.serviceId was null or undefined when calling publishService.');
-        }
-
-        if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
-            throw new runtime.RequiredError('versionId','Required parameter requestParameters.versionId was null or undefined when calling publishService.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/services/{serviceId}/versions/{versionId}/publish`.replace(`{${"serviceId"}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${"versionId"}}`, encodeURIComponent(String(requestParameters.versionId))),
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => ServiceDefinitionDtoFromJSON(jsonValue));
+    if (requestParameters.gpuAccelerator !== undefined) {
+      queryParameters['gpuAccelerator'] = requestParameters.gpuAccelerator
     }
 
-    /**
-     * Publishes a service publicly to the marketplace. Publicly published services can be subscribed and consumed by other users of the PlanQK platform.
-     */
-    async publishService(requestParameters: PublishServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ServiceDefinitionDto> {
-        const response = await this.publishServiceRaw(requestParameters, initOverrides);
-        return await response.value();
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
     }
 
-    /**
-     * Publishes a service internally. Internally published services can only be subscribed and consumed by yourself or within your organization.
-     */
-    async publishServiceInternalRaw(requestParameters: PublishServiceInternalRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ServiceDefinitionDto>> {
-        if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
-            throw new runtime.RequiredError('serviceId','Required parameter requestParameters.serviceId was null or undefined when calling publishServiceInternal.');
-        }
-
-        if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
-            throw new runtime.RequiredError('versionId','Required parameter requestParameters.versionId was null or undefined when calling publishServiceInternal.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/services/{serviceId}/versions/{versionId}/publish-internal`.replace(`{${"serviceId"}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${"versionId"}}`, encodeURIComponent(String(requestParameters.versionId))),
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => ServiceDefinitionDtoFromJSON(jsonValue));
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
     }
 
-    /**
-     * Publishes a service internally. Internally published services can only be subscribed and consumed by yourself or within your organization.
-     */
-    async publishServiceInternal(requestParameters: PublishServiceInternalRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ServiceDefinitionDto> {
-        const response = await this.publishServiceInternalRaw(requestParameters, initOverrides);
-        return await response.value();
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
     }
 
-    /**
-     * This endpoint is deprecated and will be replaced by the \"/commands\" endpoint. However, it unpublishes a service forcefully and cancels all active subscriptions while removing all use case relations.
-     */
-    async unpublishServiceRaw(requestParameters: UnpublishServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ServiceDefinitionDto>> {
-        if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
-            throw new runtime.RequiredError('serviceId','Required parameter requestParameters.serviceId was null or undefined when calling unpublishService.');
-        }
+    const consumes: runtime.Consume[] = [
+      {contentType: 'multipart/form-data'},
+    ]
+    // @ts-ignore: canConsumeForm may be unused
+    const canConsumeForm = runtime.canConsumeForm(consumes)
 
-        if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
-            throw new runtime.RequiredError('versionId','Required parameter requestParameters.versionId was null or undefined when calling unpublishService.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/services/{serviceId}/versions/{versionId}/unpublish`.replace(`{${"serviceId"}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${"versionId"}}`, encodeURIComponent(String(requestParameters.versionId))),
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => ServiceDefinitionDtoFromJSON(jsonValue));
+    let formParams: { append(param: string, value: any): any }
+    let useForm = false
+    // use FormData to transmit files using content-type "multipart/form-data"
+    useForm = canConsumeForm
+    // use FormData to transmit files using content-type "multipart/form-data"
+    useForm = canConsumeForm
+    if (useForm) {
+      formParams = new FormData()
+    } else {
+      formParams = new URLSearchParams()
     }
 
-    /**
-     * This endpoint is deprecated and will be replaced by the \"/commands\" endpoint. However, it unpublishes a service forcefully and cancels all active subscriptions while removing all use case relations.
-     */
-    async unpublishService(requestParameters: UnpublishServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ServiceDefinitionDto> {
-        const response = await this.unpublishServiceRaw(requestParameters, initOverrides);
-        return await response.value();
+    if (requestParameters.userCode !== undefined) {
+      formParams.append('userCode', requestParameters.userCode as any)
     }
 
-    /**
-     * Updates the API definition of a service.
-     */
-    async updateApiDefinitionRaw(requestParameters: UpdateApiDefinitionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
-            throw new runtime.RequiredError('serviceId','Required parameter requestParameters.serviceId was null or undefined when calling updateApiDefinition.');
-        }
-
-        if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
-            throw new runtime.RequiredError('versionId','Required parameter requestParameters.versionId was null or undefined when calling updateApiDefinition.');
-        }
-
-        if (requestParameters.file === null || requestParameters.file === undefined) {
-            throw new runtime.RequiredError('file','Required parameter requestParameters.file was null or undefined when calling updateApiDefinition.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const consumes: runtime.Consume[] = [
-            { contentType: 'multipart/form-data' },
-        ];
-        // @ts-ignore: canConsumeForm may be unused
-        const canConsumeForm = runtime.canConsumeForm(consumes);
-
-        let formParams: { append(param: string, value: any): any };
-        let useForm = false;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
-        if (useForm) {
-            formParams = new FormData();
-        } else {
-            formParams = new URLSearchParams();
-        }
-
-        if (requestParameters.file !== undefined) {
-            formParams.append('file', requestParameters.file as any);
-        }
-
-        const response = await this.request({
-            path: `/v2/services/{serviceId}/versions/{versionId}/api-spec`.replace(`{${"serviceId"}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${"versionId"}}`, encodeURIComponent(String(requestParameters.versionId))),
-            method: 'PUT',
-            headers: headerParameters,
-            query: queryParameters,
-            body: formParams,
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
+    if (requestParameters.apiDefinition !== undefined) {
+      formParams.append('apiDefinition', requestParameters.apiDefinition as any)
     }
 
-    /**
-     * Updates the API definition of a service.
-     */
-    async updateApiDefinition(requestParameters: UpdateApiDefinitionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.updateApiDefinitionRaw(requestParameters, initOverrides);
+    const response = await this.request({
+      path: `/v2/managed-services`,
+      method: 'POST',
+      headers: headerParameters,
+      query: queryParameters,
+      body: formParams,
+    }, initOverrides)
+
+    return new runtime.JSONApiResponse(response, (jsonValue) => ServiceDtoFromJSON(jsonValue))
+  }
+
+  /**
+   * Creates a new managed service within your organization or for yourself, which is running on the PlanQK platform.
+   */
+  async createManagedService(requestParameters: CreateManagedServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ServiceDto> {
+    const response = await this.createManagedServiceRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
+
+  /**
+   * Delete a pricing plan of an external service.
+   */
+  async deletePricingPlanExternalServiceRaw(requestParameters: DeletePricingPlanExternalServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
+      throw new runtime.RequiredError('serviceId', 'Required parameter requestParameters.serviceId was null or undefined when calling deletePricingPlanExternalService.')
     }
 
-    /**
-     * Updates the vCPU, memory, and GPU configuration of a managed service.
-     */
-    async updateResourceConfigurationRaw(requestParameters: UpdateResourceConfigurationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
-            throw new runtime.RequiredError('serviceId','Required parameter requestParameters.serviceId was null or undefined when calling updateResourceConfiguration.');
-        }
-
-        if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
-            throw new runtime.RequiredError('versionId','Required parameter requestParameters.versionId was null or undefined when calling updateResourceConfiguration.');
-        }
-
-        if (requestParameters.updateResourceConfigurationRequest === null || requestParameters.updateResourceConfigurationRequest === undefined) {
-            throw new runtime.RequiredError('updateResourceConfigurationRequest','Required parameter requestParameters.updateResourceConfigurationRequest was null or undefined when calling updateResourceConfiguration.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/services/{serviceId}/versions/{versionId}/resource-configuration`.replace(`{${"serviceId"}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${"versionId"}}`, encodeURIComponent(String(requestParameters.versionId))),
-            method: 'PUT',
-            headers: headerParameters,
-            query: queryParameters,
-            body: UpdateResourceConfigurationRequestToJSON(requestParameters.updateResourceConfigurationRequest),
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
+    if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
+      throw new runtime.RequiredError('versionId', 'Required parameter requestParameters.versionId was null or undefined when calling deletePricingPlanExternalService.')
     }
 
-    /**
-     * Updates the vCPU, memory, and GPU configuration of a managed service.
-     */
-    async updateResourceConfiguration(requestParameters: UpdateResourceConfigurationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.updateResourceConfigurationRaw(requestParameters, initOverrides);
+    if (requestParameters.pricingPlanId === null || requestParameters.pricingPlanId === undefined) {
+      throw new runtime.RequiredError('pricingPlanId', 'Required parameter requestParameters.pricingPlanId was null or undefined when calling deletePricingPlanExternalService.')
     }
 
-    /**
-     * Updates a specific service version\'s description or industry assignments.
-     */
-    async updateServiceVersionRaw(requestParameters: UpdateServiceVersionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ServiceDefinitionDto>> {
-        if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
-            throw new runtime.RequiredError('serviceId','Required parameter requestParameters.serviceId was null or undefined when calling updateServiceVersion.');
-        }
+    const queryParameters: any = {}
 
-        if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
-            throw new runtime.RequiredError('versionId','Required parameter requestParameters.versionId was null or undefined when calling updateServiceVersion.');
-        }
+    const headerParameters: runtime.HTTPHeaders = {}
 
-        if (requestParameters.updateVersionRequest === null || requestParameters.updateVersionRequest === undefined) {
-            throw new runtime.RequiredError('updateVersionRequest','Required parameter requestParameters.updateVersionRequest was null or undefined when calling updateServiceVersion.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/services/{serviceId}/versions/{versionId}`.replace(`{${"serviceId"}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${"versionId"}}`, encodeURIComponent(String(requestParameters.versionId))),
-            method: 'PUT',
-            headers: headerParameters,
-            query: queryParameters,
-            body: UpdateVersionRequestToJSON(requestParameters.updateVersionRequest),
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => ServiceDefinitionDtoFromJSON(jsonValue));
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
     }
 
-    /**
-     * Updates a specific service version\'s description or industry assignments.
-     */
-    async updateServiceVersion(requestParameters: UpdateServiceVersionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ServiceDefinitionDto> {
-        const response = await this.updateServiceVersionRaw(requestParameters, initOverrides);
-        return await response.value();
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
     }
 
-    /**
-     * Updates the source code of a managed service and triggers a new build.
-     */
-    async updateSourceCodeRaw(requestParameters: UpdateSourceCodeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ServiceDefinitionDto>> {
-        if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
-            throw new runtime.RequiredError('serviceId','Required parameter requestParameters.serviceId was null or undefined when calling updateSourceCode.');
-        }
-
-        if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
-            throw new runtime.RequiredError('versionId','Required parameter requestParameters.versionId was null or undefined when calling updateSourceCode.');
-        }
-
-        if (requestParameters.sourceCode === null || requestParameters.sourceCode === undefined) {
-            throw new runtime.RequiredError('sourceCode','Required parameter requestParameters.sourceCode was null or undefined when calling updateSourceCode.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const consumes: runtime.Consume[] = [
-            { contentType: 'multipart/form-data' },
-        ];
-        // @ts-ignore: canConsumeForm may be unused
-        const canConsumeForm = runtime.canConsumeForm(consumes);
-
-        let formParams: { append(param: string, value: any): any };
-        let useForm = false;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
-        if (useForm) {
-            formParams = new FormData();
-        } else {
-            formParams = new URLSearchParams();
-        }
-
-        if (requestParameters.sourceCode !== undefined) {
-            formParams.append('sourceCode', requestParameters.sourceCode as any);
-        }
-
-        const response = await this.request({
-            path: `/v2/services/{serviceId}/versions/{versionId}/source-code`.replace(`{${"serviceId"}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${"versionId"}}`, encodeURIComponent(String(requestParameters.versionId))),
-            method: 'PUT',
-            headers: headerParameters,
-            query: queryParameters,
-            body: formParams,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => ServiceDefinitionDtoFromJSON(jsonValue));
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
     }
 
-    /**
-     * Updates the source code of a managed service and triggers a new build.
-     */
-    async updateSourceCode(requestParameters: UpdateSourceCodeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ServiceDefinitionDto> {
-        const response = await this.updateSourceCodeRaw(requestParameters, initOverrides);
-        return await response.value();
+    const response = await this.request({
+      path: `/external-services/{serviceId}/versions/{versionId}/pricing-plans/{pricingPlanId}`.replace(`{${'serviceId'}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${'versionId'}}`, encodeURIComponent(String(requestParameters.versionId))).replace(`{${'pricingPlanId'}}`, encodeURIComponent(String(requestParameters.pricingPlanId))),
+      method: 'DELETE',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
+
+    return new runtime.VoidApiResponse(response)
+  }
+
+  /**
+   * Delete a pricing plan of an external service.
+   */
+  async deletePricingPlanExternalService(requestParameters: DeletePricingPlanExternalServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+    await this.deletePricingPlanExternalServiceRaw(requestParameters, initOverrides)
+  }
+
+  /**
+   * Delete a pricing plan of a managed service.
+   */
+  async deletePricingPlanManagedServiceRaw(requestParameters: DeletePricingPlanManagedServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
+      throw new runtime.RequiredError('serviceId', 'Required parameter requestParameters.serviceId was null or undefined when calling deletePricingPlanManagedService.')
     }
+
+    if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
+      throw new runtime.RequiredError('versionId', 'Required parameter requestParameters.versionId was null or undefined when calling deletePricingPlanManagedService.')
+    }
+
+    if (requestParameters.pricingPlanId === null || requestParameters.pricingPlanId === undefined) {
+      throw new runtime.RequiredError('pricingPlanId', 'Required parameter requestParameters.pricingPlanId was null or undefined when calling deletePricingPlanManagedService.')
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
+    }
+
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
+    }
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
+    }
+
+    const response = await this.request({
+      path: `/managed-services/{serviceId}/versions/{versionId}/pricing-plans/{pricingPlanId}`.replace(`{${'serviceId'}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${'versionId'}}`, encodeURIComponent(String(requestParameters.versionId))).replace(`{${'pricingPlanId'}}`, encodeURIComponent(String(requestParameters.pricingPlanId))),
+      method: 'DELETE',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
+
+    return new runtime.VoidApiResponse(response)
+  }
+
+  /**
+   * Delete a pricing plan of a managed service.
+   */
+  async deletePricingPlanManagedService(requestParameters: DeletePricingPlanManagedServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+    await this.deletePricingPlanManagedServiceRaw(requestParameters, initOverrides)
+  }
+
+  /**
+   * Deletes a service. Published services need to be unpublish before it can be deleted.
+   */
+  async deleteServiceRaw(requestParameters: DeleteServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError('id', 'Required parameter requestParameters.id was null or undefined when calling deleteService.')
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
+    }
+
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
+    }
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
+    }
+
+    const response = await this.request({
+      path: `/services/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(requestParameters.id))),
+      method: 'DELETE',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
+
+    return new runtime.VoidApiResponse(response)
+  }
+
+  /**
+   * Deletes a service. Published services need to be unpublish before it can be deleted.
+   */
+  async deleteService(requestParameters: DeleteServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+    await this.deleteServiceRaw(requestParameters, initOverrides)
+  }
+
+  /**
+   * Gets the API definition of a service.
+   */
+  async getApiDefinitionRaw(requestParameters: GetApiDefinitionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
+    if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
+      throw new runtime.RequiredError('serviceId', 'Required parameter requestParameters.serviceId was null or undefined when calling getApiDefinition.')
+    }
+
+    if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
+      throw new runtime.RequiredError('versionId', 'Required parameter requestParameters.versionId was null or undefined when calling getApiDefinition.')
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
+    }
+
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
+    }
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
+    }
+
+    const response = await this.request({
+      path: `/services/{serviceId}/versions/{versionId}/api-spec`.replace(`{${'serviceId'}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${'versionId'}}`, encodeURIComponent(String(requestParameters.versionId))),
+      method: 'GET',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
+
+    if (this.isJsonMime(response.headers.get('content-type'))) {
+      return new runtime.JSONApiResponse<string>(response)
+    } else {
+      return new runtime.TextApiResponse(response) as any
+    }
+  }
+
+  /**
+   * Gets the API definition of a service.
+   */
+  async getApiDefinition(requestParameters: GetApiDefinitionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
+    const response = await this.getApiDefinitionRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
+
+  /**
+   * Returns the logs of the last build of a managed service.
+   */
+  async getBuildLogsRaw(requestParameters: GetBuildLogsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
+    if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
+      throw new runtime.RequiredError('serviceId', 'Required parameter requestParameters.serviceId was null or undefined when calling getBuildLogs.')
+    }
+
+    if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
+      throw new runtime.RequiredError('versionId', 'Required parameter requestParameters.versionId was null or undefined when calling getBuildLogs.')
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
+    }
+
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
+    }
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
+    }
+
+    const response = await this.request({
+      path: `/services/{serviceId}/versions/{versionId}/build-logs`.replace(`{${'serviceId'}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${'versionId'}}`, encodeURIComponent(String(requestParameters.versionId))),
+      method: 'GET',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
+
+    if (this.isJsonMime(response.headers.get('content-type'))) {
+      return new runtime.JSONApiResponse<string>(response)
+    } else {
+      return new runtime.TextApiResponse(response) as any
+    }
+  }
+
+  /**
+   * Returns the logs of the last build of a managed service.
+   */
+  async getBuildLogs(requestParameters: GetBuildLogsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
+    const response = await this.getBuildLogsRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
+
+  /**
+   * Gets the build status of a managed service. For example, only after a successful build the service can be published, either internally or publicly.
+   */
+  async getBuildStatusRaw(requestParameters: GetBuildStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BuildJobDto>> {
+    if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
+      throw new runtime.RequiredError('serviceId', 'Required parameter requestParameters.serviceId was null or undefined when calling getBuildStatus.')
+    }
+
+    if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
+      throw new runtime.RequiredError('versionId', 'Required parameter requestParameters.versionId was null or undefined when calling getBuildStatus.')
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
+    }
+
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
+    }
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
+    }
+
+    const response = await this.request({
+      path: `/services/{serviceId}/versions/{versionId}/build-status`.replace(`{${'serviceId'}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${'versionId'}}`, encodeURIComponent(String(requestParameters.versionId))),
+      method: 'GET',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
+
+    return new runtime.JSONApiResponse(response, (jsonValue) => BuildJobDtoFromJSON(jsonValue))
+  }
+
+  /**
+   * Gets the build status of a managed service. For example, only after a successful build the service can be published, either internally or publicly.
+   */
+  async getBuildStatus(requestParameters: GetBuildStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BuildJobDto> {
+    const response = await this.getBuildStatusRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
+
+  /**
+   * Retrieves a list of metering events reported for this external service.
+   */
+  async getExternalServiceMeteringEventsRaw(requestParameters: GetExternalServiceMeteringEventsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<ProductUsageDto>>> {
+    if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
+      throw new runtime.RequiredError('serviceId', 'Required parameter requestParameters.serviceId was null or undefined when calling getExternalServiceMeteringEvents.')
+    }
+
+    if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
+      throw new runtime.RequiredError('versionId', 'Required parameter requestParameters.versionId was null or undefined when calling getExternalServiceMeteringEvents.')
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
+    }
+
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
+    }
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
+    }
+
+    const response = await this.request({
+      path: `/external-services/{serviceId}/versions/{versionId}/metering-events`.replace(`{${'serviceId'}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${'versionId'}}`, encodeURIComponent(String(requestParameters.versionId))),
+      method: 'GET',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
+
+    return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ProductUsageDtoFromJSON))
+  }
+
+  /**
+   * Retrieves a list of metering events reported for this external service.
+   */
+  async getExternalServiceMeteringEvents(requestParameters: GetExternalServiceMeteringEventsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ProductUsageDto>> {
+    const response = await this.getExternalServiceMeteringEventsRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
+
+  /**
+   * Retrieves the executions of a managed service.
+   */
+  async getManagedServiceExecutionsRaw(requestParameters: GetManagedServiceExecutionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<ServiceExecutionDto>>> {
+    if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
+      throw new runtime.RequiredError('serviceId', 'Required parameter requestParameters.serviceId was null or undefined when calling getManagedServiceExecutions.')
+    }
+
+    if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
+      throw new runtime.RequiredError('versionId', 'Required parameter requestParameters.versionId was null or undefined when calling getManagedServiceExecutions.')
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
+    }
+
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
+    }
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
+    }
+
+    const response = await this.request({
+      path: `/managed-services/{serviceId}/versions/{versionId}/executions`.replace(`{${'serviceId'}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${'versionId'}}`, encodeURIComponent(String(requestParameters.versionId))),
+      method: 'GET',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
+
+    return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ServiceExecutionDtoFromJSON))
+  }
+
+  /**
+   * Retrieves the executions of a managed service.
+   */
+  async getManagedServiceExecutions(requestParameters: GetManagedServiceExecutionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ServiceExecutionDto>> {
+    const response = await this.getManagedServiceExecutionsRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
+
+  /**
+   * Gets a specific service and its basic properties.
+   */
+  async getServiceRaw(requestParameters: GetServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ServiceDto>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError('id', 'Required parameter requestParameters.id was null or undefined when calling getService.')
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
+    }
+
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
+    }
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
+    }
+
+    const response = await this.request({
+      path: `/services/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(requestParameters.id))),
+      method: 'GET',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
+
+    return new runtime.JSONApiResponse(response, (jsonValue) => ServiceDtoFromJSON(jsonValue))
+  }
+
+  /**
+   * Gets a specific service and its basic properties.
+   */
+  async getService(requestParameters: GetServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ServiceDto> {
+    const response = await this.getServiceRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
+
+  /**
+   * Gets a list of all active subscriptions of a specific service version.
+   */
+  async getServiceSubscriptionsRaw(requestParameters: GetServiceSubscriptionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<SubscriptionDto>>> {
+    if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
+      throw new runtime.RequiredError('serviceId', 'Required parameter requestParameters.serviceId was null or undefined when calling getServiceSubscriptions.')
+    }
+
+    if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
+      throw new runtime.RequiredError('versionId', 'Required parameter requestParameters.versionId was null or undefined when calling getServiceSubscriptions.')
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
+    }
+
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
+    }
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
+    }
+
+    const response = await this.request({
+      path: `/services/{serviceId}/versions/{versionId}/subscriptions`.replace(`{${'serviceId'}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${'versionId'}}`, encodeURIComponent(String(requestParameters.versionId))),
+      method: 'GET',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
+
+    return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(SubscriptionDtoFromJSON))
+  }
+
+  /**
+   * Gets a list of all active subscriptions of a specific service version.
+   */
+  async getServiceSubscriptions(requestParameters: GetServiceSubscriptionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<SubscriptionDto>> {
+    const response = await this.getServiceSubscriptionsRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
+
+  /**
+   * Gets a specific service version and its basic properties.
+   */
+  async getServiceVersionRaw(requestParameters: GetServiceVersionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ServiceDefinitionDto>> {
+    if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
+      throw new runtime.RequiredError('serviceId', 'Required parameter requestParameters.serviceId was null or undefined when calling getServiceVersion.')
+    }
+
+    if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
+      throw new runtime.RequiredError('versionId', 'Required parameter requestParameters.versionId was null or undefined when calling getServiceVersion.')
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
+    }
+
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
+    }
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
+    }
+
+    const response = await this.request({
+      path: `/services/{serviceId}/versions/{versionId}`.replace(`{${'serviceId'}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${'versionId'}}`, encodeURIComponent(String(requestParameters.versionId))),
+      method: 'GET',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
+
+    return new runtime.JSONApiResponse(response, (jsonValue) => ServiceDefinitionDtoFromJSON(jsonValue))
+  }
+
+  /**
+   * Gets a specific service version and its basic properties.
+   */
+  async getServiceVersion(requestParameters: GetServiceVersionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ServiceDefinitionDto> {
+    const response = await this.getServiceVersionRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
+
+  /**
+   * Gets a list of all service versions. Note: At the moment, there is only one service version per service.
+   */
+  async getServiceVersionsRaw(requestParameters: GetServiceVersionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Set<ServiceDefinitionDto>>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError('id', 'Required parameter requestParameters.id was null or undefined when calling getServiceVersions.')
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
+    }
+
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
+    }
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
+    }
+
+    const response = await this.request({
+      path: `/services/{id}/versions`.replace(`{${'id'}}`, encodeURIComponent(String(requestParameters.id))),
+      method: 'GET',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
+
+    return new runtime.JSONApiResponse(response, (jsonValue) => new Set(jsonValue.map(ServiceDefinitionDtoFromJSON)))
+  }
+
+  /**
+   * Gets a list of all service versions. Note: At the moment, there is only one service version per service.
+   */
+  async getServiceVersions(requestParameters: GetServiceVersionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Set<ServiceDefinitionDto>> {
+    const response = await this.getServiceVersionsRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
+
+  /**
+   * Gets a list of all services. Use the \"lifecycle\" parameter to filter the resulting list based on the service\' lifecycle state.
+   */
+  async getServicesRaw(requestParameters: GetServicesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<ServiceOverviewDto>>> {
+    const queryParameters: any = {}
+
+    if (requestParameters.lifecycle !== undefined) {
+      queryParameters['lifecycle'] = requestParameters.lifecycle
+    }
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
+    }
+
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
+    }
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
+    }
+
+    const response = await this.request({
+      path: `/services`,
+      method: 'GET',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
+
+    return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ServiceOverviewDtoFromJSON))
+  }
+
+  /**
+   * Gets a list of all services. Use the \"lifecycle\" parameter to filter the resulting list based on the service\' lifecycle state.
+   */
+  async getServices(requestParameters: GetServicesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ServiceOverviewDto>> {
+    const response = await this.getServicesRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
+
+  /**
+   * Returns the source code archive that was used to create the most recent version of the service.
+   */
+  async getSourceCodeRaw(requestParameters: GetSourceCodeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
+    if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
+      throw new runtime.RequiredError('serviceId', 'Required parameter requestParameters.serviceId was null or undefined when calling getSourceCode.')
+    }
+
+    if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
+      throw new runtime.RequiredError('versionId', 'Required parameter requestParameters.versionId was null or undefined when calling getSourceCode.')
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
+    }
+
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
+    }
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
+    }
+
+    const response = await this.request({
+      path: `/services/{serviceId}/versions/{versionId}/source-code`.replace(`{${'serviceId'}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${'versionId'}}`, encodeURIComponent(String(requestParameters.versionId))),
+      method: 'GET',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
+
+    if (this.isJsonMime(response.headers.get('content-type'))) {
+      return new runtime.JSONApiResponse<string>(response)
+    } else {
+      return new runtime.TextApiResponse(response) as any
+    }
+  }
+
+  /**
+   * Returns the source code archive that was used to create the most recent version of the service.
+   */
+  async getSourceCode(requestParameters: GetSourceCodeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
+    const response = await this.getSourceCodeRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
+
+  /**
+   * Publishes a service publicly to the marketplace. Publicly published services can be subscribed and consumed by other users of the PlanQK platform.
+   */
+  async publishServiceRaw(requestParameters: PublishServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ServiceDefinitionDto>> {
+    if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
+      throw new runtime.RequiredError('serviceId', 'Required parameter requestParameters.serviceId was null or undefined when calling publishService.')
+    }
+
+    if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
+      throw new runtime.RequiredError('versionId', 'Required parameter requestParameters.versionId was null or undefined when calling publishService.')
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
+    }
+
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
+    }
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
+    }
+
+    const response = await this.request({
+      path: `/services/{serviceId}/versions/{versionId}/publish`.replace(`{${'serviceId'}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${'versionId'}}`, encodeURIComponent(String(requestParameters.versionId))),
+      method: 'POST',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
+
+    return new runtime.JSONApiResponse(response, (jsonValue) => ServiceDefinitionDtoFromJSON(jsonValue))
+  }
+
+  /**
+   * Publishes a service publicly to the marketplace. Publicly published services can be subscribed and consumed by other users of the PlanQK platform.
+   */
+  async publishService(requestParameters: PublishServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ServiceDefinitionDto> {
+    const response = await this.publishServiceRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
+
+  /**
+   * Publishes a service internally. Internally published services can only be subscribed and consumed by yourself or within your organization.
+   */
+  async publishServiceInternalRaw(requestParameters: PublishServiceInternalRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ServiceDefinitionDto>> {
+    if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
+      throw new runtime.RequiredError('serviceId', 'Required parameter requestParameters.serviceId was null or undefined when calling publishServiceInternal.')
+    }
+
+    if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
+      throw new runtime.RequiredError('versionId', 'Required parameter requestParameters.versionId was null or undefined when calling publishServiceInternal.')
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
+    }
+
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
+    }
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
+    }
+
+    const response = await this.request({
+      path: `/services/{serviceId}/versions/{versionId}/publish-internal`.replace(`{${'serviceId'}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${'versionId'}}`, encodeURIComponent(String(requestParameters.versionId))),
+      method: 'POST',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
+
+    return new runtime.JSONApiResponse(response, (jsonValue) => ServiceDefinitionDtoFromJSON(jsonValue))
+  }
+
+  /**
+   * Publishes a service internally. Internally published services can only be subscribed and consumed by yourself or within your organization.
+   */
+  async publishServiceInternal(requestParameters: PublishServiceInternalRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ServiceDefinitionDto> {
+    const response = await this.publishServiceInternalRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
+
+  /**
+   * This endpoint is deprecated and will be replaced by the \"/commands\" endpoint. However, it unpublishes a service forcefully and cancels all active subscriptions while removing all use case relations.
+   */
+  async unpublishServiceRaw(requestParameters: UnpublishServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ServiceDefinitionDto>> {
+    if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
+      throw new runtime.RequiredError('serviceId', 'Required parameter requestParameters.serviceId was null or undefined when calling unpublishService.')
+    }
+
+    if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
+      throw new runtime.RequiredError('versionId', 'Required parameter requestParameters.versionId was null or undefined when calling unpublishService.')
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
+    }
+
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
+    }
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
+    }
+
+    const response = await this.request({
+      path: `/services/{serviceId}/versions/{versionId}/unpublish`.replace(`{${'serviceId'}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${'versionId'}}`, encodeURIComponent(String(requestParameters.versionId))),
+      method: 'POST',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
+
+    return new runtime.JSONApiResponse(response, (jsonValue) => ServiceDefinitionDtoFromJSON(jsonValue))
+  }
+
+  /**
+   * This endpoint is deprecated and will be replaced by the \"/commands\" endpoint. However, it unpublishes a service forcefully and cancels all active subscriptions while removing all use case relations.
+   */
+  async unpublishService(requestParameters: UnpublishServiceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ServiceDefinitionDto> {
+    const response = await this.unpublishServiceRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
+
+  /**
+   * Updates the API definition of a service.
+   */
+  async updateApiDefinitionRaw(requestParameters: UpdateApiDefinitionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
+      throw new runtime.RequiredError('serviceId', 'Required parameter requestParameters.serviceId was null or undefined when calling updateApiDefinition.')
+    }
+
+    if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
+      throw new runtime.RequiredError('versionId', 'Required parameter requestParameters.versionId was null or undefined when calling updateApiDefinition.')
+    }
+
+    if (requestParameters.file === null || requestParameters.file === undefined) {
+      throw new runtime.RequiredError('file', 'Required parameter requestParameters.file was null or undefined when calling updateApiDefinition.')
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
+    }
+
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
+    }
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
+    }
+
+    const consumes: runtime.Consume[] = [
+      {contentType: 'multipart/form-data'},
+    ]
+    // @ts-ignore: canConsumeForm may be unused
+    const canConsumeForm = runtime.canConsumeForm(consumes)
+
+    let formParams: { append(param: string, value: any): any }
+    let useForm = false
+    // use FormData to transmit files using content-type "multipart/form-data"
+    useForm = canConsumeForm
+    if (useForm) {
+      formParams = new FormData()
+    } else {
+      formParams = new URLSearchParams()
+    }
+
+    if (requestParameters.file !== undefined) {
+      formParams.append('file', requestParameters.file as any)
+    }
+
+    const response = await this.request({
+      path: `/v2/services/{serviceId}/versions/{versionId}/api-spec`.replace(`{${'serviceId'}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${'versionId'}}`, encodeURIComponent(String(requestParameters.versionId))),
+      method: 'PUT',
+      headers: headerParameters,
+      query: queryParameters,
+      body: formParams,
+    }, initOverrides)
+
+    return new runtime.VoidApiResponse(response)
+  }
+
+  /**
+   * Updates the API definition of a service.
+   */
+  async updateApiDefinition(requestParameters: UpdateApiDefinitionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+    await this.updateApiDefinitionRaw(requestParameters, initOverrides)
+  }
+
+  /**
+   * Updates the vCPU, memory, and GPU configuration of a managed service.
+   */
+  async updateResourceConfigurationRaw(requestParameters: UpdateResourceConfigurationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
+      throw new runtime.RequiredError('serviceId', 'Required parameter requestParameters.serviceId was null or undefined when calling updateResourceConfiguration.')
+    }
+
+    if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
+      throw new runtime.RequiredError('versionId', 'Required parameter requestParameters.versionId was null or undefined when calling updateResourceConfiguration.')
+    }
+
+    if (requestParameters.updateResourceConfigurationRequest === null || requestParameters.updateResourceConfigurationRequest === undefined) {
+      throw new runtime.RequiredError('updateResourceConfigurationRequest', 'Required parameter requestParameters.updateResourceConfigurationRequest was null or undefined when calling updateResourceConfiguration.')
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    headerParameters['Content-Type'] = 'application/json'
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
+    }
+
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
+    }
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
+    }
+
+    const response = await this.request({
+      path: `/services/{serviceId}/versions/{versionId}/resource-configuration`.replace(`{${'serviceId'}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${'versionId'}}`, encodeURIComponent(String(requestParameters.versionId))),
+      method: 'PUT',
+      headers: headerParameters,
+      query: queryParameters,
+      body: UpdateResourceConfigurationRequestToJSON(requestParameters.updateResourceConfigurationRequest),
+    }, initOverrides)
+
+    return new runtime.VoidApiResponse(response)
+  }
+
+  /**
+   * Updates the vCPU, memory, and GPU configuration of a managed service.
+   */
+  async updateResourceConfiguration(requestParameters: UpdateResourceConfigurationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+    await this.updateResourceConfigurationRaw(requestParameters, initOverrides)
+  }
+
+  /**
+   * Updates a specific service version\'s description or industry assignments.
+   */
+  async updateServiceVersionRaw(requestParameters: UpdateServiceVersionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ServiceDefinitionDto>> {
+    if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
+      throw new runtime.RequiredError('serviceId', 'Required parameter requestParameters.serviceId was null or undefined when calling updateServiceVersion.')
+    }
+
+    if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
+      throw new runtime.RequiredError('versionId', 'Required parameter requestParameters.versionId was null or undefined when calling updateServiceVersion.')
+    }
+
+    if (requestParameters.updateVersionRequest === null || requestParameters.updateVersionRequest === undefined) {
+      throw new runtime.RequiredError('updateVersionRequest', 'Required parameter requestParameters.updateVersionRequest was null or undefined when calling updateServiceVersion.')
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    headerParameters['Content-Type'] = 'application/json'
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
+    }
+
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
+    }
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
+    }
+
+    const response = await this.request({
+      path: `/services/{serviceId}/versions/{versionId}`.replace(`{${'serviceId'}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${'versionId'}}`, encodeURIComponent(String(requestParameters.versionId))),
+      method: 'PUT',
+      headers: headerParameters,
+      query: queryParameters,
+      body: UpdateVersionRequestToJSON(requestParameters.updateVersionRequest),
+    }, initOverrides)
+
+    return new runtime.JSONApiResponse(response, (jsonValue) => ServiceDefinitionDtoFromJSON(jsonValue))
+  }
+
+  /**
+   * Updates a specific service version\'s description or industry assignments.
+   */
+  async updateServiceVersion(requestParameters: UpdateServiceVersionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ServiceDefinitionDto> {
+    const response = await this.updateServiceVersionRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
+
+  /**
+   * Updates the source code of a managed service and triggers a new build.
+   */
+  async updateSourceCodeRaw(requestParameters: UpdateSourceCodeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ServiceDefinitionDto>> {
+    if (requestParameters.serviceId === null || requestParameters.serviceId === undefined) {
+      throw new runtime.RequiredError('serviceId', 'Required parameter requestParameters.serviceId was null or undefined when calling updateSourceCode.')
+    }
+
+    if (requestParameters.versionId === null || requestParameters.versionId === undefined) {
+      throw new runtime.RequiredError('versionId', 'Required parameter requestParameters.versionId was null or undefined when calling updateSourceCode.')
+    }
+
+    if (requestParameters.sourceCode === null || requestParameters.sourceCode === undefined) {
+      throw new runtime.RequiredError('sourceCode', 'Required parameter requestParameters.sourceCode was null or undefined when calling updateSourceCode.')
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
+    }
+
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
+    }
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
+    }
+
+    const consumes: runtime.Consume[] = [
+      {contentType: 'multipart/form-data'},
+    ]
+    // @ts-ignore: canConsumeForm may be unused
+    const canConsumeForm = runtime.canConsumeForm(consumes)
+
+    let formParams: { append(param: string, value: any): any }
+    let useForm = false
+    // use FormData to transmit files using content-type "multipart/form-data"
+    useForm = canConsumeForm
+    if (useForm) {
+      formParams = new FormData()
+    } else {
+      formParams = new URLSearchParams()
+    }
+
+    if (requestParameters.sourceCode !== undefined) {
+      formParams.append('sourceCode', requestParameters.sourceCode as any)
+    }
+
+    const response = await this.request({
+      path: `/v2/services/{serviceId}/versions/{versionId}/source-code`.replace(`{${'serviceId'}}`, encodeURIComponent(String(requestParameters.serviceId))).replace(`{${'versionId'}}`, encodeURIComponent(String(requestParameters.versionId))),
+      method: 'PUT',
+      headers: headerParameters,
+      query: queryParameters,
+      body: formParams,
+    }, initOverrides)
+
+    return new runtime.JSONApiResponse(response, (jsonValue) => ServiceDefinitionDtoFromJSON(jsonValue))
+  }
+
+  /**
+   * Updates the source code of a managed service and triggers a new build.
+   */
+  async updateSourceCode(requestParameters: UpdateSourceCodeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ServiceDefinitionDto> {
+    const response = await this.updateSourceCodeRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
 
 }
 
 /**
  * @export
  */
-export const CreateExternalServiceQuantumBackendEnum = {
-    Ibm: 'IBM',
-    Ionq: 'IONQ',
-    Dwave: 'DWAVE',
-    None: 'NONE'
-} as const;
-export type CreateExternalServiceQuantumBackendEnum = typeof CreateExternalServiceQuantumBackendEnum[keyof typeof CreateExternalServiceQuantumBackendEnum];
-/**
- * @export
- */
 export const CreateExternalServiceSecurityConfigurationEnum = {
-    None: 'NONE',
-    Basic: 'BASIC'
-} as const;
+  None: 'NONE',
+  Basic: 'BASIC',
+} as const
 export type CreateExternalServiceSecurityConfigurationEnum = typeof CreateExternalServiceSecurityConfigurationEnum[keyof typeof CreateExternalServiceSecurityConfigurationEnum];
 /**
  * @export
  */
-export const CreateManagedServiceQuantumBackendEnum = {
-    Ibm: 'IBM',
-    Ionq: 'IONQ',
-    Dwave: 'DWAVE',
-    None: 'NONE'
-} as const;
-export type CreateManagedServiceQuantumBackendEnum = typeof CreateManagedServiceQuantumBackendEnum[keyof typeof CreateManagedServiceQuantumBackendEnum];
-/**
- * @export
- */
-export const CreateManagedServiceUsePlatformTokenEnum = {
-    True: 'TRUE',
-    False: 'FALSE'
-} as const;
-export type CreateManagedServiceUsePlatformTokenEnum = typeof CreateManagedServiceUsePlatformTokenEnum[keyof typeof CreateManagedServiceUsePlatformTokenEnum];
-/**
- * @export
- */
 export const CreateManagedServiceRuntimeEnum = {
-    Docker: 'DOCKER',
-    PythonTemplate: 'PYTHON_TEMPLATE',
-    Python: 'PYTHON'
-} as const;
+  Docker: 'DOCKER',
+  PythonTemplate: 'PYTHON_TEMPLATE',
+  Python: 'PYTHON',
+} as const
 export type CreateManagedServiceRuntimeEnum = typeof CreateManagedServiceRuntimeEnum[keyof typeof CreateManagedServiceRuntimeEnum];
 /**
  * @export
  */
 export const CreateManagedServiceGpuAcceleratorEnum = {
-    NvidiaTeslaT4: 'NVIDIA_TESLA_T4',
-    NvidiaTeslaV100: 'NVIDIA_TESLA_V100',
-    NvidiaTeslaA100: 'NVIDIA_TESLA_A100',
-    NvidiaTeslaP100: 'NVIDIA_TESLA_P100',
-    None: 'NONE'
-} as const;
+  NvidiaTeslaT4: 'NVIDIA_TESLA_T4',
+  NvidiaTeslaV100: 'NVIDIA_TESLA_V100',
+  NvidiaTeslaA100: 'NVIDIA_TESLA_A100',
+  NvidiaTeslaP100: 'NVIDIA_TESLA_P100',
+  None: 'NONE',
+} as const
 export type CreateManagedServiceGpuAcceleratorEnum = typeof CreateManagedServiceGpuAcceleratorEnum[keyof typeof CreateManagedServiceGpuAcceleratorEnum];
 /**
  * @export
  */
 export const GetServicesLifecycleEnum = {
-    Created: 'CREATED',
-    Accessible: 'ACCESSIBLE',
-    Published: 'PUBLISHED'
-} as const;
+  Created: 'CREATED',
+  Accessible: 'ACCESSIBLE',
+  Published: 'PUBLISHED',
+} as const
 export type GetServicesLifecycleEnum = typeof GetServicesLifecycleEnum[keyof typeof GetServicesLifecycleEnum];

@@ -17,37 +17,37 @@ import type {CreateJobRequest, JobDto, JobOverviewDto, ProductUsageDto} from '..
 import {CreateJobRequestToJSON, JobDtoFromJSON, JobOverviewDtoFromJSON, ProductUsageDtoFromJSON} from '../models'
 
 export interface CancelJobRequest {
-    id: string;
-    xOrganizationId?: string;
+  id: string;
+  xOrganizationId?: string;
 }
 
 export interface CreateJobOperationRequest {
-    createJobRequest: CreateJobRequest;
-    xOrganizationId?: string;
+  createJobRequest: CreateJobRequest;
+  xOrganizationId?: string;
 }
 
 export interface DeleteJobRequest {
-    id: string;
-    xOrganizationId?: string;
+  id: string;
+  xOrganizationId?: string;
 }
 
 export interface GetJobRequest {
-    id: string;
-    xOrganizationId?: string;
+  id: string;
+  xOrganizationId?: string;
 }
 
 export interface GetJobCostsRequest {
-    id: string;
-    xOrganizationId?: string;
+  id: string;
+  xOrganizationId?: string;
 }
 
 export interface GetJobLogsRequest {
-    id: string;
-    xOrganizationId?: string;
+  id: string;
+  xOrganizationId?: string;
 }
 
 export interface GetJobsRequest {
-    xOrganizationId?: string;
+  xOrganizationId?: string;
 }
 
 /**
@@ -55,307 +55,307 @@ export interface GetJobsRequest {
  */
 export class ServicePlatformJobsApi extends runtime.BaseAPI {
 
-    /**
-     * Cancels a given job.
-     */
-    async cancelJobRaw(requestParameters: CancelJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<JobDto>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling cancelJob.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/jobs/{id}/cancel`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'PUT',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => JobDtoFromJSON(jsonValue));
+  /**
+   * Cancels a given job.
+   */
+  async cancelJobRaw(requestParameters: CancelJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<JobDto>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError('id', 'Required parameter requestParameters.id was null or undefined when calling cancelJob.')
     }
 
-    /**
-     * Cancels a given job.
-     */
-    async cancelJob(requestParameters: CancelJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<JobDto> {
-        const response = await this.cancelJobRaw(requestParameters, initOverrides);
-        return await response.value();
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
     }
 
-    /**
-     * Creates a new job execution for one of your services.
-     */
-    async createJobRaw(requestParameters: CreateJobOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<JobDto>> {
-        if (requestParameters.createJobRequest === null || requestParameters.createJobRequest === undefined) {
-            throw new runtime.RequiredError('createJobRequest','Required parameter requestParameters.createJobRequest was null or undefined when calling createJob.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/jobs`,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: CreateJobRequestToJSON(requestParameters.createJobRequest),
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => JobDtoFromJSON(jsonValue));
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
     }
 
-    /**
-     * Creates a new job execution for one of your services.
-     */
-    async createJob(requestParameters: CreateJobOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<JobDto> {
-        const response = await this.createJobRaw(requestParameters, initOverrides);
-        return await response.value();
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
     }
 
-    /**
-     * Deletes a given job.
-     */
-    async deleteJobRaw(requestParameters: DeleteJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling deleteJob.');
-        }
+    const response = await this.request({
+      path: `/jobs/{id}/cancel`.replace(`{${'id'}}`, encodeURIComponent(String(requestParameters.id))),
+      method: 'PUT',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
 
-        const queryParameters: any = {};
+    return new runtime.JSONApiResponse(response, (jsonValue) => JobDtoFromJSON(jsonValue))
+  }
 
-        const headerParameters: runtime.HTTPHeaders = {};
+  /**
+   * Cancels a given job.
+   */
+  async cancelJob(requestParameters: CancelJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<JobDto> {
+    const response = await this.cancelJobRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
 
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/jobs/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'DELETE',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
+  /**
+   * Creates a new job execution for one of your services.
+   */
+  async createJobRaw(requestParameters: CreateJobOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<JobDto>> {
+    if (requestParameters.createJobRequest === null || requestParameters.createJobRequest === undefined) {
+      throw new runtime.RequiredError('createJobRequest', 'Required parameter requestParameters.createJobRequest was null or undefined when calling createJob.')
     }
 
-    /**
-     * Deletes a given job.
-     */
-    async deleteJob(requestParameters: DeleteJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.deleteJobRaw(requestParameters, initOverrides);
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    headerParameters['Content-Type'] = 'application/json'
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
     }
 
-    /**
-     * Retrieves a given job.
-     */
-    async getJobRaw(requestParameters: GetJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<JobDto>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getJob.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/jobs/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => JobDtoFromJSON(jsonValue));
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
     }
 
-    /**
-     * Retrieves a given job.
-     */
-    async getJob(requestParameters: GetJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<JobDto> {
-        const response = await this.getJobRaw(requestParameters, initOverrides);
-        return await response.value();
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
     }
 
-    /**
-     * Retrieves estimated costs for a finished job.
-     */
-    async getJobCostsRaw(requestParameters: GetJobCostsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<ProductUsageDto>>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getJobCosts.');
-        }
+    const response = await this.request({
+      path: `/jobs`,
+      method: 'POST',
+      headers: headerParameters,
+      query: queryParameters,
+      body: CreateJobRequestToJSON(requestParameters.createJobRequest),
+    }, initOverrides)
 
-        const queryParameters: any = {};
+    return new runtime.JSONApiResponse(response, (jsonValue) => JobDtoFromJSON(jsonValue))
+  }
 
-        const headerParameters: runtime.HTTPHeaders = {};
+  /**
+   * Creates a new job execution for one of your services.
+   */
+  async createJob(requestParameters: CreateJobOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<JobDto> {
+    const response = await this.createJobRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
 
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/jobs/{id}/costs`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ProductUsageDtoFromJSON));
+  /**
+   * Deletes a given job.
+   */
+  async deleteJobRaw(requestParameters: DeleteJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError('id', 'Required parameter requestParameters.id was null or undefined when calling deleteJob.')
     }
 
-    /**
-     * Retrieves estimated costs for a finished job.
-     */
-    async getJobCosts(requestParameters: GetJobCostsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ProductUsageDto>> {
-        const response = await this.getJobCostsRaw(requestParameters, initOverrides);
-        return await response.value();
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
     }
 
-    /**
-     * Retrieves logs of a given job.
-     */
-    async getJobLogsRaw(requestParameters: GetJobLogsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getJobLogs.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/jobs/{id}/logs`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        if (this.isJsonMime(response.headers.get('content-type'))) {
-            return new runtime.JSONApiResponse<string>(response);
-        } else {
-            return new runtime.TextApiResponse(response) as any;
-        }
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
     }
 
-    /**
-     * Retrieves logs of a given job.
-     */
-    async getJobLogs(requestParameters: GetJobLogsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
-        const response = await this.getJobLogsRaw(requestParameters, initOverrides);
-        return await response.value();
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
     }
 
-    /**
-     * Retrieves a list of executed jobs.
-     */
-    async getJobsRaw(requestParameters: GetJobsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<JobOverviewDto>>> {
-        const queryParameters: any = {};
+    const response = await this.request({
+      path: `/jobs/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(requestParameters.id))),
+      method: 'DELETE',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
 
-        const headerParameters: runtime.HTTPHeaders = {};
+    return new runtime.VoidApiResponse(response)
+  }
 
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
+  /**
+   * Deletes a given job.
+   */
+  async deleteJob(requestParameters: DeleteJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+    await this.deleteJobRaw(requestParameters, initOverrides)
+  }
 
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/jobs`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(JobOverviewDtoFromJSON));
+  /**
+   * Retrieves a given job.
+   */
+  async getJobRaw(requestParameters: GetJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<JobDto>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError('id', 'Required parameter requestParameters.id was null or undefined when calling getJob.')
     }
 
-    /**
-     * Retrieves a list of executed jobs.
-     */
-    async getJobs(requestParameters: GetJobsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<JobOverviewDto>> {
-        const response = await this.getJobsRaw(requestParameters, initOverrides);
-        return await response.value();
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
     }
+
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
+    }
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
+    }
+
+    const response = await this.request({
+      path: `/jobs/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(requestParameters.id))),
+      method: 'GET',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
+
+    return new runtime.JSONApiResponse(response, (jsonValue) => JobDtoFromJSON(jsonValue))
+  }
+
+  /**
+   * Retrieves a given job.
+   */
+  async getJob(requestParameters: GetJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<JobDto> {
+    const response = await this.getJobRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
+
+  /**
+   * Retrieves estimated costs for a finished job.
+   */
+  async getJobCostsRaw(requestParameters: GetJobCostsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<ProductUsageDto>>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError('id', 'Required parameter requestParameters.id was null or undefined when calling getJobCosts.')
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
+    }
+
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
+    }
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
+    }
+
+    const response = await this.request({
+      path: `/jobs/{id}/costs`.replace(`{${'id'}}`, encodeURIComponent(String(requestParameters.id))),
+      method: 'GET',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
+
+    return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ProductUsageDtoFromJSON))
+  }
+
+  /**
+   * Retrieves estimated costs for a finished job.
+   */
+  async getJobCosts(requestParameters: GetJobCostsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ProductUsageDto>> {
+    const response = await this.getJobCostsRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
+
+  /**
+   * Retrieves logs of a given job.
+   */
+  async getJobLogsRaw(requestParameters: GetJobLogsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError('id', 'Required parameter requestParameters.id was null or undefined when calling getJobLogs.')
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
+    }
+
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
+    }
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
+    }
+
+    const response = await this.request({
+      path: `/jobs/{id}/logs`.replace(`{${'id'}}`, encodeURIComponent(String(requestParameters.id))),
+      method: 'GET',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
+
+    if (this.isJsonMime(response.headers.get('content-type'))) {
+      return new runtime.JSONApiResponse<string>(response)
+    } else {
+      return new runtime.TextApiResponse(response) as any
+    }
+  }
+
+  /**
+   * Retrieves logs of a given job.
+   */
+  async getJobLogs(requestParameters: GetJobLogsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
+    const response = await this.getJobLogsRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
+
+  /**
+   * Retrieves a list of executed jobs.
+   */
+  async getJobsRaw(requestParameters: GetJobsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<JobOverviewDto>>> {
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
+    }
+
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
+    }
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
+    }
+
+    const response = await this.request({
+      path: `/jobs`,
+      method: 'GET',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
+
+    return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(JobOverviewDtoFromJSON))
+  }
+
+  /**
+   * Retrieves a list of executed jobs.
+   */
+  async getJobs(requestParameters: GetJobsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<JobOverviewDto>> {
+    const response = await this.getJobsRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
 
 }

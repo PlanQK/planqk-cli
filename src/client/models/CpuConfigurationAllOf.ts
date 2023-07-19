@@ -20,55 +20,55 @@ import {exists} from '../runtime'
  * @interface CpuConfigurationAllOf
  */
 export interface CpuConfigurationAllOf {
-    /**
-     *
-     * @type {number}
-     * @memberof CpuConfigurationAllOf
-     */
-    amount?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof CpuConfigurationAllOf
-     */
-    unit?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof CpuConfigurationAllOf
+   */
+  amount?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof CpuConfigurationAllOf
+   */
+  unit?: string;
 }
 
 /**
  * Check if a given object implements the CpuConfigurationAllOf interface.
  */
 export function instanceOfCpuConfigurationAllOf(value: object): boolean {
-    let isInstance = true;
+  let isInstance = true
 
-    return isInstance;
+  return isInstance
 }
 
 export function CpuConfigurationAllOfFromJSON(json: any): CpuConfigurationAllOf {
-    return CpuConfigurationAllOfFromJSONTyped(json, false);
+  return CpuConfigurationAllOfFromJSONTyped(json, false)
 }
 
 export function CpuConfigurationAllOfFromJSONTyped(json: any, ignoreDiscriminator: boolean): CpuConfigurationAllOf {
-    if ((json === undefined) || (json === null)) {
-        return json;
-    }
-    return {
+  if ((json === undefined) || (json === null)) {
+    return json
+  }
+  return {
 
-        'amount': !exists(json, 'amount') ? undefined : json['amount'],
-        'unit': !exists(json, 'unit') ? undefined : json['unit'],
-    };
+    'amount': !exists(json, 'amount') ? undefined : json['amount'],
+    'unit': !exists(json, 'unit') ? undefined : json['unit'],
+  }
 }
 
 export function CpuConfigurationAllOfToJSON(value?: CpuConfigurationAllOf | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
-    }
-    return {
+  if (value === undefined) {
+    return undefined
+  }
+  if (value === null) {
+    return null
+  }
+  return {
 
-        'amount': value.amount,
-        'unit': value.unit,
-    };
+    'amount': value.amount,
+    'unit': value.unit,
+  }
 }
 

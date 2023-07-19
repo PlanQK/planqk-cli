@@ -20,90 +20,88 @@ import {exists} from '../runtime'
  * @interface ApplicationDto
  */
 export interface ApplicationDto {
-    /**
-     * The access permission role for this entity of the current user
-     * @type {string}
-     * @memberof ApplicationDto
-     */
-    readonly currentUserPermission?: ApplicationDtoCurrentUserPermissionEnum;
-    /**
-     *
-     * @type {string}
-     * @memberof ApplicationDto
-     */
-    id?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof ApplicationDto
-     */
-    name?: string;
-    /**
-     *
-     * @type {number}
-     * @memberof ApplicationDto
-     */
-    subscriptionCount?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof ApplicationDto
-     */
-    createdAt?: string;
+  /**
+   * The access permission role for this entity of the current user
+   * @type {string}
+   * @memberof ApplicationDto
+   */
+  readonly currentUserPermission?: ApplicationDtoCurrentUserPermissionEnum;
+  /**
+   *
+   * @type {string}
+   * @memberof ApplicationDto
+   */
+  id?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof ApplicationDto
+   */
+  name?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof ApplicationDto
+   */
+  subscriptionCount?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof ApplicationDto
+   */
+  createdAt?: string;
 }
-
 
 /**
  * @export
  */
 export const ApplicationDtoCurrentUserPermissionEnum = {
-    Viewer: 'VIEWER',
-    Maintainer: 'MAINTAINER',
-    Owner: 'OWNER'
-} as const;
+  Viewer: 'VIEWER',
+  Maintainer: 'MAINTAINER',
+  Owner: 'OWNER',
+} as const
 export type ApplicationDtoCurrentUserPermissionEnum = typeof ApplicationDtoCurrentUserPermissionEnum[keyof typeof ApplicationDtoCurrentUserPermissionEnum];
-
 
 /**
  * Check if a given object implements the ApplicationDto interface.
  */
 export function instanceOfApplicationDto(value: object): boolean {
-    let isInstance = true;
+  let isInstance = true
 
-    return isInstance;
+  return isInstance
 }
 
 export function ApplicationDtoFromJSON(json: any): ApplicationDto {
-    return ApplicationDtoFromJSONTyped(json, false);
+  return ApplicationDtoFromJSONTyped(json, false)
 }
 
 export function ApplicationDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): ApplicationDto {
-    if ((json === undefined) || (json === null)) {
-        return json;
-    }
-    return {
+  if ((json === undefined) || (json === null)) {
+    return json
+  }
+  return {
 
-        'currentUserPermission': !exists(json, 'currentUserPermission') ? undefined : json['currentUserPermission'],
-        'id': !exists(json, 'id') ? undefined : json['id'],
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'subscriptionCount': !exists(json, 'subscriptionCount') ? undefined : json['subscriptionCount'],
-        'createdAt': !exists(json, 'createdAt') ? undefined : json['createdAt'],
-    };
+    'currentUserPermission': !exists(json, 'currentUserPermission') ? undefined : json['currentUserPermission'],
+    'id': !exists(json, 'id') ? undefined : json['id'],
+    'name': !exists(json, 'name') ? undefined : json['name'],
+    'subscriptionCount': !exists(json, 'subscriptionCount') ? undefined : json['subscriptionCount'],
+    'createdAt': !exists(json, 'createdAt') ? undefined : json['createdAt'],
+  }
 }
 
 export function ApplicationDtoToJSON(value?: ApplicationDto | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
-    }
-    return {
+  if (value === undefined) {
+    return undefined
+  }
+  if (value === null) {
+    return null
+  }
+  return {
 
-        'id': value.id,
-        'name': value.name,
-        'subscriptionCount': value.subscriptionCount,
-        'createdAt': value.createdAt,
-    };
+    'id': value.id,
+    'name': value.name,
+    'subscriptionCount': value.subscriptionCount,
+    'createdAt': value.createdAt,
+  }
 }
 

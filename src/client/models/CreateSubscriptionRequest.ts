@@ -20,55 +20,55 @@ import {exists} from '../runtime'
  * @interface CreateSubscriptionRequest
  */
 export interface CreateSubscriptionRequest {
-    /**
-     *
-     * @type {string}
-     * @memberof CreateSubscriptionRequest
-     */
-    applicationId?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof CreateSubscriptionRequest
-     */
-    pricingPlanId?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof CreateSubscriptionRequest
+   */
+  applicationId?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof CreateSubscriptionRequest
+   */
+  pricingPlanId?: string;
 }
 
 /**
  * Check if a given object implements the CreateSubscriptionRequest interface.
  */
 export function instanceOfCreateSubscriptionRequest(value: object): boolean {
-    let isInstance = true;
+  let isInstance = true
 
-    return isInstance;
+  return isInstance
 }
 
 export function CreateSubscriptionRequestFromJSON(json: any): CreateSubscriptionRequest {
-    return CreateSubscriptionRequestFromJSONTyped(json, false);
+  return CreateSubscriptionRequestFromJSONTyped(json, false)
 }
 
 export function CreateSubscriptionRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): CreateSubscriptionRequest {
-    if ((json === undefined) || (json === null)) {
-        return json;
-    }
-    return {
+  if ((json === undefined) || (json === null)) {
+    return json
+  }
+  return {
 
-        'applicationId': !exists(json, 'applicationId') ? undefined : json['applicationId'],
-        'pricingPlanId': !exists(json, 'pricingPlanId') ? undefined : json['pricingPlanId'],
-    };
+    'applicationId': !exists(json, 'applicationId') ? undefined : json['applicationId'],
+    'pricingPlanId': !exists(json, 'pricingPlanId') ? undefined : json['pricingPlanId'],
+  }
 }
 
 export function CreateSubscriptionRequestToJSON(value?: CreateSubscriptionRequest | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
-    }
-    return {
+  if (value === undefined) {
+    return undefined
+  }
+  if (value === null) {
+    return null
+  }
+  return {
 
-        'applicationId': value.applicationId,
-        'pricingPlanId': value.pricingPlanId,
-    };
+    'applicationId': value.applicationId,
+    'pricingPlanId': value.pricingPlanId,
+  }
 }
 

@@ -29,50 +29,50 @@ import {
 } from '../models'
 
 export interface CreateApplicationOperationRequest {
-    createApplicationRequest: CreateApplicationRequest;
-    xOrganizationId?: string;
+  createApplicationRequest: CreateApplicationRequest;
+  xOrganizationId?: string;
 }
 
 export interface CreateInternalSubscriptionOperationRequest {
-    id: string;
-    createInternalSubscriptionRequest: CreateInternalSubscriptionRequest;
-    xOrganizationId?: string;
+  id: string;
+  createInternalSubscriptionRequest: CreateInternalSubscriptionRequest;
+  xOrganizationId?: string;
 }
 
 export interface DeleteApplicationRequest {
-    id: string;
-    xOrganizationId?: string;
+  id: string;
+  xOrganizationId?: string;
 }
 
 export interface DeleteApplicationSubscriptionRequest {
-    id: string;
-    subscriptionId: string;
-    xOrganizationId?: string;
+  id: string;
+  subscriptionId: string;
+  xOrganizationId?: string;
 }
 
 export interface GetAccessTokenRequest {
-    id: string;
-    xOrganizationId?: string;
+  id: string;
+  xOrganizationId?: string;
 }
 
 export interface GetApplicationRequest {
-    id: string;
-    xOrganizationId?: string;
+  id: string;
+  xOrganizationId?: string;
 }
 
 export interface GetApplicationSubscriptionRequest {
-    id: string;
-    subscriptionId: string;
-    xOrganizationId?: string;
+  id: string;
+  subscriptionId: string;
+  xOrganizationId?: string;
 }
 
 export interface GetApplicationSubscriptionsRequest {
-    id: string;
-    xOrganizationId?: string;
+  id: string;
+  xOrganizationId?: string;
 }
 
 export interface GetApplicationsRequest {
-    xOrganizationId?: string;
+  xOrganizationId?: string;
 }
 
 /**
@@ -80,403 +80,403 @@ export interface GetApplicationsRequest {
  */
 export class ServicePlatformApplicationsApi extends runtime.BaseAPI {
 
-    /**
-     * Creates a new application within your organization or for yourself.
-     */
-    async createApplicationRaw(requestParameters: CreateApplicationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApplicationDto>> {
-        if (requestParameters.createApplicationRequest === null || requestParameters.createApplicationRequest === undefined) {
-            throw new runtime.RequiredError('createApplicationRequest','Required parameter requestParameters.createApplicationRequest was null or undefined when calling createApplication.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/v2/applications`,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: CreateApplicationRequestToJSON(requestParameters.createApplicationRequest),
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => ApplicationDtoFromJSON(jsonValue));
+  /**
+   * Creates a new application within your organization or for yourself.
+   */
+  async createApplicationRaw(requestParameters: CreateApplicationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApplicationDto>> {
+    if (requestParameters.createApplicationRequest === null || requestParameters.createApplicationRequest === undefined) {
+      throw new runtime.RequiredError('createApplicationRequest', 'Required parameter requestParameters.createApplicationRequest was null or undefined when calling createApplication.')
     }
 
-    /**
-     * Creates a new application within your organization or for yourself.
-     */
-    async createApplication(requestParameters: CreateApplicationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApplicationDto> {
-        const response = await this.createApplicationRaw(requestParameters, initOverrides);
-        return await response.value();
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    headerParameters['Content-Type'] = 'application/json'
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
     }
 
-    /**
-     * Creates a subscription to internally published services.
-     */
-    async createInternalSubscriptionRaw(requestParameters: CreateInternalSubscriptionOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SubscriptionDto>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling createInternalSubscription.');
-        }
-
-        if (requestParameters.createInternalSubscriptionRequest === null || requestParameters.createInternalSubscriptionRequest === undefined) {
-            throw new runtime.RequiredError('createInternalSubscriptionRequest','Required parameter requestParameters.createInternalSubscriptionRequest was null or undefined when calling createInternalSubscription.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/v2/applications/{id}/subscriptions`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: CreateInternalSubscriptionRequestToJSON(requestParameters.createInternalSubscriptionRequest),
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => SubscriptionDtoFromJSON(jsonValue));
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
     }
 
-    /**
-     * Creates a subscription to internally published services.
-     */
-    async createInternalSubscription(requestParameters: CreateInternalSubscriptionOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SubscriptionDto> {
-        const response = await this.createInternalSubscriptionRaw(requestParameters, initOverrides);
-        return await response.value();
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
     }
 
-    /**
-     * Deletes an application.
-     */
-    async deleteApplicationRaw(requestParameters: DeleteApplicationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling deleteApplication.');
-        }
+    const response = await this.request({
+      path: `/v2/applications`,
+      method: 'POST',
+      headers: headerParameters,
+      query: queryParameters,
+      body: CreateApplicationRequestToJSON(requestParameters.createApplicationRequest),
+    }, initOverrides)
 
-        const queryParameters: any = {};
+    return new runtime.JSONApiResponse(response, (jsonValue) => ApplicationDtoFromJSON(jsonValue))
+  }
 
-        const headerParameters: runtime.HTTPHeaders = {};
+  /**
+   * Creates a new application within your organization or for yourself.
+   */
+  async createApplication(requestParameters: CreateApplicationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApplicationDto> {
+    const response = await this.createApplicationRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
 
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/v2/applications/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'DELETE',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
+  /**
+   * Creates a subscription to internally published services.
+   */
+  async createInternalSubscriptionRaw(requestParameters: CreateInternalSubscriptionOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SubscriptionDto>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError('id', 'Required parameter requestParameters.id was null or undefined when calling createInternalSubscription.')
     }
 
-    /**
-     * Deletes an application.
-     */
-    async deleteApplication(requestParameters: DeleteApplicationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.deleteApplicationRaw(requestParameters, initOverrides);
+    if (requestParameters.createInternalSubscriptionRequest === null || requestParameters.createInternalSubscriptionRequest === undefined) {
+      throw new runtime.RequiredError('createInternalSubscriptionRequest', 'Required parameter requestParameters.createInternalSubscriptionRequest was null or undefined when calling createInternalSubscription.')
     }
 
-    /**
-     * Deletes a specific subscription of an application.
-     */
-    async deleteApplicationSubscriptionRaw(requestParameters: DeleteApplicationSubscriptionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling deleteApplicationSubscription.');
-        }
+    const queryParameters: any = {}
 
-        if (requestParameters.subscriptionId === null || requestParameters.subscriptionId === undefined) {
-            throw new runtime.RequiredError('subscriptionId','Required parameter requestParameters.subscriptionId was null or undefined when calling deleteApplicationSubscription.');
-        }
+    const headerParameters: runtime.HTTPHeaders = {}
 
-        const queryParameters: any = {};
+    headerParameters['Content-Type'] = 'application/json'
 
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/v2/applications/{id}/subscriptions/{subscriptionId}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))).replace(`{${"subscriptionId"}}`, encodeURIComponent(String(requestParameters.subscriptionId))),
-            method: 'DELETE',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
     }
 
-    /**
-     * Deletes a specific subscription of an application.
-     */
-    async deleteApplicationSubscription(requestParameters: DeleteApplicationSubscriptionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.deleteApplicationSubscriptionRaw(requestParameters, initOverrides);
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
     }
 
-    /**
-     * Gets the access token for your application. The access token must be used to authenticate execution requests to subscribed services.
-     */
-    async getAccessTokenRaw(requestParameters: GetAccessTokenRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AccessTokenDto>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getAccessToken.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/v2/applications/{id}/access-token`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => AccessTokenDtoFromJSON(jsonValue));
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
     }
 
-    /**
-     * Gets the access token for your application. The access token must be used to authenticate execution requests to subscribed services.
-     */
-    async getAccessToken(requestParameters: GetAccessTokenRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AccessTokenDto> {
-        const response = await this.getAccessTokenRaw(requestParameters, initOverrides);
-        return await response.value();
+    const response = await this.request({
+      path: `/v2/applications/{id}/subscriptions`.replace(`{${'id'}}`, encodeURIComponent(String(requestParameters.id))),
+      method: 'POST',
+      headers: headerParameters,
+      query: queryParameters,
+      body: CreateInternalSubscriptionRequestToJSON(requestParameters.createInternalSubscriptionRequest),
+    }, initOverrides)
+
+    return new runtime.JSONApiResponse(response, (jsonValue) => SubscriptionDtoFromJSON(jsonValue))
+  }
+
+  /**
+   * Creates a subscription to internally published services.
+   */
+  async createInternalSubscription(requestParameters: CreateInternalSubscriptionOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SubscriptionDto> {
+    const response = await this.createInternalSubscriptionRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
+
+  /**
+   * Deletes an application.
+   */
+  async deleteApplicationRaw(requestParameters: DeleteApplicationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError('id', 'Required parameter requestParameters.id was null or undefined when calling deleteApplication.')
     }
 
-    /**
-     * Gets an specific application and its basic properties.
-     */
-    async getApplicationRaw(requestParameters: GetApplicationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApplicationDto>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getApplication.');
-        }
+    const queryParameters: any = {}
 
-        const queryParameters: any = {};
+    const headerParameters: runtime.HTTPHeaders = {}
 
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/v2/applications/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => ApplicationDtoFromJSON(jsonValue));
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
     }
 
-    /**
-     * Gets an specific application and its basic properties.
-     */
-    async getApplication(requestParameters: GetApplicationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApplicationDto> {
-        const response = await this.getApplicationRaw(requestParameters, initOverrides);
-        return await response.value();
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
     }
 
-    /**
-     * Gets the information about a specific subscription.
-     */
-    async getApplicationSubscriptionRaw(requestParameters: GetApplicationSubscriptionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SubscriptionDto>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getApplicationSubscription.');
-        }
-
-        if (requestParameters.subscriptionId === null || requestParameters.subscriptionId === undefined) {
-            throw new runtime.RequiredError('subscriptionId','Required parameter requestParameters.subscriptionId was null or undefined when calling getApplicationSubscription.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/v2/applications/{id}/subscriptions/{subscriptionId}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))).replace(`{${"subscriptionId"}}`, encodeURIComponent(String(requestParameters.subscriptionId))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => SubscriptionDtoFromJSON(jsonValue));
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
     }
 
-    /**
-     * Gets the information about a specific subscription.
-     */
-    async getApplicationSubscription(requestParameters: GetApplicationSubscriptionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SubscriptionDto> {
-        const response = await this.getApplicationSubscriptionRaw(requestParameters, initOverrides);
-        return await response.value();
+    const response = await this.request({
+      path: `/v2/applications/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(requestParameters.id))),
+      method: 'DELETE',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
+
+    return new runtime.VoidApiResponse(response)
+  }
+
+  /**
+   * Deletes an application.
+   */
+  async deleteApplication(requestParameters: DeleteApplicationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+    await this.deleteApplicationRaw(requestParameters, initOverrides)
+  }
+
+  /**
+   * Deletes a specific subscription of an application.
+   */
+  async deleteApplicationSubscriptionRaw(requestParameters: DeleteApplicationSubscriptionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError('id', 'Required parameter requestParameters.id was null or undefined when calling deleteApplicationSubscription.')
     }
 
-    /**
-     * Gets a list of all subscriptions of an application. This information concerns the services this application is subscribe to, either internal or public (through the marketplace API) subscriptions.
-     */
-    async getApplicationSubscriptionsRaw(requestParameters: GetApplicationSubscriptionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<SubscriptionDto>>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getApplicationSubscriptions.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/v2/applications/{id}/subscriptions`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(SubscriptionDtoFromJSON));
+    if (requestParameters.subscriptionId === null || requestParameters.subscriptionId === undefined) {
+      throw new runtime.RequiredError('subscriptionId', 'Required parameter requestParameters.subscriptionId was null or undefined when calling deleteApplicationSubscription.')
     }
 
-    /**
-     * Gets a list of all subscriptions of an application. This information concerns the services this application is subscribe to, either internal or public (through the marketplace API) subscriptions.
-     */
-    async getApplicationSubscriptions(requestParameters: GetApplicationSubscriptionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<SubscriptionDto>> {
-        const response = await this.getApplicationSubscriptionsRaw(requestParameters, initOverrides);
-        return await response.value();
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
     }
 
-    /**
-     * Gets a list of all applications.
-     */
-    async getApplicationsRaw(requestParameters: GetApplicationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<ApplicationDto>>> {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/v2/applications`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ApplicationDtoFromJSON));
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
     }
 
-    /**
-     * Gets a list of all applications.
-     */
-    async getApplications(requestParameters: GetApplicationsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ApplicationDto>> {
-        const response = await this.getApplicationsRaw(requestParameters, initOverrides);
-        return await response.value();
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
     }
+
+    const response = await this.request({
+      path: `/v2/applications/{id}/subscriptions/{subscriptionId}`.replace(`{${'id'}}`, encodeURIComponent(String(requestParameters.id))).replace(`{${'subscriptionId'}}`, encodeURIComponent(String(requestParameters.subscriptionId))),
+      method: 'DELETE',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
+
+    return new runtime.VoidApiResponse(response)
+  }
+
+  /**
+   * Deletes a specific subscription of an application.
+   */
+  async deleteApplicationSubscription(requestParameters: DeleteApplicationSubscriptionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+    await this.deleteApplicationSubscriptionRaw(requestParameters, initOverrides)
+  }
+
+  /**
+   * Gets the access token for your application. The access token must be used to authenticate execution requests to subscribed services.
+   */
+  async getAccessTokenRaw(requestParameters: GetAccessTokenRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AccessTokenDto>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError('id', 'Required parameter requestParameters.id was null or undefined when calling getAccessToken.')
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
+    }
+
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
+    }
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
+    }
+
+    const response = await this.request({
+      path: `/v2/applications/{id}/access-token`.replace(`{${'id'}}`, encodeURIComponent(String(requestParameters.id))),
+      method: 'POST',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
+
+    return new runtime.JSONApiResponse(response, (jsonValue) => AccessTokenDtoFromJSON(jsonValue))
+  }
+
+  /**
+   * Gets the access token for your application. The access token must be used to authenticate execution requests to subscribed services.
+   */
+  async getAccessToken(requestParameters: GetAccessTokenRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AccessTokenDto> {
+    const response = await this.getAccessTokenRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
+
+  /**
+   * Gets an specific application and its basic properties.
+   */
+  async getApplicationRaw(requestParameters: GetApplicationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApplicationDto>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError('id', 'Required parameter requestParameters.id was null or undefined when calling getApplication.')
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
+    }
+
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
+    }
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
+    }
+
+    const response = await this.request({
+      path: `/v2/applications/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(requestParameters.id))),
+      method: 'GET',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
+
+    return new runtime.JSONApiResponse(response, (jsonValue) => ApplicationDtoFromJSON(jsonValue))
+  }
+
+  /**
+   * Gets an specific application and its basic properties.
+   */
+  async getApplication(requestParameters: GetApplicationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApplicationDto> {
+    const response = await this.getApplicationRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
+
+  /**
+   * Gets the information about a specific subscription.
+   */
+  async getApplicationSubscriptionRaw(requestParameters: GetApplicationSubscriptionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SubscriptionDto>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError('id', 'Required parameter requestParameters.id was null or undefined when calling getApplicationSubscription.')
+    }
+
+    if (requestParameters.subscriptionId === null || requestParameters.subscriptionId === undefined) {
+      throw new runtime.RequiredError('subscriptionId', 'Required parameter requestParameters.subscriptionId was null or undefined when calling getApplicationSubscription.')
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
+    }
+
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
+    }
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
+    }
+
+    const response = await this.request({
+      path: `/v2/applications/{id}/subscriptions/{subscriptionId}`.replace(`{${'id'}}`, encodeURIComponent(String(requestParameters.id))).replace(`{${'subscriptionId'}}`, encodeURIComponent(String(requestParameters.subscriptionId))),
+      method: 'GET',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
+
+    return new runtime.JSONApiResponse(response, (jsonValue) => SubscriptionDtoFromJSON(jsonValue))
+  }
+
+  /**
+   * Gets the information about a specific subscription.
+   */
+  async getApplicationSubscription(requestParameters: GetApplicationSubscriptionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SubscriptionDto> {
+    const response = await this.getApplicationSubscriptionRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
+
+  /**
+   * Gets a list of all subscriptions of an application. This information concerns the services this application is subscribe to, either internal or public (through the marketplace API) subscriptions.
+   */
+  async getApplicationSubscriptionsRaw(requestParameters: GetApplicationSubscriptionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<SubscriptionDto>>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError('id', 'Required parameter requestParameters.id was null or undefined when calling getApplicationSubscriptions.')
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
+    }
+
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
+    }
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
+    }
+
+    const response = await this.request({
+      path: `/v2/applications/{id}/subscriptions`.replace(`{${'id'}}`, encodeURIComponent(String(requestParameters.id))),
+      method: 'GET',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
+
+    return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(SubscriptionDtoFromJSON))
+  }
+
+  /**
+   * Gets a list of all subscriptions of an application. This information concerns the services this application is subscribe to, either internal or public (through the marketplace API) subscriptions.
+   */
+  async getApplicationSubscriptions(requestParameters: GetApplicationSubscriptionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<SubscriptionDto>> {
+    const response = await this.getApplicationSubscriptionsRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
+
+  /**
+   * Gets a list of all applications.
+   */
+  async getApplicationsRaw(requestParameters: GetApplicationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<ApplicationDto>>> {
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
+    }
+
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
+    }
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
+    }
+
+    const response = await this.request({
+      path: `/v2/applications`,
+      method: 'GET',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
+
+    return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ApplicationDtoFromJSON))
+  }
+
+  /**
+   * Gets a list of all applications.
+   */
+  async getApplications(requestParameters: GetApplicationsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ApplicationDto>> {
+    const response = await this.getApplicationsRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
 
 }

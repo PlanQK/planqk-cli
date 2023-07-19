@@ -20,71 +20,71 @@ import {exists} from '../runtime'
  * @interface ServiceExecutionDto
  */
 export interface ServiceExecutionDto {
-    /**
-     *
-     * @type {string}
-     * @memberof ServiceExecutionDto
-     */
-    id?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof ServiceExecutionDto
-     */
-    createdAt?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof ServiceExecutionDto
-     */
-    startedAt?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof ServiceExecutionDto
-     */
-    endedAt?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof ServiceExecutionDto
+   */
+  id?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof ServiceExecutionDto
+   */
+  createdAt?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof ServiceExecutionDto
+   */
+  startedAt?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof ServiceExecutionDto
+   */
+  endedAt?: string;
 }
 
 /**
  * Check if a given object implements the ServiceExecutionDto interface.
  */
 export function instanceOfServiceExecutionDto(value: object): boolean {
-    let isInstance = true;
+  let isInstance = true
 
-    return isInstance;
+  return isInstance
 }
 
 export function ServiceExecutionDtoFromJSON(json: any): ServiceExecutionDto {
-    return ServiceExecutionDtoFromJSONTyped(json, false);
+  return ServiceExecutionDtoFromJSONTyped(json, false)
 }
 
 export function ServiceExecutionDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): ServiceExecutionDto {
-    if ((json === undefined) || (json === null)) {
-        return json;
-    }
-    return {
+  if ((json === undefined) || (json === null)) {
+    return json
+  }
+  return {
 
-        'id': !exists(json, 'id') ? undefined : json['id'],
-        'createdAt': !exists(json, 'createdAt') ? undefined : json['createdAt'],
-        'startedAt': !exists(json, 'startedAt') ? undefined : json['startedAt'],
-        'endedAt': !exists(json, 'endedAt') ? undefined : json['endedAt'],
-    };
+    'id': !exists(json, 'id') ? undefined : json['id'],
+    'createdAt': !exists(json, 'createdAt') ? undefined : json['createdAt'],
+    'startedAt': !exists(json, 'startedAt') ? undefined : json['startedAt'],
+    'endedAt': !exists(json, 'endedAt') ? undefined : json['endedAt'],
+  }
 }
 
 export function ServiceExecutionDtoToJSON(value?: ServiceExecutionDto | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
-    }
-    return {
+  if (value === undefined) {
+    return undefined
+  }
+  if (value === null) {
+    return null
+  }
+  return {
 
-        'id': value.id,
-        'createdAt': value.createdAt,
-        'startedAt': value.startedAt,
-        'endedAt': value.endedAt,
-    };
+    'id': value.id,
+    'createdAt': value.createdAt,
+    'startedAt': value.startedAt,
+    'endedAt': value.endedAt,
+  }
 }
 

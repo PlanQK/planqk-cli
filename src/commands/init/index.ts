@@ -4,7 +4,7 @@ import fs from 'fs-extra'
 import path from 'path'
 import YAML from 'yaml'
 import {AbstractCommand} from '../../model/command'
-import ManagedServiceConfig, {GpuType, QuantumBackend, Runtime} from '../../model/managed-service-config'
+import ManagedServiceConfig, {GpuType, Runtime} from '../../model/managed-service-config'
 import {writeServiceConfig} from '../../service/service-config-service'
 import {randomName} from '../../helper/random-name'
 import {downloadArchive, extractTemplate, getReadmeTemplate, getTemplateVariables} from '../../helper/coding-template'
@@ -37,44 +37,32 @@ export default class Init extends AbstractCommand {
         choices: [
           {
             name: 'Qiskit Starter (Simulator)',
-            value: {
-              path: 'python/python-starter-qiskit',
-              runtime: Runtime.PYTHON_TEMPLATE,
-              quantumBackend: QuantumBackend.NONE,
-            },
+            value: {path: 'python/python-starter-qiskit', runtime: Runtime.PYTHON_TEMPLATE},
           },
           {
             name: 'IonQ Starter (Premium Tier)',
-            value: {
-              path: 'python/python-starter-ionq',
-              runtime: Runtime.PYTHON_TEMPLATE,
-              quantumBackend: QuantumBackend.IONQ,
-            },
+            value: {path: 'python/python-starter-ionq', runtime: Runtime.PYTHON_TEMPLATE},
           },
           {
             name: 'D-Wave Leap Starter (own access token required)',
-            value: {
-              path: 'python/python-starter-dwave',
-              runtime: Runtime.PYTHON_TEMPLATE,
-              quantumBackend: QuantumBackend.DWAVE,
-            },
+            value: {path: 'python/python-starter-dwave', runtime: Runtime.PYTHON_TEMPLATE},
           },
           {
             name: 'Docker Go Starter',
-            value: {path: 'docker/docker-go', runtime: Runtime.DOCKER, quantumBackend: QuantumBackend.NONE},
+            value: {path: 'docker/docker-go', runtime: Runtime.DOCKER},
           },
           {
             name: 'Docker Node Starter',
-            value: {path: 'docker/docker-node', runtime: Runtime.DOCKER, quantumBackend: QuantumBackend.NONE},
+            value: {path: 'docker/docker-node', runtime: Runtime.DOCKER},
           },
           {
             name: 'Docker Python Starter',
-            value: {path: 'docker/docker-python', runtime: Runtime.DOCKER, quantumBackend: QuantumBackend.NONE}
+            value: {path: 'docker/docker-python', runtime: Runtime.DOCKER}
             ,
           },
           {
             name: 'Docker GPU Starter (Python/Qiskit)',
-            value: {path: 'docker/docker-gpu-qiskit', runtime: Runtime.DOCKER, quantumBackend: QuantumBackend.NONE},
+            value: {path: 'docker/docker-gpu-qiskit', runtime: Runtime.DOCKER},
           },
           {name: 'None (Creates planqk.json only)', value: undefined},
         ],
@@ -144,7 +132,6 @@ export default class Init extends AbstractCommand {
     const serviceConfig: ManagedServiceConfig = {
       name: name,
       description: responses.description,
-      quantumBackend: responses.template ? responses.template.quantumBackend : QuantumBackend.NONE,
       resources: {
         cpu: responses.cpu,
         memory: responses.memory,

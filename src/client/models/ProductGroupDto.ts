@@ -24,63 +24,63 @@ import {ProductAmountDtoFromJSON, ProductAmountDtoToJSON} from './ProductAmountD
  * @interface ProductGroupDto
  */
 export interface ProductGroupDto {
-    /**
-     *
-     * @type {string}
-     * @memberof ProductGroupDto
-     */
-    name?: string;
-    /**
-     *
-     * @type {AmountMajorDto}
-     * @memberof ProductGroupDto
-     */
-    amountMajor?: AmountMajorDto;
-    /**
-     *
-     * @type {Array<ProductAmountDto>}
-     * @memberof ProductGroupDto
-     */
-    products?: Array<ProductAmountDto>;
+  /**
+   *
+   * @type {string}
+   * @memberof ProductGroupDto
+   */
+  name?: string;
+  /**
+   *
+   * @type {AmountMajorDto}
+   * @memberof ProductGroupDto
+   */
+  amountMajor?: AmountMajorDto;
+  /**
+   *
+   * @type {Array<ProductAmountDto>}
+   * @memberof ProductGroupDto
+   */
+  products?: Array<ProductAmountDto>;
 }
 
 /**
  * Check if a given object implements the ProductGroupDto interface.
  */
 export function instanceOfProductGroupDto(value: object): boolean {
-    let isInstance = true;
+  let isInstance = true
 
-    return isInstance;
+  return isInstance
 }
 
 export function ProductGroupDtoFromJSON(json: any): ProductGroupDto {
-    return ProductGroupDtoFromJSONTyped(json, false);
+  return ProductGroupDtoFromJSONTyped(json, false)
 }
 
 export function ProductGroupDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): ProductGroupDto {
-    if ((json === undefined) || (json === null)) {
-        return json;
-    }
-    return {
+  if ((json === undefined) || (json === null)) {
+    return json
+  }
+  return {
 
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'amountMajor': !exists(json, 'amountMajor') ? undefined : AmountMajorDtoFromJSON(json['amountMajor']),
-        'products': !exists(json, 'products') ? undefined : ((json['products'] as Array<any>).map(ProductAmountDtoFromJSON)),
-    };
+    'name': !exists(json, 'name') ? undefined : json['name'],
+    'amountMajor': !exists(json, 'amountMajor') ? undefined : AmountMajorDtoFromJSON(json['amountMajor']),
+    'products': !exists(json, 'products') ? undefined : ((json['products'] as Array<any>).map(ProductAmountDtoFromJSON)),
+  }
 }
 
 export function ProductGroupDtoToJSON(value?: ProductGroupDto | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
-    }
-    return {
+  if (value === undefined) {
+    return undefined
+  }
+  if (value === null) {
+    return null
+  }
+  return {
 
-        'name': value.name,
-        'amountMajor': AmountMajorDtoToJSON(value.amountMajor),
-        'products': value.products === undefined ? undefined : ((value.products as Array<any>).map(ProductAmountDtoToJSON)),
-    };
+    'name': value.name,
+    'amountMajor': AmountMajorDtoToJSON(value.amountMajor),
+    'products': value.products === undefined ? undefined : ((value.products as Array<any>).map(ProductAmountDtoToJSON)),
+  }
 }
 

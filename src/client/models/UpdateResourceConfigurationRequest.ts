@@ -30,52 +30,43 @@ import {
   MemoryConfigurationFromJSONTyped,
   MemoryConfigurationToJSON,
 } from './MemoryConfiguration'
-import {
-  instanceOfPlatformManagedConfiguration,
-  PlatformManagedConfiguration,
-  PlatformManagedConfigurationFromJSONTyped,
-  PlatformManagedConfigurationToJSON,
-} from './PlatformManagedConfiguration'
 
 /**
  * @type UpdateResourceConfigurationRequest
  *
  * @export
  */
-export type UpdateResourceConfigurationRequest = CpuConfiguration | GpuConfiguration | MemoryConfiguration | PlatformManagedConfiguration;
+export type UpdateResourceConfigurationRequest = CpuConfiguration | GpuConfiguration | MemoryConfiguration;
 
 export function UpdateResourceConfigurationRequestFromJSON(json: any): UpdateResourceConfigurationRequest {
-    return UpdateResourceConfigurationRequestFromJSONTyped(json, false);
+  return UpdateResourceConfigurationRequestFromJSONTyped(json, false)
 }
 
 export function UpdateResourceConfigurationRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): UpdateResourceConfigurationRequest {
-    if ((json === undefined) || (json === null)) {
-        return json;
-    }
-    return { ...CpuConfigurationFromJSONTyped(json, true), ...GpuConfigurationFromJSONTyped(json, true), ...MemoryConfigurationFromJSONTyped(json, true), ...PlatformManagedConfigurationFromJSONTyped(json, true) };
+  if ((json === undefined) || (json === null)) {
+    return json
+  }
+  return {...CpuConfigurationFromJSONTyped(json, true), ...GpuConfigurationFromJSONTyped(json, true), ...MemoryConfigurationFromJSONTyped(json, true)}
 }
 
 export function UpdateResourceConfigurationRequestToJSON(value?: UpdateResourceConfigurationRequest | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
-    }
+  if (value === undefined) {
+    return undefined
+  }
+  if (value === null) {
+    return null
+  }
 
-    if (instanceOfCpuConfiguration(value)) {
-        return CpuConfigurationToJSON(value as CpuConfiguration);
-    }
-    if (instanceOfGpuConfiguration(value)) {
-        return GpuConfigurationToJSON(value as GpuConfiguration);
-    }
-    if (instanceOfMemoryConfiguration(value)) {
-        return MemoryConfigurationToJSON(value as MemoryConfiguration);
-    }
-    if (instanceOfPlatformManagedConfiguration(value)) {
-        return PlatformManagedConfigurationToJSON(value as PlatformManagedConfiguration);
-    }
+  if (instanceOfCpuConfiguration(value)) {
+    return CpuConfigurationToJSON(value as CpuConfiguration)
+  }
+  if (instanceOfGpuConfiguration(value)) {
+    return GpuConfigurationToJSON(value as GpuConfiguration)
+  }
+  if (instanceOfMemoryConfiguration(value)) {
+    return MemoryConfigurationToJSON(value as MemoryConfiguration)
+  }
 
-    return {};
+  return {}
 }
 

@@ -20,55 +20,55 @@ import {exists} from '../runtime'
  * @interface CreateInternalSubscriptionRequest
  */
 export interface CreateInternalSubscriptionRequest {
-    /**
-     *
-     * @type {string}
-     * @memberof CreateInternalSubscriptionRequest
-     */
-    applicationId?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof CreateInternalSubscriptionRequest
-     */
-    serviceId?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof CreateInternalSubscriptionRequest
+   */
+  applicationId?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof CreateInternalSubscriptionRequest
+   */
+  serviceId?: string;
 }
 
 /**
  * Check if a given object implements the CreateInternalSubscriptionRequest interface.
  */
 export function instanceOfCreateInternalSubscriptionRequest(value: object): boolean {
-    let isInstance = true;
+  let isInstance = true
 
-    return isInstance;
+  return isInstance
 }
 
 export function CreateInternalSubscriptionRequestFromJSON(json: any): CreateInternalSubscriptionRequest {
-    return CreateInternalSubscriptionRequestFromJSONTyped(json, false);
+  return CreateInternalSubscriptionRequestFromJSONTyped(json, false)
 }
 
 export function CreateInternalSubscriptionRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): CreateInternalSubscriptionRequest {
-    if ((json === undefined) || (json === null)) {
-        return json;
-    }
-    return {
+  if ((json === undefined) || (json === null)) {
+    return json
+  }
+  return {
 
-        'applicationId': !exists(json, 'applicationId') ? undefined : json['applicationId'],
-        'serviceId': !exists(json, 'serviceId') ? undefined : json['serviceId'],
-    };
+    'applicationId': !exists(json, 'applicationId') ? undefined : json['applicationId'],
+    'serviceId': !exists(json, 'serviceId') ? undefined : json['serviceId'],
+  }
 }
 
 export function CreateInternalSubscriptionRequestToJSON(value?: CreateInternalSubscriptionRequest | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
-    }
-    return {
+  if (value === undefined) {
+    return undefined
+  }
+  if (value === null) {
+    return null
+  }
+  return {
 
-        'applicationId': value.applicationId,
-        'serviceId': value.serviceId,
-    };
+    'applicationId': value.applicationId,
+    'serviceId': value.serviceId,
+  }
 }
 

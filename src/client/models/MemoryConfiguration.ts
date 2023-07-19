@@ -22,55 +22,55 @@ import {ResourceConfigurationFromJSONTyped, ResourceConfigurationToJSON} from '.
  * @interface MemoryConfiguration
  */
 export interface MemoryConfiguration extends ResourceConfiguration {
-    /**
-     *
-     * @type {number}
-     * @memberof MemoryConfiguration
-     */
-    amount?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof MemoryConfiguration
-     */
-    unit?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof MemoryConfiguration
+   */
+  amount?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof MemoryConfiguration
+   */
+  unit?: string;
 }
 
 /**
  * Check if a given object implements the MemoryConfiguration interface.
  */
 export function instanceOfMemoryConfiguration(value: object): boolean {
-    let isInstance = true;
+  let isInstance = true
 
-    return isInstance;
+  return isInstance
 }
 
 export function MemoryConfigurationFromJSON(json: any): MemoryConfiguration {
-    return MemoryConfigurationFromJSONTyped(json, false);
+  return MemoryConfigurationFromJSONTyped(json, false)
 }
 
 export function MemoryConfigurationFromJSONTyped(json: any, ignoreDiscriminator: boolean): MemoryConfiguration {
-    if ((json === undefined) || (json === null)) {
-        return json;
-    }
-    return {
-        ...ResourceConfigurationFromJSONTyped(json, ignoreDiscriminator),
-        'amount': !exists(json, 'amount') ? undefined : json['amount'],
-        'unit': !exists(json, 'unit') ? undefined : json['unit'],
-    };
+  if ((json === undefined) || (json === null)) {
+    return json
+  }
+  return {
+    ...ResourceConfigurationFromJSONTyped(json, ignoreDiscriminator),
+    'amount': !exists(json, 'amount') ? undefined : json['amount'],
+    'unit': !exists(json, 'unit') ? undefined : json['unit'],
+  }
 }
 
 export function MemoryConfigurationToJSON(value?: MemoryConfiguration | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
-    }
-    return {
-        ...ResourceConfigurationToJSON(value),
-        'amount': value.amount,
-        'unit': value.unit,
-    };
+  if (value === undefined) {
+    return undefined
+  }
+  if (value === null) {
+    return null
+  }
+  return {
+    ...ResourceConfigurationToJSON(value),
+    'amount': value.amount,
+    'unit': value.unit,
+  }
 }
 

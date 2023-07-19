@@ -20,75 +20,73 @@ import {exists} from '../runtime'
  * @interface ValidationResult
  */
 export interface ValidationResult {
-    /**
-     *
-     * @type {string}
-     * @memberof ValidationResult
-     */
-    state?: ValidationResultStateEnum;
-    /**
-     *
-     * @type {string}
-     * @memberof ValidationResult
-     */
-    summary?: string;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof ValidationResult
-     */
-    messages?: Array<string>;
+  /**
+   *
+   * @type {string}
+   * @memberof ValidationResult
+   */
+  state?: ValidationResultStateEnum;
+  /**
+   *
+   * @type {string}
+   * @memberof ValidationResult
+   */
+  summary?: string;
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof ValidationResult
+   */
+  messages?: Array<string>;
 }
-
 
 /**
  * @export
  */
 export const ValidationResultStateEnum = {
-    Success: 'SUCCESS',
-    Warning: 'WARNING',
-    Error: 'ERROR'
-} as const;
+  Success: 'SUCCESS',
+  Warning: 'WARNING',
+  Error: 'ERROR',
+} as const
 export type ValidationResultStateEnum = typeof ValidationResultStateEnum[keyof typeof ValidationResultStateEnum];
-
 
 /**
  * Check if a given object implements the ValidationResult interface.
  */
 export function instanceOfValidationResult(value: object): boolean {
-    let isInstance = true;
+  let isInstance = true
 
-    return isInstance;
+  return isInstance
 }
 
 export function ValidationResultFromJSON(json: any): ValidationResult {
-    return ValidationResultFromJSONTyped(json, false);
+  return ValidationResultFromJSONTyped(json, false)
 }
 
 export function ValidationResultFromJSONTyped(json: any, ignoreDiscriminator: boolean): ValidationResult {
-    if ((json === undefined) || (json === null)) {
-        return json;
-    }
-    return {
+  if ((json === undefined) || (json === null)) {
+    return json
+  }
+  return {
 
-        'state': !exists(json, 'state') ? undefined : json['state'],
-        'summary': !exists(json, 'summary') ? undefined : json['summary'],
-        'messages': !exists(json, 'messages') ? undefined : json['messages'],
-    };
+    'state': !exists(json, 'state') ? undefined : json['state'],
+    'summary': !exists(json, 'summary') ? undefined : json['summary'],
+    'messages': !exists(json, 'messages') ? undefined : json['messages'],
+  }
 }
 
 export function ValidationResultToJSON(value?: ValidationResult | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
-    }
-    return {
+  if (value === undefined) {
+    return undefined
+  }
+  if (value === null) {
+    return null
+  }
+  return {
 
-        'state': value.state,
-        'summary': value.summary,
-        'messages': value.messages,
-    };
+    'state': value.state,
+    'summary': value.summary,
+    'messages': value.messages,
+  }
 }
 

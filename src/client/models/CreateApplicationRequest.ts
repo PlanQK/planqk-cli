@@ -20,47 +20,47 @@ import {exists} from '../runtime'
  * @interface CreateApplicationRequest
  */
 export interface CreateApplicationRequest {
-    /**
-     *
-     * @type {string}
-     * @memberof CreateApplicationRequest
-     */
-    name?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof CreateApplicationRequest
+   */
+  name?: string;
 }
 
 /**
  * Check if a given object implements the CreateApplicationRequest interface.
  */
 export function instanceOfCreateApplicationRequest(value: object): boolean {
-    let isInstance = true;
+  let isInstance = true
 
-    return isInstance;
+  return isInstance
 }
 
 export function CreateApplicationRequestFromJSON(json: any): CreateApplicationRequest {
-    return CreateApplicationRequestFromJSONTyped(json, false);
+  return CreateApplicationRequestFromJSONTyped(json, false)
 }
 
 export function CreateApplicationRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): CreateApplicationRequest {
-    if ((json === undefined) || (json === null)) {
-        return json;
-    }
-    return {
+  if ((json === undefined) || (json === null)) {
+    return json
+  }
+  return {
 
-        'name': !exists(json, 'name') ? undefined : json['name'],
-    };
+    'name': !exists(json, 'name') ? undefined : json['name'],
+  }
 }
 
 export function CreateApplicationRequestToJSON(value?: CreateApplicationRequest | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
-    }
-    return {
+  if (value === undefined) {
+    return undefined
+  }
+  if (value === null) {
+    return null
+  }
+  return {
 
-        'name': value.name,
-    };
+    'name': value.name,
+  }
 }
 

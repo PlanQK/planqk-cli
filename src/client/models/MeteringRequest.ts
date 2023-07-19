@@ -20,63 +20,63 @@ import {exists} from '../runtime'
  * @interface MeteringRequest
  */
 export interface MeteringRequest {
-    /**
-     *
-     * @type {string}
-     * @memberof MeteringRequest
-     */
-    correlationId?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof MeteringRequest
-     */
-    productId?: string;
-    /**
-     *
-     * @type {number}
-     * @memberof MeteringRequest
-     */
-    count?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof MeteringRequest
+   */
+  correlationId?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MeteringRequest
+   */
+  productId?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof MeteringRequest
+   */
+  count?: number;
 }
 
 /**
  * Check if a given object implements the MeteringRequest interface.
  */
 export function instanceOfMeteringRequest(value: object): boolean {
-    let isInstance = true;
+  let isInstance = true
 
-    return isInstance;
+  return isInstance
 }
 
 export function MeteringRequestFromJSON(json: any): MeteringRequest {
-    return MeteringRequestFromJSONTyped(json, false);
+  return MeteringRequestFromJSONTyped(json, false)
 }
 
 export function MeteringRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): MeteringRequest {
-    if ((json === undefined) || (json === null)) {
-        return json;
-    }
-    return {
+  if ((json === undefined) || (json === null)) {
+    return json
+  }
+  return {
 
-        'correlationId': !exists(json, 'correlationId') ? undefined : json['correlationId'],
-        'productId': !exists(json, 'productId') ? undefined : json['productId'],
-        'count': !exists(json, 'count') ? undefined : json['count'],
-    };
+    'correlationId': !exists(json, 'correlationId') ? undefined : json['correlationId'],
+    'productId': !exists(json, 'productId') ? undefined : json['productId'],
+    'count': !exists(json, 'count') ? undefined : json['count'],
+  }
 }
 
 export function MeteringRequestToJSON(value?: MeteringRequest | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
-    }
-    return {
+  if (value === undefined) {
+    return undefined
+  }
+  if (value === null) {
+    return null
+  }
+  return {
 
-        'correlationId': value.correlationId,
-        'productId': value.productId,
-        'count': value.count,
-    };
+    'correlationId': value.correlationId,
+    'productId': value.productId,
+    'count': value.count,
+  }
 }
 

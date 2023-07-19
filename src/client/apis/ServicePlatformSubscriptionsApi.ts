@@ -17,13 +17,13 @@ import type {ServiceExecutionConsumerDto, SubscriptionDto} from '../models'
 import {ServiceExecutionConsumerDtoFromJSON, SubscriptionDtoFromJSON} from '../models'
 
 export interface GetSubscriptionRequest {
-    id: string;
-    xOrganizationId?: string;
+  id: string;
+  xOrganizationId?: string;
 }
 
 export interface GetSubscriptionExecutionsRequest {
-    id: string;
-    xOrganizationId?: string;
+  id: string;
+  xOrganizationId?: string;
 }
 
 /**
@@ -31,90 +31,90 @@ export interface GetSubscriptionExecutionsRequest {
  */
 export class ServicePlatformSubscriptionsApi extends runtime.BaseAPI {
 
-    /**
-     * Retrieves a specific subscription.
-     */
-    async getSubscriptionRaw(requestParameters: GetSubscriptionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SubscriptionDto>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getSubscription.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/subscriptions/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => SubscriptionDtoFromJSON(jsonValue));
+  /**
+   * Retrieves a specific subscription.
+   */
+  async getSubscriptionRaw(requestParameters: GetSubscriptionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SubscriptionDto>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError('id', 'Required parameter requestParameters.id was null or undefined when calling getSubscription.')
     }
 
-    /**
-     * Retrieves a specific subscription.
-     */
-    async getSubscription(requestParameters: GetSubscriptionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SubscriptionDto> {
-        const response = await this.getSubscriptionRaw(requestParameters, initOverrides);
-        return await response.value();
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
     }
 
-    /**
-     * Retrieves the executions of a subscription.
-     */
-    async getSubscriptionExecutionsRaw(requestParameters: GetSubscriptionExecutionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<ServiceExecutionConsumerDto>>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getSubscriptionExecutions.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/subscriptions/{id}/executions`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ServiceExecutionConsumerDtoFromJSON));
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
     }
 
-    /**
-     * Retrieves the executions of a subscription.
-     */
-    async getSubscriptionExecutions(requestParameters: GetSubscriptionExecutionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ServiceExecutionConsumerDto>> {
-        const response = await this.getSubscriptionExecutionsRaw(requestParameters, initOverrides);
-        return await response.value();
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
     }
+
+    const response = await this.request({
+      path: `/subscriptions/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(requestParameters.id))),
+      method: 'GET',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
+
+    return new runtime.JSONApiResponse(response, (jsonValue) => SubscriptionDtoFromJSON(jsonValue))
+  }
+
+  /**
+   * Retrieves a specific subscription.
+   */
+  async getSubscription(requestParameters: GetSubscriptionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SubscriptionDto> {
+    const response = await this.getSubscriptionRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
+
+  /**
+   * Retrieves the executions of a subscription.
+   */
+  async getSubscriptionExecutionsRaw(requestParameters: GetSubscriptionExecutionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<ServiceExecutionConsumerDto>>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError('id', 'Required parameter requestParameters.id was null or undefined when calling getSubscriptionExecutions.')
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
+    }
+
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
+    }
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
+    }
+
+    const response = await this.request({
+      path: `/subscriptions/{id}/executions`.replace(`{${'id'}}`, encodeURIComponent(String(requestParameters.id))),
+      method: 'GET',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
+
+    return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ServiceExecutionConsumerDtoFromJSON))
+  }
+
+  /**
+   * Retrieves the executions of a subscription.
+   */
+  async getSubscriptionExecutions(requestParameters: GetSubscriptionExecutionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ServiceExecutionConsumerDto>> {
+    const response = await this.getSubscriptionExecutionsRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
 
 }

@@ -20,65 +20,65 @@ import {exists} from '../runtime'
  * @interface CreateProductRequest
  */
 export interface CreateProductRequest {
-    /**
-     *
-     * @type {string}
-     * @memberof CreateProductRequest
-     */
-    name: string;
-    /**
-     *
-     * @type {string}
-     * @memberof CreateProductRequest
-     */
-    unitLabel?: string;
-    /**
-     *
-     * @type {number}
-     * @memberof CreateProductRequest
-     */
-    amountMajor: number;
+  /**
+   *
+   * @type {string}
+   * @memberof CreateProductRequest
+   */
+  name: string;
+  /**
+   *
+   * @type {string}
+   * @memberof CreateProductRequest
+   */
+  unitLabel?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof CreateProductRequest
+   */
+  amountMajor: number;
 }
 
 /**
  * Check if a given object implements the CreateProductRequest interface.
  */
 export function instanceOfCreateProductRequest(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "amountMajor" in value;
+  let isInstance = true
+  isInstance = isInstance && 'name' in value
+  isInstance = isInstance && 'amountMajor' in value
 
-    return isInstance;
+  return isInstance
 }
 
 export function CreateProductRequestFromJSON(json: any): CreateProductRequest {
-    return CreateProductRequestFromJSONTyped(json, false);
+  return CreateProductRequestFromJSONTyped(json, false)
 }
 
 export function CreateProductRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): CreateProductRequest {
-    if ((json === undefined) || (json === null)) {
-        return json;
-    }
-    return {
+  if ((json === undefined) || (json === null)) {
+    return json
+  }
+  return {
 
-        'name': json['name'],
-        'unitLabel': !exists(json, 'unitLabel') ? undefined : json['unitLabel'],
-        'amountMajor': json['amountMajor'],
-    };
+    'name': json['name'],
+    'unitLabel': !exists(json, 'unitLabel') ? undefined : json['unitLabel'],
+    'amountMajor': json['amountMajor'],
+  }
 }
 
 export function CreateProductRequestToJSON(value?: CreateProductRequest | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
-    }
-    return {
+  if (value === undefined) {
+    return undefined
+  }
+  if (value === null) {
+    return null
+  }
+  return {
 
-        'name': value.name,
-        'unitLabel': value.unitLabel,
-        'amountMajor': value.amountMajor,
-    };
+    'name': value.name,
+    'unitLabel': value.unitLabel,
+    'amountMajor': value.amountMajor,
+  }
 }
 

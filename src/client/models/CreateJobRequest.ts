@@ -22,88 +22,88 @@ import {DataPoolRefFromJSON, DataPoolRefToJSON} from './DataPoolRef'
  * @interface CreateJobRequest
  */
 export interface CreateJobRequest {
-    /**
-     *
-     * @type {string}
-     * @memberof CreateJobRequest
-     */
-    inputData?: string;
-    /**
-     *
-     * @type {DataPoolRef}
-     * @memberof CreateJobRequest
-     */
-    inputDataRef?: DataPoolRef;
-    /**
-     *
-     * @type {string}
-     * @memberof CreateJobRequest
-     */
-    parameters?: string;
-    /**
-     *
-     * @type {DataPoolRef}
-     * @memberof CreateJobRequest
-     */
-    parametersRef?: DataPoolRef;
-    /**
-     *
-     * @type {boolean}
-     * @memberof CreateJobRequest
-     */
-    persistResult?: boolean;
-    /**
-     *
-     * @type {string}
-     * @memberof CreateJobRequest
-     */
-    serviceDefinitionId: string;
+  /**
+   *
+   * @type {string}
+   * @memberof CreateJobRequest
+   */
+  inputData?: string;
+  /**
+   *
+   * @type {DataPoolRef}
+   * @memberof CreateJobRequest
+   */
+  inputDataRef?: DataPoolRef;
+  /**
+   *
+   * @type {string}
+   * @memberof CreateJobRequest
+   */
+  parameters?: string;
+  /**
+   *
+   * @type {DataPoolRef}
+   * @memberof CreateJobRequest
+   */
+  parametersRef?: DataPoolRef;
+  /**
+   *
+   * @type {boolean}
+   * @memberof CreateJobRequest
+   */
+  persistResult?: boolean;
+  /**
+   *
+   * @type {string}
+   * @memberof CreateJobRequest
+   */
+  serviceDefinitionId: string;
 }
 
 /**
  * Check if a given object implements the CreateJobRequest interface.
  */
 export function instanceOfCreateJobRequest(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "serviceDefinitionId" in value;
+  let isInstance = true
+  isInstance = isInstance && 'serviceDefinitionId' in value
 
-    return isInstance;
+  return isInstance
 }
 
 export function CreateJobRequestFromJSON(json: any): CreateJobRequest {
-    return CreateJobRequestFromJSONTyped(json, false);
+  return CreateJobRequestFromJSONTyped(json, false)
 }
 
 export function CreateJobRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): CreateJobRequest {
-    if ((json === undefined) || (json === null)) {
-        return json;
-    }
-    return {
+  if ((json === undefined) || (json === null)) {
+    return json
+  }
+  return {
 
-        'inputData': !exists(json, 'inputData') ? undefined : json['inputData'],
-        'inputDataRef': !exists(json, 'inputDataRef') ? undefined : DataPoolRefFromJSON(json['inputDataRef']),
-        'parameters': !exists(json, 'parameters') ? undefined : json['parameters'],
-        'parametersRef': !exists(json, 'parametersRef') ? undefined : DataPoolRefFromJSON(json['parametersRef']),
-        'persistResult': !exists(json, 'persistResult') ? undefined : json['persistResult'],
-        'serviceDefinitionId': json['serviceDefinitionId'],
-    };
+    'inputData': !exists(json, 'inputData') ? undefined : json['inputData'],
+    'inputDataRef': !exists(json, 'inputDataRef') ? undefined : DataPoolRefFromJSON(json['inputDataRef']),
+    'parameters': !exists(json, 'parameters') ? undefined : json['parameters'],
+    'parametersRef': !exists(json, 'parametersRef') ? undefined : DataPoolRefFromJSON(json['parametersRef']),
+    'persistResult': !exists(json, 'persistResult') ? undefined : json['persistResult'],
+    'serviceDefinitionId': json['serviceDefinitionId'],
+  }
 }
 
 export function CreateJobRequestToJSON(value?: CreateJobRequest | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
-    }
-    return {
+  if (value === undefined) {
+    return undefined
+  }
+  if (value === null) {
+    return null
+  }
+  return {
 
-        'inputData': value.inputData,
-        'inputDataRef': DataPoolRefToJSON(value.inputDataRef),
-        'parameters': value.parameters,
-        'parametersRef': DataPoolRefToJSON(value.parametersRef),
-        'persistResult': value.persistResult,
-        'serviceDefinitionId': value.serviceDefinitionId,
-    };
+    'inputData': value.inputData,
+    'inputDataRef': DataPoolRefToJSON(value.inputDataRef),
+    'parameters': value.parameters,
+    'parametersRef': DataPoolRefToJSON(value.parametersRef),
+    'persistResult': value.persistResult,
+    'serviceDefinitionId': value.serviceDefinitionId,
+  }
 }
 

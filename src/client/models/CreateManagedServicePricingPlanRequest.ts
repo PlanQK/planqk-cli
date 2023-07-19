@@ -20,67 +20,65 @@ import {exists} from '../runtime'
  * @interface CreateManagedServicePricingPlanRequest
  */
 export interface CreateManagedServicePricingPlanRequest {
-    /**
-     *
-     * @type {string}
-     * @memberof CreateManagedServicePricingPlanRequest
-     */
-    type: CreateManagedServicePricingPlanRequestTypeEnum;
-    /**
-     *
-     * @type {number}
-     * @memberof CreateManagedServicePricingPlanRequest
-     */
-    profitPercentage?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof CreateManagedServicePricingPlanRequest
+   */
+  type: CreateManagedServicePricingPlanRequestTypeEnum;
+  /**
+   *
+   * @type {number}
+   * @memberof CreateManagedServicePricingPlanRequest
+   */
+  profitPercentage?: number;
 }
-
 
 /**
  * @export
  */
 export const CreateManagedServicePricingPlanRequestTypeEnum = {
-    Free: 'FREE',
-    Commercial: 'COMMERCIAL'
-} as const;
+  Free: 'FREE',
+  Commercial: 'COMMERCIAL',
+} as const
 export type CreateManagedServicePricingPlanRequestTypeEnum = typeof CreateManagedServicePricingPlanRequestTypeEnum[keyof typeof CreateManagedServicePricingPlanRequestTypeEnum];
-
 
 /**
  * Check if a given object implements the CreateManagedServicePricingPlanRequest interface.
  */
 export function instanceOfCreateManagedServicePricingPlanRequest(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "type" in value;
+  let isInstance = true
+  isInstance = isInstance && 'type' in value
 
-    return isInstance;
+  return isInstance
 }
 
 export function CreateManagedServicePricingPlanRequestFromJSON(json: any): CreateManagedServicePricingPlanRequest {
-    return CreateManagedServicePricingPlanRequestFromJSONTyped(json, false);
+  return CreateManagedServicePricingPlanRequestFromJSONTyped(json, false)
 }
 
 export function CreateManagedServicePricingPlanRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): CreateManagedServicePricingPlanRequest {
-    if ((json === undefined) || (json === null)) {
-        return json;
-    }
-    return {
+  if ((json === undefined) || (json === null)) {
+    return json
+  }
+  return {
 
-        'type': json['type'],
-        'profitPercentage': !exists(json, 'profitPercentage') ? undefined : json['profitPercentage'],
-    };
+    'type': json['type'],
+    'profitPercentage': !exists(json, 'profitPercentage') ? undefined : json['profitPercentage'],
+  }
 }
 
 export function CreateManagedServicePricingPlanRequestToJSON(value?: CreateManagedServicePricingPlanRequest | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
-    }
-    return {
+  if (value === undefined) {
+    return undefined
+  }
+  if (value === null) {
+    return null
+  }
+  return {
 
-        'type': value.type,
-        'profitPercentage': value.profitPercentage,
-    };
+    'type': value.type,
+    'profitPercentage': value.profitPercentage,
+  }
 }
 

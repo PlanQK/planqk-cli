@@ -17,15 +17,15 @@ import type {MonthAmountDto} from '../models'
 import {MonthAmountDtoFromJSON} from '../models'
 
 export interface GetCostsByMonthRequest {
-    year: number;
-    month: number;
-    xOrganizationId?: string;
+  year: number;
+  month: number;
+  xOrganizationId?: string;
 }
 
 export interface GetRevenueByMonthRequest {
-    year: number;
-    month: number;
-    xOrganizationId?: string;
+  year: number;
+  month: number;
+  xOrganizationId?: string;
 }
 
 /**
@@ -33,114 +33,114 @@ export interface GetRevenueByMonthRequest {
  */
 export class ServicePlatformDashboardApi extends runtime.BaseAPI {
 
-    /**
-     * Returns the cost report for a given month.
-     */
-    async getCostsByMonthRaw(requestParameters: GetCostsByMonthRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MonthAmountDto>> {
-        if (requestParameters.year === null || requestParameters.year === undefined) {
-            throw new runtime.RequiredError('year','Required parameter requestParameters.year was null or undefined when calling getCostsByMonth.');
-        }
-
-        if (requestParameters.month === null || requestParameters.month === undefined) {
-            throw new runtime.RequiredError('month','Required parameter requestParameters.month was null or undefined when calling getCostsByMonth.');
-        }
-
-        const queryParameters: any = {};
-
-        if (requestParameters.year !== undefined) {
-            queryParameters['year'] = requestParameters.year;
-        }
-
-        if (requestParameters.month !== undefined) {
-            queryParameters['month'] = requestParameters.month;
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/dashboard/costs`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => MonthAmountDtoFromJSON(jsonValue));
+  /**
+   * Returns the cost report for a given month.
+   */
+  async getCostsByMonthRaw(requestParameters: GetCostsByMonthRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MonthAmountDto>> {
+    if (requestParameters.year === null || requestParameters.year === undefined) {
+      throw new runtime.RequiredError('year', 'Required parameter requestParameters.year was null or undefined when calling getCostsByMonth.')
     }
 
-    /**
-     * Returns the cost report for a given month.
-     */
-    async getCostsByMonth(requestParameters: GetCostsByMonthRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MonthAmountDto> {
-        const response = await this.getCostsByMonthRaw(requestParameters, initOverrides);
-        return await response.value();
+    if (requestParameters.month === null || requestParameters.month === undefined) {
+      throw new runtime.RequiredError('month', 'Required parameter requestParameters.month was null or undefined when calling getCostsByMonth.')
     }
 
-    /**
-     * Returns the revenue report for a given month.
-     */
-    async getRevenueByMonthRaw(requestParameters: GetRevenueByMonthRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MonthAmountDto>> {
-        if (requestParameters.year === null || requestParameters.year === undefined) {
-            throw new runtime.RequiredError('year','Required parameter requestParameters.year was null or undefined when calling getRevenueByMonth.');
-        }
+    const queryParameters: any = {}
 
-        if (requestParameters.month === null || requestParameters.month === undefined) {
-            throw new runtime.RequiredError('month','Required parameter requestParameters.month was null or undefined when calling getRevenueByMonth.');
-        }
-
-        const queryParameters: any = {};
-
-        if (requestParameters.year !== undefined) {
-            queryParameters['year'] = requestParameters.year;
-        }
-
-        if (requestParameters.month !== undefined) {
-            queryParameters['month'] = requestParameters.month;
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
-            headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId);
-        }
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Auth-Token"] = this.configuration.apiKey("X-Auth-Token"); // apiKey authentication
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", []);
-        }
-
-        const response = await this.request({
-            path: `/dashboard/revenue`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => MonthAmountDtoFromJSON(jsonValue));
+    if (requestParameters.year !== undefined) {
+      queryParameters['year'] = requestParameters.year
     }
 
-    /**
-     * Returns the revenue report for a given month.
-     */
-    async getRevenueByMonth(requestParameters: GetRevenueByMonthRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MonthAmountDto> {
-        const response = await this.getRevenueByMonthRaw(requestParameters, initOverrides);
-        return await response.value();
+    if (requestParameters.month !== undefined) {
+      queryParameters['month'] = requestParameters.month
     }
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
+    }
+
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
+    }
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
+    }
+
+    const response = await this.request({
+      path: `/dashboard/costs`,
+      method: 'GET',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
+
+    return new runtime.JSONApiResponse(response, (jsonValue) => MonthAmountDtoFromJSON(jsonValue))
+  }
+
+  /**
+   * Returns the cost report for a given month.
+   */
+  async getCostsByMonth(requestParameters: GetCostsByMonthRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MonthAmountDto> {
+    const response = await this.getCostsByMonthRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
+
+  /**
+   * Returns the revenue report for a given month.
+   */
+  async getRevenueByMonthRaw(requestParameters: GetRevenueByMonthRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MonthAmountDto>> {
+    if (requestParameters.year === null || requestParameters.year === undefined) {
+      throw new runtime.RequiredError('year', 'Required parameter requestParameters.year was null or undefined when calling getRevenueByMonth.')
+    }
+
+    if (requestParameters.month === null || requestParameters.month === undefined) {
+      throw new runtime.RequiredError('month', 'Required parameter requestParameters.month was null or undefined when calling getRevenueByMonth.')
+    }
+
+    const queryParameters: any = {}
+
+    if (requestParameters.year !== undefined) {
+      queryParameters['year'] = requestParameters.year
+    }
+
+    if (requestParameters.month !== undefined) {
+      queryParameters['month'] = requestParameters.month
+    }
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (requestParameters.xOrganizationId !== undefined && requestParameters.xOrganizationId !== null) {
+      headerParameters['X-OrganizationId'] = String(requestParameters.xOrganizationId)
+    }
+
+    if (this.configuration && this.configuration.apiKey) {
+      headerParameters['X-Auth-Token'] = this.configuration.apiKey('X-Auth-Token') // apiKey authentication
+    }
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken('oauth2', [])
+    }
+
+    const response = await this.request({
+      path: `/dashboard/revenue`,
+      method: 'GET',
+      headers: headerParameters,
+      query: queryParameters,
+    }, initOverrides)
+
+    return new runtime.JSONApiResponse(response, (jsonValue) => MonthAmountDtoFromJSON(jsonValue))
+  }
+
+  /**
+   * Returns the revenue report for a given month.
+   */
+  async getRevenueByMonth(requestParameters: GetRevenueByMonthRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MonthAmountDto> {
+    const response = await this.getRevenueByMonthRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
 
 }

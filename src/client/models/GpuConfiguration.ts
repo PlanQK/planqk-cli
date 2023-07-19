@@ -22,69 +22,67 @@ import {ResourceConfigurationFromJSONTyped, ResourceConfigurationToJSON} from '.
  * @interface GpuConfiguration
  */
 export interface GpuConfiguration extends ResourceConfiguration {
-    /**
-     *
-     * @type {number}
-     * @memberof GpuConfiguration
-     */
-    amount?: number;
-    /**
-     *
-     * @type {string}
-     * @memberof GpuConfiguration
-     */
-    accelerator?: GpuConfigurationAcceleratorEnum;
+  /**
+   *
+   * @type {number}
+   * @memberof GpuConfiguration
+   */
+  amount?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof GpuConfiguration
+   */
+  accelerator?: GpuConfigurationAcceleratorEnum;
 }
-
 
 /**
  * @export
  */
 export const GpuConfigurationAcceleratorEnum = {
-    NvidiaTeslaT4: 'NVIDIA_TESLA_T4',
-    NvidiaTeslaV100: 'NVIDIA_TESLA_V100',
-    NvidiaTeslaA100: 'NVIDIA_TESLA_A100',
-    NvidiaTeslaP100: 'NVIDIA_TESLA_P100',
-    None: 'NONE'
-} as const;
+  NvidiaTeslaT4: 'NVIDIA_TESLA_T4',
+  NvidiaTeslaV100: 'NVIDIA_TESLA_V100',
+  NvidiaTeslaA100: 'NVIDIA_TESLA_A100',
+  NvidiaTeslaP100: 'NVIDIA_TESLA_P100',
+  None: 'NONE',
+} as const
 export type GpuConfigurationAcceleratorEnum = typeof GpuConfigurationAcceleratorEnum[keyof typeof GpuConfigurationAcceleratorEnum];
-
 
 /**
  * Check if a given object implements the GpuConfiguration interface.
  */
 export function instanceOfGpuConfiguration(value: object): boolean {
-    let isInstance = true;
+  let isInstance = true
 
-    return isInstance;
+  return isInstance
 }
 
 export function GpuConfigurationFromJSON(json: any): GpuConfiguration {
-    return GpuConfigurationFromJSONTyped(json, false);
+  return GpuConfigurationFromJSONTyped(json, false)
 }
 
 export function GpuConfigurationFromJSONTyped(json: any, ignoreDiscriminator: boolean): GpuConfiguration {
-    if ((json === undefined) || (json === null)) {
-        return json;
-    }
-    return {
-        ...ResourceConfigurationFromJSONTyped(json, ignoreDiscriminator),
-        'amount': !exists(json, 'amount') ? undefined : json['amount'],
-        'accelerator': !exists(json, 'accelerator') ? undefined : json['accelerator'],
-    };
+  if ((json === undefined) || (json === null)) {
+    return json
+  }
+  return {
+    ...ResourceConfigurationFromJSONTyped(json, ignoreDiscriminator),
+    'amount': !exists(json, 'amount') ? undefined : json['amount'],
+    'accelerator': !exists(json, 'accelerator') ? undefined : json['accelerator'],
+  }
 }
 
 export function GpuConfigurationToJSON(value?: GpuConfiguration | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
-    }
-    return {
-        ...ResourceConfigurationToJSON(value),
-        'amount': value.amount,
-        'accelerator': value.accelerator,
-    };
+  if (value === undefined) {
+    return undefined
+  }
+  if (value === null) {
+    return null
+  }
+  return {
+    ...ResourceConfigurationToJSON(value),
+    'amount': value.amount,
+    'accelerator': value.accelerator,
+  }
 }
 

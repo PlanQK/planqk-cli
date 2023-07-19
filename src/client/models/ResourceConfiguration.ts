@@ -13,12 +13,7 @@
  */
 
 import {exists} from '../runtime'
-import {
-  CpuConfigurationFromJSONTyped,
-  GpuConfigurationFromJSONTyped,
-  MemoryConfigurationFromJSONTyped,
-  PlatformManagedConfigurationFromJSONTyped,
-} from './'
+import {CpuConfigurationFromJSONTyped, GpuConfigurationFromJSONTyped, MemoryConfigurationFromJSONTyped} from './'
 
 /**
  *
@@ -26,61 +21,58 @@ import {
  * @interface ResourceConfiguration
  */
 export interface ResourceConfiguration {
-    /**
-     *
-     * @type {string}
-     * @memberof ResourceConfiguration
-     */
-    type?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof ResourceConfiguration
+   */
+  type?: string;
 }
 
 /**
  * Check if a given object implements the ResourceConfiguration interface.
  */
 export function instanceOfResourceConfiguration(value: object): boolean {
-    let isInstance = true;
+  let isInstance = true
 
-    return isInstance;
+  return isInstance
 }
 
 export function ResourceConfigurationFromJSON(json: any): ResourceConfiguration {
-    return ResourceConfigurationFromJSONTyped(json, false);
+  return ResourceConfigurationFromJSONTyped(json, false)
 }
 
 export function ResourceConfigurationFromJSONTyped(json: any, ignoreDiscriminator: boolean): ResourceConfiguration {
-    if ((json === undefined) || (json === null)) {
-        return json;
+  if ((json === undefined) || (json === null)) {
+    return json
+  }
+  if (!ignoreDiscriminator) {
+    if (json['type'] === 'CpuConfiguration') {
+      return CpuConfigurationFromJSONTyped(json, true)
     }
-    if (!ignoreDiscriminator) {
-        if (json['type'] === 'CpuConfiguration') {
-            return CpuConfigurationFromJSONTyped(json, true);
-        }
-        if (json['type'] === 'GpuConfiguration') {
-            return GpuConfigurationFromJSONTyped(json, true);
-        }
-        if (json['type'] === 'MemoryConfiguration') {
-            return MemoryConfigurationFromJSONTyped(json, true);
-        }
-        if (json['type'] === 'PlatformManagedConfiguration') {
-            return PlatformManagedConfigurationFromJSONTyped(json, true);
-        }
+    if (json['type'] === 'GpuConfiguration') {
+      return GpuConfigurationFromJSONTyped(json, true)
     }
-    return {
+    if (json['type'] === 'MemoryConfiguration') {
+      return MemoryConfigurationFromJSONTyped(json, true)
+    }
+  }
+  return {
 
-        'type': !exists(json, 'type') ? undefined : json['type'],
-    };
+    'type': !exists(json, 'type') ? undefined : json['type'],
+  }
 }
 
 export function ResourceConfigurationToJSON(value?: ResourceConfiguration | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
-    }
-    return {
+  if (value === undefined) {
+    return undefined
+  }
+  if (value === null) {
+    return null
+  }
+  return {
 
-        'type': value.type,
-    };
+    'type': value.type,
+  }
 }
 

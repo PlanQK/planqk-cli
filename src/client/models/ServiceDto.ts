@@ -22,82 +22,80 @@ import {ServiceDefinitionDtoFromJSON, ServiceDefinitionDtoToJSON} from './Servic
  * @interface ServiceDto
  */
 export interface ServiceDto {
-    /**
-     * The access permission role for this entity of the current user
-     * @type {string}
-     * @memberof ServiceDto
-     */
-    readonly currentUserPermission?: ServiceDtoCurrentUserPermissionEnum;
-    /**
-     *
-     * @type {string}
-     * @memberof ServiceDto
-     */
-    id?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof ServiceDto
-     */
-    name?: string;
-    /**
-     *
-     * @type {Array<ServiceDefinitionDto>}
-     * @memberof ServiceDto
-     */
-    serviceDefinitions?: Array<ServiceDefinitionDto>;
+  /**
+   * The access permission role for this entity of the current user
+   * @type {string}
+   * @memberof ServiceDto
+   */
+  readonly currentUserPermission?: ServiceDtoCurrentUserPermissionEnum;
+  /**
+   *
+   * @type {string}
+   * @memberof ServiceDto
+   */
+  id?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof ServiceDto
+   */
+  name?: string;
+  /**
+   *
+   * @type {Array<ServiceDefinitionDto>}
+   * @memberof ServiceDto
+   */
+  serviceDefinitions?: Array<ServiceDefinitionDto>;
 }
-
 
 /**
  * @export
  */
 export const ServiceDtoCurrentUserPermissionEnum = {
-    Viewer: 'VIEWER',
-    Maintainer: 'MAINTAINER',
-    Owner: 'OWNER'
-} as const;
+  Viewer: 'VIEWER',
+  Maintainer: 'MAINTAINER',
+  Owner: 'OWNER',
+} as const
 export type ServiceDtoCurrentUserPermissionEnum = typeof ServiceDtoCurrentUserPermissionEnum[keyof typeof ServiceDtoCurrentUserPermissionEnum];
-
 
 /**
  * Check if a given object implements the ServiceDto interface.
  */
 export function instanceOfServiceDto(value: object): boolean {
-    let isInstance = true;
+  let isInstance = true
 
-    return isInstance;
+  return isInstance
 }
 
 export function ServiceDtoFromJSON(json: any): ServiceDto {
-    return ServiceDtoFromJSONTyped(json, false);
+  return ServiceDtoFromJSONTyped(json, false)
 }
 
 export function ServiceDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): ServiceDto {
-    if ((json === undefined) || (json === null)) {
-        return json;
-    }
-    return {
+  if ((json === undefined) || (json === null)) {
+    return json
+  }
+  return {
 
-        'currentUserPermission': !exists(json, 'currentUserPermission') ? undefined : json['currentUserPermission'],
-        'id': !exists(json, 'id') ? undefined : json['id'],
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'serviceDefinitions': !exists(json, 'serviceDefinitions') ? undefined : ((json['serviceDefinitions'] as Array<any>).map(ServiceDefinitionDtoFromJSON)),
-    };
+    'currentUserPermission': !exists(json, 'currentUserPermission') ? undefined : json['currentUserPermission'],
+    'id': !exists(json, 'id') ? undefined : json['id'],
+    'name': !exists(json, 'name') ? undefined : json['name'],
+    'serviceDefinitions': !exists(json, 'serviceDefinitions') ? undefined : ((json['serviceDefinitions'] as Array<any>).map(ServiceDefinitionDtoFromJSON)),
+  }
 }
 
 export function ServiceDtoToJSON(value?: ServiceDto | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
-    }
-    return {
+  if (value === undefined) {
+    return undefined
+  }
+  if (value === null) {
+    return null
+  }
+  return {
 
-        'id': value.id,
-        'name': value.name,
-        'serviceDefinitions': value.serviceDefinitions === undefined ? undefined : ((value.serviceDefinitions as Array<any>).map(ServiceDefinitionDtoToJSON)),
-    };
+    'id': value.id,
+    'name': value.name,
+    'serviceDefinitions': value.serviceDefinitions === undefined ? undefined : ((value.serviceDefinitions as Array<any>).map(ServiceDefinitionDtoToJSON)),
+  }
 }
 

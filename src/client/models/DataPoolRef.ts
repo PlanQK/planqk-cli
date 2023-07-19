@@ -20,63 +20,63 @@ import {exists} from '../runtime'
  * @interface DataPoolRef
  */
 export interface DataPoolRef {
-    /**
-     *
-     * @type {string}
-     * @memberof DataPoolRef
-     */
-    dataPoolId?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof DataPoolRef
-     */
-    dataSourceDescriptorId?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof DataPoolRef
-     */
-    fileId?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof DataPoolRef
+   */
+  dataPoolId?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof DataPoolRef
+   */
+  dataSourceDescriptorId?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof DataPoolRef
+   */
+  fileId?: string;
 }
 
 /**
  * Check if a given object implements the DataPoolRef interface.
  */
 export function instanceOfDataPoolRef(value: object): boolean {
-    let isInstance = true;
+  let isInstance = true
 
-    return isInstance;
+  return isInstance
 }
 
 export function DataPoolRefFromJSON(json: any): DataPoolRef {
-    return DataPoolRefFromJSONTyped(json, false);
+  return DataPoolRefFromJSONTyped(json, false)
 }
 
 export function DataPoolRefFromJSONTyped(json: any, ignoreDiscriminator: boolean): DataPoolRef {
-    if ((json === undefined) || (json === null)) {
-        return json;
-    }
-    return {
+  if ((json === undefined) || (json === null)) {
+    return json
+  }
+  return {
 
-        'dataPoolId': !exists(json, 'dataPoolId') ? undefined : json['dataPoolId'],
-        'dataSourceDescriptorId': !exists(json, 'dataSourceDescriptorId') ? undefined : json['dataSourceDescriptorId'],
-        'fileId': !exists(json, 'fileId') ? undefined : json['fileId'],
-    };
+    'dataPoolId': !exists(json, 'dataPoolId') ? undefined : json['dataPoolId'],
+    'dataSourceDescriptorId': !exists(json, 'dataSourceDescriptorId') ? undefined : json['dataSourceDescriptorId'],
+    'fileId': !exists(json, 'fileId') ? undefined : json['fileId'],
+  }
 }
 
 export function DataPoolRefToJSON(value?: DataPoolRef | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
-    }
-    return {
+  if (value === undefined) {
+    return undefined
+  }
+  if (value === null) {
+    return null
+  }
+  return {
 
-        'dataPoolId': value.dataPoolId,
-        'dataSourceDescriptorId': value.dataSourceDescriptorId,
-        'fileId': value.fileId,
-    };
+    'dataPoolId': value.dataPoolId,
+    'dataSourceDescriptorId': value.dataSourceDescriptorId,
+    'fileId': value.fileId,
+  }
 }
 
