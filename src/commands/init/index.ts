@@ -44,6 +44,10 @@ export default class Init extends AbstractCommand {
             value: {path: 'python/python-starter-ionq', runtime: Runtime.PYTHON_TEMPLATE},
           },
           {
+            name: 'Qiskit IBMQ Starter (own access token required)',
+            value: {path: 'python/python-starter-ibmq', runtime: Runtime.PYTHON_TEMPLATE},
+          },
+          {
             name: 'D-Wave Leap Starter (own access token required)',
             value: {path: 'python/python-starter-dwave', runtime: Runtime.PYTHON_TEMPLATE},
           },
