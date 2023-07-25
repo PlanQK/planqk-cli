@@ -68,7 +68,7 @@ export default class Init extends AbstractCommand {
             name: 'Docker GPU Starter (Python/Qiskit)',
             value: {path: 'docker/docker-gpu-qiskit', runtime: Runtime.DOCKER},
           },
-          {name: 'None (Creates planqk.json only)', value: undefined},
+          {name: 'None (creates "planqk.json" only in current directory)', value: undefined},
         ],
       },
       {
@@ -127,9 +127,11 @@ export default class Init extends AbstractCommand {
     ])
 
     name = responses.name || name
-    const destination = path.join(process.cwd(), name)
+    // use current directory if no template is selected
+    const destination = responses.template ? path.join(process.cwd(), name) : path.join(process.cwd())
 
-    if (fs.existsSync(destination)) {
+    // only if a template is selected
+    if (responses.template && fs.existsSync(destination)) {
       ux.error(`Destination ${destination} already exists. Please choose another name.`)
     }
 
@@ -150,7 +152,10 @@ export default class Init extends AbstractCommand {
       }
     }
 
-    fs.mkdirSync(destination)
+    // only if a template is selected
+    if (responses.template) {
+      fs.mkdirSync(destination)
+    }
 
     writeServiceConfig(destination, serviceConfig)
 
@@ -165,10 +170,13 @@ export default class Init extends AbstractCommand {
 
     this.log('\u{1F389} Initialized project. Happy hacking!')
 
-    this.log('\n Next steps:')
-    this.log(`  \u{2022} cd ${name}`)
-    this.log('  \u{2022} planqk up   (deploys your code as a service to the PlanQK platform)')
-    this.log('  \u{2022} planqk run  (executes your service using the data from the input directory)')
+    if (responses.template) {
+      this.log('\n Next steps:')
+      this.log(`  \u{2022} cd ${name}`)
+      this.log('  \u{2022} planqk up   (deploys your code as a service to the PlanQK platform)')
+      this.log('  \u{2022} planqk run  (executes your service using the data from the input directory)')
+    }
+
     this.log('')
   }
 
