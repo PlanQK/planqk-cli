@@ -1,3 +1,3 @@
 @echo off
 
-node --no-warnings "%~dp0\run" %*
+node --use-openssl-ca --no-warnings "%~dp0\run" %*
