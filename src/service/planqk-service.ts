@@ -217,9 +217,6 @@ export default class PlanqkService extends CommandService {
       const response = await fetchOrThrow(basePath + '/my/accounts', {
         headers: {'X-Auth-Token': this.userConfig.auth!.value},
       })
-
-      await fetchOrThrow('https://self-signed.badssl.com')
-
       return (await response.json()) as Account[]
     } catch (error) {
       const errorMessage = await this.handleError(error as Error)
