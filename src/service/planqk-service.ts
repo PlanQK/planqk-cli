@@ -4,7 +4,7 @@ import {CommandService} from './command-service'
 import Account from '../model/account'
 import UserConfig, {defaultBasePath} from '../model/user-config'
 import ManagedServiceConfig from '../model/managed-service-config'
-import {fetchOrThrow, getErrorMessage, PlanqkError} from '../helper/fetch'
+import {fetchOrThrow, getErrorMessage} from '../helper/fetch'
 import {
   BuildJobDto,
   Configuration,
@@ -21,6 +21,7 @@ import {
   ServicePlatformJobsApi,
   ServicePlatformServicesApi,
 } from '../client'
+import {debugEnabled} from '../helper/debug'
 
 export default class PlanqkService extends CommandService {
   serviceApi: ServicePlatformServicesApi
@@ -50,15 +51,8 @@ export default class PlanqkService extends CommandService {
     try {
       return await this.serviceApi.getServices({xOrganizationId: organizationId})
     } catch (error) {
-      if (error instanceof ResponseError) {
-        const errorMessage = await getErrorMessage(error.response)
-        throw new Error(errorMessage)
-      } else if (error instanceof FetchError) {
-        const errorMessage = error.cause ? error.cause.message : error.message
-        throw new Error(`Internal error occurred, please try again later (${errorMessage})`)
-      }
-
-      throw new Error('Internal error occurred, please contact your PlanQK administrator')
+      const errorMessage = await this.handleError(error as Error)
+      throw new Error(errorMessage)
     }
   }
 
@@ -67,15 +61,8 @@ export default class PlanqkService extends CommandService {
     try {
       return await this.serviceApi.getService({id, xOrganizationId: organizationId})
     } catch (error) {
-      if (error instanceof ResponseError) {
-        const errorMessage = await getErrorMessage(error.response)
-        throw new Error(errorMessage)
-      } else if (error instanceof FetchError) {
-        const errorMessage = error.cause ? error.cause.message : error.message
-        throw new Error(`Internal error occurred, please try again later (${errorMessage})`)
-      }
-
-      throw new Error('Internal error occurred, please contact your PlanQK administrator')
+      const errorMessage = await this.handleError(error as Error)
+      throw new Error(errorMessage)
     }
   }
 
@@ -103,15 +90,8 @@ export default class PlanqkService extends CommandService {
         },
       )
     } catch (error) {
-      if (error instanceof ResponseError) {
-        const errorMessage = await getErrorMessage(error.response)
-        throw new Error(errorMessage)
-      } else if (error instanceof FetchError) {
-        const errorMessage = error.cause ? error.cause.message : error.message
-        throw new Error(`Internal error occurred, please try again later (${errorMessage})`)
-      }
-
-      throw new Error('Internal error occurred, please contact your PlanQK administrator')
+      const errorMessage = await this.handleError(error as Error)
+      throw new Error(errorMessage)
     }
   }
 
@@ -192,15 +172,8 @@ export default class PlanqkService extends CommandService {
       })
       return service
     } catch (error) {
-      if (error instanceof ResponseError) {
-        const errorMessage = await getErrorMessage(error.response)
-        throw new Error(errorMessage)
-      } else if (error instanceof FetchError) {
-        const errorMessage = error.cause ? error.cause.message : error.message
-        throw new Error(`Internal error occurred, please try again later (${errorMessage})`)
-      }
-
-      throw new Error('Internal error occurred, please contact your PlanQK administrator')
+      const errorMessage = await this.handleError(error as Error)
+      throw new Error(errorMessage)
     }
   }
 
@@ -213,15 +186,8 @@ export default class PlanqkService extends CommandService {
         xOrganizationId: organizationId,
       })
     } catch (error) {
-      if (error instanceof ResponseError) {
-        const errorMessage = await getErrorMessage(error.response)
-        throw new Error(errorMessage)
-      } else if (error instanceof FetchError) {
-        const errorMessage = error.cause ? error.cause.message : error.message
-        throw new Error(`Internal error occurred, please try again later (${errorMessage})`)
-      }
-
-      throw new Error('Internal error occurred, please contact your PlanQK administrator')
+      const errorMessage = await this.handleError(error as Error)
+      throw new Error(errorMessage)
     }
   }
 
@@ -230,15 +196,8 @@ export default class PlanqkService extends CommandService {
     try {
       return await this.jobApi.createJob({createJobRequest: payload, xOrganizationId: organizationId})
     } catch (error) {
-      if (error instanceof ResponseError) {
-        const errorMessage = await getErrorMessage(error.response)
-        throw new Error(errorMessage)
-      } else if (error instanceof FetchError) {
-        const errorMessage = error.cause ? error.cause.message : error.message
-        throw new Error(`Internal error occurred, please try again later (${errorMessage})`)
-      }
-
-      throw new Error('Internal error occurred, please contact your PlanQK administrator')
+      const errorMessage = await this.handleError(error as Error)
+      throw new Error(errorMessage)
     }
   }
 
@@ -247,15 +206,8 @@ export default class PlanqkService extends CommandService {
     try {
       return await this.jobApi.getJob({id, xOrganizationId: organizationId})
     } catch (error) {
-      if (error instanceof ResponseError) {
-        const errorMessage = await getErrorMessage(error.response)
-        throw new Error(errorMessage)
-      } else if (error instanceof FetchError) {
-        const errorMessage = error.cause ? error.cause.message : error.message
-        throw new Error(`Internal error occurred, please try again later (${errorMessage})`)
-      }
-
-      throw new Error('Internal error occurred, please contact your PlanQK administrator')
+      const errorMessage = await this.handleError(error as Error)
+      throw new Error(errorMessage)
     }
   }
 
@@ -265,14 +217,30 @@ export default class PlanqkService extends CommandService {
       const response = await fetchOrThrow(basePath + '/my/accounts', {
         headers: {'X-Auth-Token': this.userConfig.auth!.value},
       })
+
+      await fetchOrThrow('https://self-signed.badssl.com')
+
       return (await response.json()) as Account[]
     } catch (error) {
-      if (error instanceof PlanqkError) {
-        const errorMessage = await error.getErrorMessage()
-        throw new Error(errorMessage)
-      }
-
-      throw new Error('Internal error occurred, please contact your PlanQK administrator')
+      const errorMessage = await this.handleError(error as Error)
+      throw new Error(errorMessage)
     }
+  }
+
+  async handleError(error: Error): Promise<string> {
+    if (error instanceof ResponseError) {
+      return getErrorMessage(error.response)
+    }
+
+    if (error instanceof FetchError) {
+      const errorMessage = error.cause ? error.cause.message : error.message
+      return `Internal error occurred, please try again later (${errorMessage})`
+    }
+
+    if (debugEnabled()) {
+      console.error(error)
+    }
+
+    return 'Internal error occurred, please contact your PlanQK administrator'
   }
 }
