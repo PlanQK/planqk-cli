@@ -1,5 +1,11 @@
 #!/usr/bin/env node
 
+// disable warnings
+process.removeAllListeners('warning')
+
+// disable SSL/TLS cert verification
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
 const oclif = require('@oclif/core')
 
 const path = require('path')
