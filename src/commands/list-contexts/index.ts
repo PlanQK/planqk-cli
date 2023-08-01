@@ -33,6 +33,7 @@ export default class ListContexts extends AuthenticatedCommand {
       return {id: account.id, displayName: account.displayName, isOrganization: account.isOrganization}
     })
 
+    this.log()
     ux.table(tableData, {
       displayName: {
         header: 'Name',
@@ -46,5 +47,6 @@ export default class ListContexts extends AuthenticatedCommand {
         get: row => row.isOrganization ? ' \u{2713}' : ' \u{2717}',
       },
     })
+    this.log()
   }
 }

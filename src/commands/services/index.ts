@@ -41,5 +41,6 @@ export default class Services extends AuthenticatedCommand {
         header: 'ID',
       },
     })
+    this.log()
   }
 }
