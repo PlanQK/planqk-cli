@@ -6,13 +6,15 @@
 ./bin/dev <command>
 ```
 
-## Debug a Command
+## Enable Debug Output
 
-* Create a copy of the `Debug (Template)` run config in IntelliJ
-* In the `Application parameters` text field, replace `<command>` with the command you want to debug
-* Run your config in debug mode and add respective break points
+Set the environment variable `DEBUG=*` to print all the debug output to the screen.
+Depending on your shell you may need to escape this with `DEBUG=\*`.
+On Windows you can’t set environment variables in line, so you’ll need to run set `DEBUG=*` before running the command.
 
-> **Note:** Please do not change the `Debug (Template)` run config.
+```shell
+DEBUG=* ./bin/dev <command>
+```
 
 ## Package the Tarballs
 
