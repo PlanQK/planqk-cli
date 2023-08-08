@@ -52,6 +52,10 @@ export default class Init extends AbstractCommand {
             value: {path: 'python/python-starter-dwave', runtime: Runtime.PYTHON_TEMPLATE},
           },
           {
+            name: 'PennyLane Starter (Simulator)',
+            value: {path: 'python/python-starter-pennylane', runtime: Runtime.PYTHON_TEMPLATE},
+          },
+          {
             name: 'Docker Go Starter',
             value: {path: 'docker/docker-go', runtime: Runtime.DOCKER},
           },
