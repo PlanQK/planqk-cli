@@ -5,7 +5,7 @@ planqk-cli
 [![npm](https://img.shields.io/npm/dm/%40anaqor%2Fplanqk)](https://www.npmjs.com/package/@anaqor/planqk)
 [![pipeline](https://github.com/PlanQK/planqk-cli/actions/workflows/pipeline.yml/badge.svg)](https://github.com/PlanQK/planqk-cli/actions/workflows/pipeline.yml)
 
-The PlanQK Command Line Interface (CLI) lets you interact with the PlanQk Platform directly from your terminal.
+The PlanQK Command Line Interface (CLI) lets you interact with the PlanQK Platform directly from your terminal.
 We have installation instructions to guide you through the initial setup in our
 [quickstart](https://docs.platform.planqk.de/getting-started/quickstart.html) guide.
 
