@@ -65,8 +65,7 @@ export default class Init extends AbstractCommand {
           },
           {
             name: 'Docker Python Starter',
-            value: {path: 'docker/docker-python', runtime: Runtime.DOCKER}
-            ,
+            value: {path: 'docker/docker-python', runtime: Runtime.DOCKER},
           },
           {
             name: 'Docker GPU Starter (Python/Qiskit)',
