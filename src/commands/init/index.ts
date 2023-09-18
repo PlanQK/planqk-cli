@@ -36,11 +36,11 @@ export default class Init extends AbstractCommand {
         type: 'list',
         choices: [
           {
-            name: 'Qiskit Starter (Simulator)',
+            name: 'Qiskit Starter (Local Simulator)',
             value: {path: 'python/python-starter-qiskit', runtime: Runtime.PYTHON_TEMPLATE},
           },
           {
-            name: 'IonQ Starter (Pro account required)',
+            name: 'IonQ Starter (Cloud Simulator)',
             value: {path: 'python/python-starter-ionq', runtime: Runtime.PYTHON_TEMPLATE},
           },
           {
