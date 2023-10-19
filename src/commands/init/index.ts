@@ -71,6 +71,10 @@ export default class Init extends AbstractCommand {
             name: 'Docker GPU Starter (Python/Qiskit)',
             value: {path: 'docker/docker-gpu-qiskit', runtime: Runtime.DOCKER},
           },
+          {
+            name: 'PlanQK Dev Container',
+            value: {path: 'python/python-starter', runtime: Runtime.PYTHON_TEMPLATE},
+          },
           {name: 'None (creates "planqk.json" only in current directory)', value: undefined},
         ],
       },
