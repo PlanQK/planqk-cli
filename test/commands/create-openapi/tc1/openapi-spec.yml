@@ -1,0 +1,100 @@
+openapi: 3.0.0
+info:
+  version: "1.0"
+  title: Managed PlanQK Service
+  description: |
+    Generic API description for a managed PlanQK Service.
+components:
+  schemas:
+    inputData:
+      type: object
+      properties:
+        n_bits:
+          type: number
+          example: 10
+    inputParams:
+      type: object
+      properties:
+        x:
+          type: boolean
+          example: true
+    interimResultResponse:
+      type: object
+    resultResponse:
+      type: object
+      properties:
+        result:
+          type: object
+          description: service-specific result object
+          properties:
+            random_number:
+              type: number
+              description: Random number between 0 and 2^n_bits - 1
+              example: 42
+        metadata:
+          type: object
+          description: service-specific metadata object which contains additional
+            information besides the actual results
+          properties:
+            execution_time:
+              type: number
+              description: The overall execution time of the computation
+              example: 0.123
+paths:
+  /:
+    get:
+      tags:
+        - Status API
+      summary: Health checking endpoint
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    title: Status of the service
+                    type: string
+                    example: Service is up and running
+    post:
+      tags:
+        - Service API
+      summary: Asynchronous execution of the service
+      description: This method starts an execution of the service, which in turn is
+        processed asynchronously by the platform. The location header of the
+        response contains the URL which can be used to query the status and the
+        result of the execution.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: "#/components/schemas/inputData"
+                params:
+                  $ref: "#/components/schemas/inputParams"
+  /{id}:
+    get:
+      tags:
+        - Service API
+      summary: Check execution status
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: The ID of a certain execution
+          schema:
+            type: string
+      responses:
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not found
+        "500":
+          description: Internal server error
