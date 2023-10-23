@@ -65,6 +65,7 @@ USAGE
 <!-- commands -->
 
 * [`planqk autocomplete [SHELL]`](#planqk-autocomplete-shell)
+* [`planqk create-openapi`](#planqk-create-openapi)
 * [`planqk get-context`](#planqk-get-context)
 * [`planqk init`](#planqk-init)
 * [`planqk list-contexts`](#planqk-list-contexts)
@@ -104,6 +105,25 @@ EXAMPLES
 
 _See
 code: [@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/blob/v2.1.9/src/commands/autocomplete/index.ts)_
+
+## `planqk create-openapi`
+
+Update the current openapi-spec with the changed data and params description.
+
+```
+USAGE
+  $ planqk create-openapi
+
+DESCRIPTION
+  After initializing a new project with $ planqk init
+  and adjusting the data and params in the input-folder according to your project needs,
+  you can regenerate the openapi-spec with this command.
+
+EXAMPLES
+  $ planqk create-openapi
+```
+
+_See code: [dist/commands/create-openapi/index.ts](https://github.com/PlanQK/planqk-cli/tree/main/src/commands)_
 
 ## `planqk get-context`
 
