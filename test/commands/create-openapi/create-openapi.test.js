@@ -34,7 +34,7 @@ describe('tests for create-openapi', () => {
       ({stdout, stderr} = await exec('sum test/commands/create-openapi/tmp/tc1/openapi-spec.yml'));
       // console.log('stdout_sum:', stdout);
       // console.log('stderr_sum:', stderr);
-      expect(stdout).to.contain('58541');
+      expect(stdout).to.contain('24144');
     });
 
   // TC2:

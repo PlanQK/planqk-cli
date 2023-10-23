@@ -31,20 +31,18 @@ export default class CreateOpenapi extends AbstractCommand {
     // check and read all source files
     const openApiString = await this.getCurrentOpenAPI('openapi-spec.yml')
     const jsonOpenApi = YAML.parse(openApiString)
-    const inputData = await this.getJsonDataFromFile('input/data.json')
-    const jsonInputData = JSON.parse(inputData)
-    const inputParams = await this.getJsonDataFromFile('input/params.json')
-    const jsonInputParams = JSON.parse(inputParams)
+    const jsonInputDataString = await this.getJsonDataFromFile('input/data.json')
+    const jsonInputParamsString = await this.getJsonDataFromFile('input/params.json')
 
     // make a copy of old OpenAPI-File
     await this.writeUpdatedOpenApi('openapi-spec-saved.yml', YAML.stringify(jsonOpenApi))
 
     // generate new Input-Data-Section
-    const newOpenApiInputData = this.getOpenApiRepresentationOfObjectData(jsonInputData)
+    const newOpenApiInputData = JSON.parse(this.getOpenApiRepresentationOfObjectData(jsonInputDataString))
     jsonOpenApi.components.schemas.inputData.properties = newOpenApiInputData
 
     // generate new Input-Params-Section
-    const newOpenApiInputParams = this.getOpenApiRepresentationOfInputParams(jsonInputParams)
+    const newOpenApiInputParams = JSON.parse(this.getOpenApiRepresentationOfInputParams(jsonInputParamsString))
     jsonOpenApi.components.schemas.inputParams = newOpenApiInputParams
 
     // save updated OpenAPI-File
@@ -122,45 +120,44 @@ export default class CreateOpenapi extends AbstractCommand {
       return JSON.parse('{"type": "array","items":' + JSON.stringify(this.getOpenApiRepresentationOfArrayData(arrayValue[0])) + '}')
     }
 
-    return JSON.parse('{"type": "object","properties":' + JSON.stringify(this.getOpenApiRepresentationOfObjectData(arrayValue)) + '}')
+    return JSON.parse('{"type": "object","properties":' + this.getOpenApiRepresentationOfObjectData(JSON.stringify(arrayValue)) + '}')
   }
 
-  getOpenApiRepresentationOfObjectData(jsonInputData: object): object {
+  getOpenApiRepresentationOfObjectData(jsonInputString: string): string {
+    const jsonInputData = JSON.parse(jsonInputString)
     let schemaAsText = '{}'
-    Object.entries(jsonInputData).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(jsonInputData)) {
       if (this.isSimpleType(value)) {
-        schemaAsText = '{' + (schemaAsText.length > 2 ? schemaAsText.substring(1, schemaAsText.length - 1) + ',' : '') +
+        schemaAsText = '{' + (schemaAsText.length > 2 ? schemaAsText.slice(1, -1) + ',' : '') +
           '"' + key + '": {' +
           '"type": "' + this.getSimpleTypeNameOfValue(value) + '",' +
           '"example": ' + this.getExampleRepresentationOfValue(value) + '}}';
-      }
-      else if (Array.isArray(value)) {
-        schemaAsText = '{' + (schemaAsText.length > 2 ? schemaAsText.substring(1, schemaAsText.length - 1) + ',' : '') +
+      } else if (Array.isArray(value)) {
+        schemaAsText = '{' + (schemaAsText.length > 2 ? schemaAsText.slice(1, -1) + ',' : '') +
           '"' + key + '": {' +
           '"type": "array",' +
           '"items": ' +
           (this.isSimpleType(value[0]) ? ('{"type": "' + this.getSimpleTypeNameOfValue(value[0]) + '"}') :
             (Array.isArray(value[0]) ?
               ('{"type": "array","items":' + JSON.stringify(this.getOpenApiRepresentationOfArrayData(value[0])) + '}') :
-              ('{"type": "object","properties":' + JSON.stringify(this.getOpenApiRepresentationOfObjectData(value[0])) + '}'))) + ',' + '"example": ' + this.getExampleRepresentationOfValue(value) + '}}';
-      }
-      else {
-        schemaAsText = '{' + (schemaAsText.length > 2 ? schemaAsText.substring(1, schemaAsText.length - 1) + ',' : '') +
+              ('{"type": "object","properties":' + this.getOpenApiRepresentationOfObjectData(JSON.stringify([0])) + '}'))) + ',"example": ' + this.getExampleRepresentationOfValue(value) + '}}';
+      } else {
+        schemaAsText = '{' + (schemaAsText.length > 2 ? schemaAsText.slice(1, -1) + ',' : '') +
           '"' + key + '": {' +
           '"type": "object",' +
-          '"properties": ' + JSON.stringify(this.getOpenApiRepresentationOfObjectData(value)) + ',' +
+          '"properties": ' + this.getOpenApiRepresentationOfObjectData(JSON.stringify(value)) + ',' +
           '"example": ' + this.getExampleRepresentationOfValue(value) + '}}';
       }
-    });
-    return JSON.parse(schemaAsText)
+    }
+
+    return schemaAsText
   }
 
-  getOpenApiRepresentationOfInputParams(jsonInputParams: object) {
-    const inputParamsAsText = '{"type":"object","properties":' + JSON.stringify(this.getOpenApiRepresentationOfObjectData(jsonInputParams)) + '}'
-    return JSON.parse(inputParamsAsText)
+  getOpenApiRepresentationOfInputParams(jsonInputParamsString: string): string {
+    return '{"type":"object","properties":' + this.getOpenApiRepresentationOfObjectData(jsonInputParamsString) + '}'
   }
 
-  async writeUpdatedOpenApi( fileName: string, openApiContent: string) {
+  async writeUpdatedOpenApi(fileName: string, openApiContent: string): Promise<void> {
     const file = path.join(this.workingDir, fileName)
 
     fs.writeFileSync(file, openApiContent)
