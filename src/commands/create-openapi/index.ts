@@ -1,7 +1,7 @@
-import {ux, Flags} from '@oclif/core'
+import {Flags, ux} from '@oclif/core'
 import {AbstractCommand} from '../../model/command'
-import * as fs from 'fs-extra';
-import path from 'path';
+import * as fs from 'fs-extra'
+import path from 'path'
 import YAML from 'yaml'
 
 export default class CreateOpenapi extends AbstractCommand {
@@ -22,7 +22,7 @@ export default class CreateOpenapi extends AbstractCommand {
   }
 
   async run(): Promise<void> {
-    ux.action.start('start generation');
+    ux.action.start('start generation')
 
     const {flags} = await this.parse(CreateOpenapi)
 
@@ -48,10 +48,10 @@ export default class CreateOpenapi extends AbstractCommand {
     // save updated OpenAPI-File
     await this.writeUpdatedOpenApi('openapi-spec.yml', YAML.stringify(jsonOpenApi))
 
-    ux.action.stop('finished');
+    ux.action.stop('finished')
   }
 
-  async getCurrentOpenAPI(fileName: string): Promise<string>  {
+  async getCurrentOpenAPI(fileName: string): Promise<string> {
     const file = path.join(this.workingDir, fileName)
 
     if (!fs.existsSync(file)) {
@@ -96,10 +96,9 @@ export default class CreateOpenapi extends AbstractCommand {
   getExampleRepresentationOfValue(value: any): string {
     let representation = ''
     if (typeof value === 'string') {
-      // representation = '"' + value + '"'
       representation = `"${value}"`
     } else if (typeof value === 'number') {
-      representation =  value.toString()
+      representation = value.toString()
     } else if (typeof value === 'boolean') {
       representation = String(value)
     } else if (Array.isArray(value)) {
@@ -116,7 +115,7 @@ export default class CreateOpenapi extends AbstractCommand {
       return JSON.parse('{"type": "' + this.getSimpleTypeNameOfValue(arrayValue) + '"}')
     }
 
-    if (Array.isArray(arrayValue))  {
+    if (Array.isArray(arrayValue)) {
       return JSON.parse('{"type": "array","items":' + JSON.stringify(this.getOpenApiRepresentationOfArrayData(arrayValue[0])) + '}')
     }
 
@@ -131,7 +130,7 @@ export default class CreateOpenapi extends AbstractCommand {
         schemaAsText = '{' + (schemaAsText.length > 2 ? schemaAsText.slice(1, -1) + ',' : '') +
           '"' + key + '": {' +
           '"type": "' + this.getSimpleTypeNameOfValue(value) + '",' +
-          '"example": ' + this.getExampleRepresentationOfValue(value) + '}}';
+          '"example": ' + this.getExampleRepresentationOfValue(value) + '}}'
       } else if (Array.isArray(value)) {
         schemaAsText = '{' + (schemaAsText.length > 2 ? schemaAsText.slice(1, -1) + ',' : '') +
           '"' + key + '": {' +
@@ -140,13 +139,13 @@ export default class CreateOpenapi extends AbstractCommand {
           (this.isSimpleType(value[0]) ? ('{"type": "' + this.getSimpleTypeNameOfValue(value[0]) + '"}') :
             (Array.isArray(value[0]) ?
               ('{"type": "array","items":' + JSON.stringify(this.getOpenApiRepresentationOfArrayData(value[0])) + '}') :
-              ('{"type": "object","properties":' + this.getOpenApiRepresentationOfObjectData(JSON.stringify([0])) + '}'))) + ',"example": ' + this.getExampleRepresentationOfValue(value) + '}}';
+              ('{"type": "object","properties":' + this.getOpenApiRepresentationOfObjectData(JSON.stringify([0])) + '}'))) + ',"example": ' + this.getExampleRepresentationOfValue(value) + '}}'
       } else {
         schemaAsText = '{' + (schemaAsText.length > 2 ? schemaAsText.slice(1, -1) + ',' : '') +
           '"' + key + '": {' +
           '"type": "object",' +
           '"properties": ' + this.getOpenApiRepresentationOfObjectData(JSON.stringify(value)) + ',' +
-          '"example": ' + this.getExampleRepresentationOfValue(value) + '}}';
+          '"example": ' + this.getExampleRepresentationOfValue(value) + '}}'
       }
     }
 
