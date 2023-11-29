@@ -28,6 +28,7 @@ export default class AuthService {
         throw new Error(errorMessage)
       }
 
+      console.error(JSON.stringify(error))
       throw new Error('Internal error occurred, please contact your PlanQK administrator')
     }
   }
