@@ -5,7 +5,7 @@ import path from 'path'
 import YAML from 'yaml'
 
 export default class CreateOpenapi extends AbstractCommand {
-  static description = 'Creates the OpenAPI Spec based on the data-info from input-dir.'
+  static description = 'Creates the OpenAPI definition based on the sample data in the "input" directory.'
 
   static examples = [
     '$ planqk create-openapi',
