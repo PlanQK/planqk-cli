@@ -2,6 +2,7 @@ import {Config} from '@oclif/core/lib/config'
 import UserConfig, {defaultBasePath} from '../model/user-config'
 import AuthPrincipal from '../model/auth-principal'
 import {fetchOrThrow, PlanqkError} from '../helper/fetch'
+import {debugEnabled} from '../helper/debug'
 
 export default class AuthService {
   userConfig!: UserConfig
@@ -28,7 +29,10 @@ export default class AuthService {
         throw new Error(errorMessage)
       }
 
-      console.error(JSON.stringify(error))
+      if (debugEnabled()) {
+        console.error(JSON.stringify(error))
+      }
+
       throw new Error('Internal error occurred, please contact your PlanQK administrator')
     }
   }

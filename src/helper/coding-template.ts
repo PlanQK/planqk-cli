@@ -1,6 +1,7 @@
 import YAML from 'yaml'
 import AdmZip from 'adm-zip'
 import {fetchOrThrow, PlanqkError} from './fetch'
+import {debugEnabled} from './debug'
 
 export const downloadArchive = async (): Promise<AdmZip> => {
   const config = {
@@ -24,7 +25,11 @@ export const downloadArchive = async (): Promise<AdmZip> => {
       throw new Error(errorMessage)
     }
 
-    throw new Error(`Internal error occurred, please contact your PlanQK administrator: ${error}`)
+    if (debugEnabled()) {
+      console.error(JSON.stringify(error))
+    }
+
+    throw new Error('Internal error occurred, please contact your PlanQK administrator')
   }
 
   return zip

@@ -235,7 +235,7 @@ export default class PlanqkService extends CommandService {
     }
 
     if (debugEnabled()) {
-      console.error(error)
+      console.error(JSON.stringify(error))
     }
 
     return 'Internal error occurred, please contact your PlanQK administrator'
