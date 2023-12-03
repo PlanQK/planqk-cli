@@ -64,7 +64,8 @@
       "@oclif/plugin-autocomplete"
     ],
     "topics": {},
-    "repositoryPrefix": "https://github.com/PlanQK/planqk-cli/tree/main/src/commands"
+    "repositoryPrefix": "https://github.com/PlanQK/planqk-cli/tree/main/src/commands",
+    "helpClass": "./dist/planqkHelp"
   },
   "scripts": {
     "build": "shx rm -rf dist && tsc -b",
