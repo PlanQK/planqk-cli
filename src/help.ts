@@ -8,7 +8,8 @@ export default class PlanqkHelp extends Help {
       ux.styledHeader('How to generate your OpenAPI definition?')
       ux.info(
         'Open the files input/data.json and input/params.json in an editor. ' +
-        'Modify the JSON samples to suit your project and save the modifications.',
+        'Modify the JSON samples to suit your project and save the modifications. ' +
+        'Then simply run the command.',
       )
 
       ux.info('')

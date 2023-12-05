@@ -65,7 +65,7 @@
     ],
     "topics": {},
     "repositoryPrefix": "https://github.com/PlanQK/planqk-cli/tree/main/src/commands",
-    "helpClass": "./dist/planqk-help"
+    "helpClass": "./dist/help"
   },
   "scripts": {
     "build": "shx rm -rf dist && tsc -b",
