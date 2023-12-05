@@ -5,14 +5,17 @@ import path from 'path'
 import YAML from 'yaml'
 
 export default class CreateOpenapi extends AbstractCommand {
-  static description = 'Creates the OpenAPI definition based on the sample data in the "input" directory.'
+  static description = 'Creates the OpenAPI definition based on the sample data in the "input" directory. ' +
+    'The generated OpenAPI definition is saved in the file "openapi-spec.yml". ' +
+    'An existing "openapi-spec.yml" file is saved as "openapi-spec-saved.yml" before it is overwritten.' +
+    'After the generation you may check the generated OpenAPI definition and correct it manually if necessary.'
 
   static examples = [
     '$ planqk create-openapi',
   ]
 
   static flags = {
-    wd: Flags.string({description: 'Working dir (e.g. for tests)', required: false}),
+    wd: Flags.string({description: 'Working dir (e.g., for tests)', required: false}),
   }
 
   workingDir = ''
