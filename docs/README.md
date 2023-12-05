@@ -51,7 +51,7 @@ $ npm install -g @anaqor/planqk
 $ planqk COMMAND
 running command...
 $ planqk (--version)
-@anaqor/planqk/1.8.0 darwin-arm64 node-v18.15.0
+@anaqor/planqk/2.4.3 darwin-arm64 node-v18.17.1
 $ planqk --help [COMMAND]
 USAGE
   $ planqk COMMAND
@@ -108,16 +108,20 @@ code: [@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/
 
 ## `planqk create-openapi`
 
-Update the current openapi-spec with the changed data and params description.
+Creates the OpenAPI definition based on the sample data in the "input" directory. The generated OpenAPI definition is saved in the file "openapi-spec.yml". An existing "openapi-spec.yml" file is saved as "openapi-spec-saved.yml" before it is overwritten.After the generation you may check the generated OpenAPI definition and correct it manually if necessary.
 
 ```
 USAGE
-  $ planqk create-openapi
+  $ planqk create-openapi [--wd <value>]
+
+FLAGS
+  --wd=<value>  Working dir (e.g., for tests)
 
 DESCRIPTION
-  After initializing a new project with $ planqk init
-  and adjusting the data and params in the input-folder according to your project needs,
-  you can regenerate the openapi-spec with this command.
+  Creates the OpenAPI definition based on the sample data in the "input" directory. The generated OpenAPI definition is
+  saved in the file "openapi-spec.yml". An existing "openapi-spec.yml" file is saved as "openapi-spec-saved.yml" before
+  it is overwritten.After the generation you may check the generated OpenAPI definition and correct it manually if
+  necessary.
 
 EXAMPLES
   $ planqk create-openapi
@@ -299,5 +303,4 @@ EXAMPLES
 ```
 
 _See code: [dist/commands/up/index.ts](https://github.com/PlanQK/planqk-cli/tree/main/src/commands)_
-
 <!-- commandsstop -->
