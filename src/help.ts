@@ -1,6 +1,6 @@
-import {Command, Help, ux} from '@oclif/core'
+import {Command, Help as HelpBase, ux} from '@oclif/core'
 
-export default class PlanqkHelp extends Help {
+export default class Help extends HelpBase {
   async showCommandHelp(command: Command.Class | Command.Loadable | Command.Cached): Promise<void> {
     await super.showCommandHelp(command)
 
