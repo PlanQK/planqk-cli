@@ -11,7 +11,7 @@ import {downloadArchive, extractTemplate, getReadmeTemplate, getTemplateVariable
 import AdmZip from 'adm-zip'
 
 export default class Init extends AbstractCommand {
-  static description = 'Initialize a PlanQK project.'
+  static description = 'Initialize a PlanQK project to create a service.'
 
   static examples = [
     '$ planqk init',
