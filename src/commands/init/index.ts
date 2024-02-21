@@ -180,7 +180,7 @@ export default class Init extends AbstractCommand {
     if (responses.template) {
       this.log('\n Next steps:')
       this.log(`  \u{2022} cd ${name}`)
-      this.log('  \u{2022} planqk up   (deploys your code as a service to the PlanQK platform)')
+      this.log('  \u{2022} planqk up   (deploys your code as a service to the PlanQK Platform)')
       this.log('  \u{2022} planqk run  (executes your service using the data from the input directory)')
     }
 
