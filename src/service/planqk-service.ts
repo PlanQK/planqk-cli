@@ -10,6 +10,7 @@ import {
   Configuration,
   CpuConfiguration,
   CreateJobRequest,
+  CreateManagedServiceRuntimeEnum,
   FetchError,
   GpuConfiguration,
   JobDto,
@@ -81,7 +82,7 @@ export default class PlanqkService extends CommandService {
           description: serviceConfig.description,
           milliCpus: milliCpus,
           memoryInMegabytes: memoryInMegabytes,
-          runtime: serviceConfig.runtime,
+          runtime: serviceConfig.runtime as CreateManagedServiceRuntimeEnum,
           gpuCount: gpuCount,
           gpuAccelerator: gpuAccelerator,
           xOrganizationId: organizationId,
@@ -164,10 +165,10 @@ export default class PlanqkService extends CommandService {
         })
       }
 
-      await this.serviceApi.updateSourceCode({
+      await this.serviceApi.updateSourceCodePost({
         serviceId: service.id!,
         versionId: serviceDefinition!.id!,
-        sourceCode: sourceCode,
+        file: sourceCode,
         xOrganizationId: organizationId,
       })
       return service

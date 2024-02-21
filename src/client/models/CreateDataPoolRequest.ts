@@ -12,46 +12,45 @@
  * Do not edit the class manually.
  */
 
-import {exists} from '../runtime'
-
 /**
  *
  * @export
- * @interface CreateApplicationRequest
+ * @interface CreateDataPoolRequest
  */
-export interface CreateApplicationRequest {
+export interface CreateDataPoolRequest {
     /**
      *
      * @type {string}
-     * @memberof CreateApplicationRequest
+     * @memberof CreateDataPoolRequest
      */
-    name?: string;
+    name: string;
 }
 
 /**
- * Check if a given object implements the CreateApplicationRequest interface.
+ * Check if a given object implements the CreateDataPoolRequest interface.
  */
-export function instanceOfCreateApplicationRequest(value: object): boolean {
+export function instanceOfCreateDataPoolRequest(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "name" in value;
 
     return isInstance;
 }
 
-export function CreateApplicationRequestFromJSON(json: any): CreateApplicationRequest {
-    return CreateApplicationRequestFromJSONTyped(json, false);
+export function CreateDataPoolRequestFromJSON(json: any): CreateDataPoolRequest {
+    return CreateDataPoolRequestFromJSONTyped(json, false);
 }
 
-export function CreateApplicationRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): CreateApplicationRequest {
+export function CreateDataPoolRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): CreateDataPoolRequest {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
 
-        'name': !exists(json, 'name') ? undefined : json['name'],
+        'name': json['name'],
     };
 }
 
-export function CreateApplicationRequestToJSON(value?: CreateApplicationRequest | null): any {
+export function CreateDataPoolRequestToJSON(value?: CreateDataPoolRequest | null): any {
     if (value === undefined) {
         return undefined;
     }
