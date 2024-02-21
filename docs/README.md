@@ -16,6 +16,21 @@ On Windows you can’t set environment variables in line, so you’ll need to ru
 DEBUG=* ./bin/dev <command>
 ```
 
+## Use the PlanQK CLI with our Staging Environment
+
+Open `~/.config/planqk/config.json` and add the `basePath` to the `endpoint` setting.
+Your `config.json` file may look like this:
+
+```shell
+{
+  "endpoint": {
+    "basePath": "https://34.90.225.20.nip.io/qc-catalog"
+  }
+}
+```
+
+You can now run `planqk login` to log-in using a personal access token from a user in the staging environment.
+
 ## Package the Tarballs
 
 ```shell
