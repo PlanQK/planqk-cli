@@ -41,7 +41,7 @@ You can now run `planqk login` or `./bin/dev login` to log-in using a personal a
    ```json
    {
      "endpoint": {
-       "basePath": "http://34.90.225.20.nip.io/qc-catalog",
+       "basePath": "https://34.90.225.20.nip.io/qc-catalog",
        "defaultHeaders": {
          "x-telepresence-intercept-id": "<your telepresence intercept id>"
        }
