@@ -1,4 +1,4 @@
-import {ux} from '@oclif/core'
+import {Flags, ux} from '@oclif/core'
 import inquirer from 'inquirer'
 import fs from 'fs-extra'
 import path from 'path'
@@ -17,7 +17,20 @@ export default class Init extends AbstractCommand {
     '$ planqk init',
   ]
 
+  static flags = {
+    'non-interactive': Flags.boolean({description: 'Run it in non-interactive mode', required: false}),
+    name: Flags.string({description: 'The name of the service', required: false}),
+    description: Flags.string({description: 'The description of the service', required: false}),
+    template: Flags.string({
+      description: 'The coding template path; the relative path to PlanQK samples repository',
+      required: false,
+    }),
+    cpu: Flags.string({description: 'The vCPU configuration as integer, e.g., "1" for 1 vCPU', required: false}),
+    memory: Flags.string({description: 'The memory configuration as integer, e.g., "1" for 1 GB', required: false}),
+  }
+
   async run(): Promise<void> {
+    // const {flags} = await this.parse(Init)
     let name = randomName()
     const responses: any = await inquirer.prompt([
       {
