@@ -21,7 +21,7 @@ DEBUG=* ./bin/dev <command>
 Open `~/.config/planqk/config.json` and add the `basePath` to the `endpoint` setting.
 Your `config.json` file may look like this:
 
-```shell
+```json
 {
   "endpoint": {
     "basePath": "https://34.90.225.20.nip.io/qc-catalog"
@@ -29,7 +29,27 @@ Your `config.json` file may look like this:
 }
 ```
 
-You can now run `planqk login` to log-in using a personal access token from a user in the staging environment.
+You can now run `planqk login` or `./bin/dev login` to log-in using a personal access token from a user in the staging environment.
+
+## Use Telepresence to Debug API Operations in the Backend
+
+> This only works in our staging environment.
+
+1. Install [Telepresence](https://www.telepresence.io).
+2. Run `telepresence login ...`, `telepresence connect ...`, and `telepresence intercept ...` to create an intercept.
+3. Add the `x-telepresence-intercept-id` header to the `config.json` file to the `endpoint` setting. The file may look like this:
+   ```json
+   {
+     "endpoint": {
+       "basePath": "http://34.90.225.20.nip.io/qc-catalog",
+       "defaultHeaders": {
+         "x-telepresence-intercept-id": "<your telepresence intercept id>"
+       }
+     }
+   }
+   ```
+4. Set your breakpoint in the backend code and run the backend with our Telepresence run config.
+5. You can now run commands like `planqk services` or `./bin/dev up` to interact with the backend.
 
 ## Package the Tarballs
 
