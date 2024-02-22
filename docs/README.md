@@ -192,8 +192,14 @@ USAGE
 DESCRIPTION
   Initialize a PlanQK project.
 
+FLAGS
+  --non-interactive         Executes the init command without opening a prompt.
+  --name                    It sets the name of the initialised project. This flag works in combination with the --non-interactive flag. 
+
 EXAMPLES
   $ planqk init
+  
+  $ planqk init --non-interactive --name <project name>
 ```
 
 _See code: [dist/commands/init/index.ts](https://github.com/PlanQK/planqk-cli/tree/main/src/commands)_
