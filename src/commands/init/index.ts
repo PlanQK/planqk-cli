@@ -10,6 +10,20 @@ import {randomName} from '../../helper/random-name'
 import {downloadArchive, extractTemplate, getReadmeTemplate, getTemplateVariables} from '../../helper/coding-template'
 import AdmZip from 'adm-zip'
 
+interface Template {
+  path: string,
+  runtime: Runtime
+}
+
+interface UserInput {
+  name: string,
+  description: string,
+  template: Template,
+  cpu: number,
+  memory: number,
+  gpu: GpuType | undefined,
+}
+
 export default class Init extends AbstractCommand {
   static description = 'Initialize a PlanQK project to create a service.'
 
@@ -18,21 +32,27 @@ export default class Init extends AbstractCommand {
   ]
 
   static flags = {
-    'non-interactive': Flags.boolean({description: 'Run it in non-interactive mode', required: false}),
-    name: Flags.string({description: 'The name of the service', required: false}),
-    description: Flags.string({description: 'The description of the service', required: false}),
-    template: Flags.string({
-      description: 'The coding template path; the relative path to PlanQK samples repository',
+    'non-interactive': Flags.boolean({
+      description: 'Run it in non-interactive mode',
       required: false,
     }),
-    cpu: Flags.string({description: 'The vCPU configuration as integer, e.g., "1" for 1 vCPU', required: false}),
-    memory: Flags.string({description: 'The memory configuration as integer, e.g., "1" for 1 GB', required: false}),
+    name: Flags.string({description: 'The name of the service', required: false}),
   }
 
   async run(): Promise<void> {
-    // const {flags} = await this.parse(Init)
-    let name = randomName()
-    const responses: any = await inquirer.prompt([
+    const {flags} = await this.parse(Init)
+    const nonInteractive = flags['non-interactive']
+
+    let name = randomName();
+
+    const input: UserInput = nonInteractive ? {
+      name: flags.name ? flags.name : name,
+      description: '',
+      template: {path: 'python/python-starter-qiskit', runtime: Runtime.PYTHON_TEMPLATE},
+      cpu: 0.5,
+      memory: 1,
+      gpu: undefined,
+    } : (await inquirer.prompt([
       {
         name: 'name',
         message: `Service name (${name}):`,
@@ -144,53 +164,53 @@ export default class Init extends AbstractCommand {
           {name: 'NVIDIA® V100 (Pro)', value: GpuType.NVIDIA_TESLA_V100},
         ],
       },
-    ])
+    ]));
 
-    name = responses.name || name
+    name = input.name || name
     // use current directory if no template is selected
-    const destination = responses.template ? path.join(process.cwd(), name) : path.join(process.cwd())
+    const destination = input.template ? path.join(process.cwd(), name) : path.join(process.cwd())
 
     // only if a template is selected
-    if (responses.template && fs.existsSync(destination)) {
+    if (input.template && fs.existsSync(destination)) {
       ux.error(`Destination ${destination} already exists. Please choose another name.`)
     }
 
     const serviceConfig: ManagedServiceConfig = {
       name: name,
-      description: responses.description,
+      description: input.description,
       resources: {
-        cpu: responses.cpu,
-        memory: responses.memory,
+        cpu: input.cpu,
+        memory: input.memory,
       },
-      runtime: responses.template ? responses.template.runtime : Runtime.PYTHON_TEMPLATE,
+      runtime: input.template ? input.template.runtime : Runtime.PYTHON_TEMPLATE,
     }
 
-    if (responses.gpu) {
+    if (input.gpu) {
       serviceConfig!.resources!.gpu = {
-        type: responses.gpu,
+        type: input.gpu,
         count: 1,
       }
     }
 
     // only if a template is selected
-    if (responses.template) {
+    if (input.template) {
       fs.mkdirSync(destination)
     }
 
     writeServiceConfig(destination, serviceConfig)
 
     // load template from GitHub
-    if (responses.template) {
+    if (input.template) {
       const zip = await downloadArchive()
-      extractTemplate(zip, responses.template.path, destination)
+      extractTemplate(zip, input.template.path, destination)
 
       this.updateEnvironmentYaml(name)
-      this.updateReadme(zip, responses.template.path, name)
+      this.updateReadme(zip, input.template.path, name)
     }
 
     this.log('\u{1F389} Initialized project. Happy hacking!')
 
-    if (responses.template) {
+    if (input.template) {
       this.log('\n Next steps:')
       this.log(`  \u{2022} cd ${name}`)
       this.log('  \u{2022} planqk up   (deploys your code as a service to the PlanQK Platform)')
