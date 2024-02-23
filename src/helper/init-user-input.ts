@@ -1,5 +1,5 @@
 import inquirer from 'inquirer'
-import {GpuType, Runtime} from '../../model/managed-service-config'
+import {GpuType, Runtime} from '../model/managed-service-config'
 
 export interface TemplateInput {
   path: string,
