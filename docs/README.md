@@ -110,6 +110,7 @@ USAGE
 * [`planqk services`](#planqk-services)
 * [`planqk set-context [CONTEXTID]`](#planqk-set-context-contextid)
 * [`planqk up`](#planqk-up)
+* [`planqk serve`](#planqk-serve)
 
 ## `planqk autocomplete [SHELL]`
 
@@ -327,7 +328,7 @@ _See code: [dist/commands/set-context/index.ts](https://github.com/PlanQK/planqk
 
 ## `planqk up`
 
-Creates or updates a PlanQK Service
+Creates or updates a PlanQK Service.
 
 ```
 USAGE
@@ -341,6 +342,24 @@ DESCRIPTION
 
 EXAMPLES
   $ planqk up
+```
+
+## `planqk serve`
+
+Allows the creation, status check and deletion of service instances.
+
+```
+USAGE
+  $ planqk serve [--port]
+
+FLAGS
+  --port  Defines the port on which the serve command is executed.
+
+DESCRIPTION
+  Allows the creation, status check and deletion of service instances. If the flag is not present, the application uses 8081 as the default port.
+
+EXAMPLES
+  $ planqk serve -p <port>
 ```
 
 _See code: [dist/commands/up/index.ts](https://github.com/PlanQK/planqk-cli/tree/main/src/commands)_
