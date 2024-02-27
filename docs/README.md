@@ -344,7 +344,10 @@ EXAMPLES
   $ planqk up
 ```
 
+
 ## `planqk serve`
+
+_See code: [dist/commands/up/index.ts](https://github.com/PlanQK/planqk-cli/tree/main/src/commands)_
 
 Allows the creation, status check and deletion of service instances.
 
@@ -362,5 +365,5 @@ EXAMPLES
   $ planqk serve -p <port>
 ```
 
-_See code: [dist/commands/up/index.ts](https://github.com/PlanQK/planqk-cli/tree/main/src/commands)_
+_See code: [dist/commands/serve/index.ts](https://github.com/PlanQK/planqk-cli/tree/main/src/commands)_
 <!-- commandsstop -->
