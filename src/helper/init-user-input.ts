@@ -53,6 +53,10 @@ export const promptUserInput = (defaultName: string): Promise<UserInput> => {
           value: {path: 'python/python-starter-pennylane', runtime: Runtime.PYTHON_TEMPLATE},
         },
         {
+          name: 'Munich Quantum Toolkit (Quantum Dev Tools and Simulator)',
+          value: {path: 'python/python-starter-mqt', runtime: Runtime.PYTHON_TEMPLATE},
+        },
+        {
           name: 'Docker Go Starter',
           value: {path: 'docker/docker-go', runtime: Runtime.DOCKER},
         },
