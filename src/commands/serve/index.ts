@@ -35,14 +35,28 @@ export default class Serve extends AbstractCommand {
     });
   }
 
+  async buildContainer(name: string, hostPort: string): Promise<any> {
+    const wasContainerCreatedCommand = `if docker inspect "${name}" >/dev/null 2>&1; then
+    echo "true"
+else
+    echo "false"
+fi`;
+
+    const buildCommand = `docker run -p ${hostPort}:8001 -v "$(pwd):/user_code" --name ${name} ghcr.io/planqk/planqk-cli-serve:master`;
+    const wasContainerCreatedResponse = await this.executeAsyncCommand(wasContainerCreatedCommand)
+
+    if (!wasContainerCreatedResponse.stdout.toString().includes('true')) {
+      await this.executeAsyncCommand(buildCommand);
+    }
+  }
+
   async run(): Promise<void> {
     const {flags} = await this.parse(Serve);
     const hostPort = flags.port ? flags.port : 8081;
 
-    const removeAndPullImageCommand = 'docker rmi -f serve && docker pull serve';
+    const removeAndPullImageCommand = 'docker rmi -f ghcr.io/planqk/planqk-cli-serve:master && docker pull ghcr.io/planqk/planqk-cli-serve:master';
 
     const containerName = 'planqk-cli-serve';
-    const buildCommand = `docker run -p ${hostPort}:8001 -v "$(pwd):/user_code" --name ${containerName} serve`;
     const runCommand = `docker start -a ${containerName}`;
 
     const tasks = new Listr([
@@ -52,7 +66,7 @@ export default class Serve extends AbstractCommand {
       },
       {
         title: 'Building container',
-        task: () => Promise.resolve(this.executeAsyncCommand(buildCommand)),
+        task: () => Promise.resolve(this.buildContainer(containerName, hostPort.toString())),
       },
       {
         title: 'Starting container',
