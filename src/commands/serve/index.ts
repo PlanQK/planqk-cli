@@ -15,6 +15,8 @@ export default class Serve extends AbstractCommand {
     port: Flags.integer({char: 'p', description: 'The port on which the serve command is executed', required: false}),
   }
 
+  static image = 'ghcr.io/planqk/planqk-cli-serve:master'
+
   executeCommand(command: string, stdioOption?: StdioOptions): void {
     try {
       execSync(`${command}`, {stdio: stdioOption ? stdioOption : 'inherit'});
@@ -42,7 +44,7 @@ else
     echo "false"
 fi`;
 
-    const buildCommand = `docker run -p ${hostPort}:8001 -v "$(pwd):/user_code" --name ${name} ghcr.io/planqk/planqk-cli-serve:master`;
+    const buildCommand = `docker run -p ${hostPort}:8001 -v "$(pwd):/user_code" --name ${name} ${Serve.image}`;
     const wasContainerCreatedResponse = await this.executeAsyncCommand(wasContainerCreatedCommand)
 
     if (!wasContainerCreatedResponse.stdout.toString().includes('true')) {
@@ -54,7 +56,7 @@ fi`;
     const {flags} = await this.parse(Serve);
     const hostPort = flags.port ? flags.port : 8081;
 
-    const removeAndPullImageCommand = 'docker rmi -f ghcr.io/planqk/planqk-cli-serve:master && docker pull ghcr.io/planqk/planqk-cli-serve:master';
+    const removeAndPullImageCommand = `docker rmi -f ${Serve.image} && docker pull ${Serve.image}`;
 
     const containerName = 'planqk-cli-serve';
     const runCommand = `docker start -a ${containerName}`;
