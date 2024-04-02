@@ -16,6 +16,7 @@ export default class Serve extends AbstractCommand {
   }
 
   static image = 'ghcr.io/planqk/planqk-cli-serve:master'
+  static containerName = 'planqk-cli-serve'
 
   executeCommand(command: string, stdioOption?: StdioOptions): void {
     try {
@@ -44,14 +45,16 @@ else
     echo "false"
 fi`;
 
-    const buildCommand = `docker run -p ${hostPort}:8001 -v "$(pwd):/user_code" --name ${containerName} ${Serve.image}`;
     const wasContainerCreatedResponse = await this.executeAsyncCommand(wasContainerCreatedCommand)
 
     if (wasContainerCreatedResponse.stdout.toString().includes('true')) {
-      return;
+      // Create a new image from the old one to be able to mount the new volume if the directory has changed
+      const imageName = containerName + this.generateRandomString(30);
+      const reBuildCommand = `docker commit ${containerName} ${imageName} && docker rm ${containerName} && ${this.getBuildCommand(hostPort, containerName, imageName)}`
+      await this.executeAsyncCommand(reBuildCommand);
+    } else {
+      await this.executeAsyncCommand(this.getBuildCommand(hostPort, containerName, Serve.image));
     }
-
-    await this.executeAsyncCommand(buildCommand);
   }
 
   async run(): Promise<void> {
@@ -60,8 +63,7 @@ fi`;
 
     const removeAndPullImageCommand = `docker rmi -f ${Serve.image} && docker pull ${Serve.image}`;
 
-    const containerName = 'planqk-cli-serve';
-    const runCommand = `docker start -a ${containerName}`;
+    const runCommand = `docker start -a ${Serve.containerName}`;
 
     const tasks = new Listr([
       {
@@ -72,7 +74,7 @@ fi`;
       },
       {
         title: 'Building container',
-        task: () => this.buildContainer(containerName, hostPort.toString())
+        task: () => this.buildContainer(Serve.containerName, hostPort.toString())
           .catch(error => {
             this.error(`${error.message}`);
           }),
@@ -86,5 +88,20 @@ fi`;
     tasks.run().catch(error => {
       console.error(error);
     });
+  }
+
+  generateRandomString(length: number): string {
+    const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      result += characters.charAt(randomIndex);
+    }
+
+    return result;
+  }
+
+  getBuildCommand(hostPort: string, containerName: string, imageName: string): string {
+    return `docker run -p ${hostPort}:8001 -v "$(pwd):/user_code" --name ${containerName} ${imageName}`
   }
 }
