@@ -53,7 +53,7 @@ export default class Serve extends AbstractCommand {
       },
       {
         title: 'Building container',
-        task: () => this.executeAsyncCommand(`docker run -p ${hostPort}:8001 -v "$(pwd):/user_code" --name ${containerName} ${Serve.IMAGE}`)
+        task: () => this.executeAsyncCommand(`docker run -e PORT=${hostPort} -p ${hostPort}:${hostPort} -v "$(pwd):/user_code" --name ${containerName} ${Serve.IMAGE}`)
           .catch(error => {
             this.error(`${error.message}`);
           }),
