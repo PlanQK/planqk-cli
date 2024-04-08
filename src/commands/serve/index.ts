@@ -42,6 +42,8 @@ export default class Serve extends AbstractCommand {
     const {flags} = await this.parse(Serve);
     const hostPort = flags.port ? flags.port : 8081;
 
+    const containerName = Serve.CONTAINER_NAME + this.generateRandomSequence(10);
+
     const tasks = new Listr([
       {
         title: 'Ensuring latest image',
@@ -51,19 +53,29 @@ export default class Serve extends AbstractCommand {
       },
       {
         title: 'Building container',
-        task: () => this.executeAsyncCommand(`docker run -p ${hostPort}:8001 -v "$(pwd):/user_code" --name ${Serve.CONTAINER_NAME} ${Serve.IMAGE}`)
+        task: () => this.executeAsyncCommand(`docker run -p ${hostPort}:8001 -v "$(pwd):/user_code" --name ${containerName} ${Serve.IMAGE}`)
           .catch(error => {
             this.error(`${error.message}`);
           }),
       },
       {
         title: 'Starting container',
-        task: () => Promise.resolve(this.executeCommand(`docker start -a ${Serve.CONTAINER_NAME}`)),
+        task: () => Promise.resolve(this.executeCommand(`docker start -a ${containerName}`)),
       },
     ]);
 
     tasks.run().catch(error => {
       console.error(error);
-    }).finally(() => this.executeAsyncCommand(`docker rm ${Serve.CONTAINER_NAME}`))
+    }).finally(() => this.executeAsyncCommand(`docker rm ${containerName}`))
+  }
+
+  generateRandomSequence(length: number): string {
+    const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    let randomSequence = '';
+    for (let i = 0; i < length; i++) {
+      randomSequence += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+
+    return randomSequence;
   }
 }
