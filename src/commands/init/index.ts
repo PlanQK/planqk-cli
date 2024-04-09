@@ -33,7 +33,7 @@ export default class Init extends AbstractCommand {
     const input: UserInput = nonInteractive ? {
       name: flags.name ? flags.name : name,
       description: '',
-      template: {path: 'python/python-starter-qiskit', runtime: Runtime.PYTHON_TEMPLATE},
+      template: {path: 'python/python-starter', runtime: Runtime.PYTHON_TEMPLATE},
       cpu: 0.5,
       memory: 1,
       gpu: undefined,
