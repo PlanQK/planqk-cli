@@ -5,7 +5,7 @@ import Listr from 'listr';
 import {exec} from 'node:child_process';
 
 export default class Serve extends AbstractCommand {
-  static description = 'Allows the creation, status check and deletion of service instances.'
+  static description = 'Enables the testing of a service in a containerized environment, similar to the one utilized by our platform. It starts a web server that allows you to create, check the status of, and cancel the execution of the service. This API is exposed just like the platform\'s. You can check our documentation page for more details.'
 
   static examples = [
     '$ planqk serve -p <port>',
