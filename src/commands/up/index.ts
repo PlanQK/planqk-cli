@@ -89,7 +89,6 @@ export default class Up extends AuthenticatedCommand {
         })
     } catch (error) {
       this.error('Error while waiting for the build job to finish: ' + error)
-      buildJob = undefined
     }
 
     if (buildJob && buildJob.status === BuildJobDtoStatusEnum.Success) {
