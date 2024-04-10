@@ -23,7 +23,7 @@ export default class Serve extends AbstractCommand {
     }),
   }
 
-  static IMAGE = 'ghcr.io/planqk/planqk-cli-serve:master'
+  static IMAGE = 'ghcr.io/planqk/planqk-cli-serve:latest'
   static CONTAINER_NAME = 'planqk-cli-serve'
 
   executeCommand(command: string, stdioOption?: StdioOptions): void {
@@ -34,7 +34,7 @@ export default class Serve extends AbstractCommand {
     }
   }
 
-  async executeAsyncCommand(command: string): Promise<any> {
+  async executeAsyncCommand(command: string): Promise<{ stdout: string, stderr: string }> {
     return new Promise((resolve, reject) => {
       exec(command, (error, stdout, stderr) => {
         if (error) {
