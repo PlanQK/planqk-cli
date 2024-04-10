@@ -33,6 +33,10 @@ export const promptUserInput = (defaultName: string): Promise<UserInput> => {
       type: 'list',
       choices: [
         {
+          name: 'PlanQK Starter',
+          value: {path: 'python/python-starter', runtime: Runtime.PYTHON_TEMPLATE},
+        },
+        {
           name: 'Qiskit Starter (Local Simulator)',
           value: {path: 'python/python-starter-qiskit', runtime: Runtime.PYTHON_TEMPLATE},
         },
@@ -71,10 +75,6 @@ export const promptUserInput = (defaultName: string): Promise<UserInput> => {
         {
           name: 'Docker GPU Starter (Python/Qiskit)',
           value: {path: 'docker/docker-gpu-qiskit', runtime: Runtime.DOCKER},
-        },
-        {
-          name: 'PlanQK Dev Container',
-          value: {path: 'python/python-starter', runtime: Runtime.PYTHON_TEMPLATE},
         },
         {name: 'None (creates "planqk.json" only in current directory)', value: undefined},
       ],
