@@ -17,6 +17,8 @@ Detailed information about the supported commands can be found in our
 To install the PlanQK CLI, you must install Node.js and the npm command line interface using either a
 [Node version manager](https://github.com/nvm-sh/nvm) or a [Node installer](https://nodejs.org/en/download).
 
+**Make sure you install Node.js version 18 or higher.**
+
 Then install the PlanQK CLI globally using npm:
 
 ```bash
@@ -35,6 +37,10 @@ You may also get information about a specific command:
 planqk <command> --help
 ```
 
+> **Troubleshooting:**
+> If you experience EACCES permissions errors during installation, we recommend using [Node version manager](https://github.com/nvm-sh/nvm) (nvm).
+> Further, you may refer to the official [npm documentation](https://docs.npmjs.com/resolving-eacces-permissions-errors-when-installing-packages-globally) how to resolve such issues.
+
 ## License
 
-Apache-2.0 | Copyright 2023 Anaqor AG
+Apache-2.0 | Copyright 2023-2024 Anaqor AG
