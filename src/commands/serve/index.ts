@@ -6,7 +6,10 @@ import {exec} from 'node:child_process'
 import {randomString} from '../../helper/random-string'
 
 export default class Serve extends AbstractCommand {
-  static description = 'Enables the testing of a service in a containerized environment, similar to the one utilized by our platform. It starts a web server that allows you to create, check the status of, and cancel the execution of the service. This API is exposed just like the platform\'s. You can check our documentation page for more details.'
+  static description = 'Runs your current service code in a containerized environment to expose it through a ' +
+    'local web server, similarly to how the PlanQK Platform would run your code. The local web server exposes the ' +
+    'same RESTful HTTP endpoints to start a service execution, to check the status of running executions, to cancel ' +
+    'executions, and to retrieve execution results.'
 
   static examples = [
     '$ planqk serve -p <port>',
