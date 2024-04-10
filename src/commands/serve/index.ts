@@ -1,8 +1,9 @@
 import {AbstractCommand} from '../../model/command'
 import {execSync, StdioOptions} from 'child_process'
-import {Flags} from '@oclif/core'
-import Listr from 'listr';
-import {exec} from 'node:child_process';
+import {Flags, ux} from '@oclif/core'
+import Listr from 'listr'
+import {exec} from 'node:child_process'
+import {randomString} from '../../helper/random-string'
 
 export default class Serve extends AbstractCommand {
   static description = 'Enables the testing of a service in a containerized environment, similar to the one utilized by our platform. It starts a web server that allows you to create, check the status of, and cancel the execution of the service. This API is exposed just like the platform\'s. You can check our documentation page for more details.'
@@ -12,7 +13,11 @@ export default class Serve extends AbstractCommand {
   ]
 
   static flags = {
-    port: Flags.integer({char: 'p', description: 'The port on which the serve command is executed', required: false}),
+    port: Flags.integer({
+      char: 'p',
+      description: 'The port on which the local web server accepts requests',
+      required: false,
+    }),
   }
 
   static IMAGE = 'ghcr.io/planqk/planqk-cli-serve:master'
@@ -20,9 +25,9 @@ export default class Serve extends AbstractCommand {
 
   executeCommand(command: string, stdioOption?: StdioOptions): void {
     try {
-      execSync(`${command}`, {stdio: stdioOption ? stdioOption : 'inherit'});
+      execSync(`${command}`, {stdio: stdioOption ? stdioOption : 'inherit'})
     } catch (error: any) {
-      this.error(`There might be problems with your dependencies. Don't forget to verify the requirements.txt file. ${error.message}`);
+      this.error(`There might be problems with your dependencies. Don't forget to verify the requirements.txt file.\n\n${error.message}`)
     }
   }
 
@@ -30,52 +35,50 @@ export default class Serve extends AbstractCommand {
     return new Promise((resolve, reject) => {
       exec(command, (error, stdout, stderr) => {
         if (error) {
-          reject(error);
+          reject(error)
         } else {
-          resolve({stdout, stderr});
+          resolve({stdout, stderr})
         }
-      });
-    });
+      })
+    })
   }
 
   async run(): Promise<void> {
-    const {flags} = await this.parse(Serve);
-    const hostPort = flags.port ? flags.port : 8081;
+    const {flags} = await this.parse(Serve)
+    const hostPort = flags.port ? flags.port : 8081
 
-    const containerName = Serve.CONTAINER_NAME + this.generateRandomSequence(10);
+    const containerName = `${Serve.CONTAINER_NAME}-${randomString(10)}`
 
     const tasks = new Listr([
       {
-        title: 'Ensuring latest image',
-        task: () => this.executeAsyncCommand(`docker rmi -f ${Serve.IMAGE} && docker pull ${Serve.IMAGE}`).catch(error => {
-          this.error(`${error.message}`);
-        }),
+        title: 'Ensuring latest base image',
+        task: () => this.executeAsyncCommand(`docker pull ${Serve.IMAGE}`),
       },
       {
         title: 'Building container',
-        task: () => this.executeAsyncCommand(`docker run -e PORT=${hostPort} -p ${hostPort}:${hostPort} -v "$(pwd):/user_code" --name ${containerName} ${Serve.IMAGE}`)
-          .catch(error => {
-            this.error(`${error.message}`);
-          }),
+        task: () => this.executeAsyncCommand(`docker run -e PORT=${hostPort} -p ${hostPort}:${hostPort} -v "$(pwd):/user_code" --name ${containerName} ${Serve.IMAGE}`),
       },
       {
         title: 'Starting container',
-        task: () => Promise.resolve(this.executeCommand(`docker start -a ${containerName}`)),
+        task: () => Promise.resolve(),
       },
-    ]);
+    ])
 
-    tasks.run().catch(error => {
-      console.error(error);
-    }).finally(() => this.executeAsyncCommand(`docker rm ${containerName}`))
-  }
+    this.log('Starting service locally...')
+    tasks.run()
+      .then(() => {
+        const baseUrl = `http://localhost:${hostPort}`
+        const docsUrl = `${baseUrl}/docs`
 
-  generateRandomSequence(length: number): string {
-    const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
-    let randomSequence = '';
-    for (let i = 0; i < length; i++) {
-      randomSequence += characters.charAt(Math.floor(Math.random() * characters.length));
-    }
+        this.log('\nService running at:')
+        ux.url(`${baseUrl}`, baseUrl)
+        this.log('\nDocumentation available at:')
+        ux.url(`${docsUrl}`, docsUrl)
+        this.log('')
 
-    return randomSequence;
+        this.executeCommand(`docker start -i -a ${containerName}`)
+      })
+      .catch(error => this.error(error))
+      .finally(() => this.executeAsyncCommand(`docker rm ${containerName}`))
   }
 }
