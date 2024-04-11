@@ -37,12 +37,20 @@ export const promptUserInput = (defaultName: string): Promise<UserInput> => {
           value: {path: 'python/python-starter', runtime: Runtime.PYTHON_TEMPLATE},
         },
         {
-          name: 'Qiskit Starter (Local Simulator)',
-          value: {path: 'python/python-starter-qiskit', runtime: Runtime.PYTHON_TEMPLATE},
+          name: 'IonQ Starter (Azure Quantum)',
+          value: {path: 'python/python-starter-ionq', runtime: Runtime.PYTHON_TEMPLATE},
         },
         {
-          name: 'IonQ Starter (Cloud Simulator)',
-          value: {path: 'python/python-starter-ionq', runtime: Runtime.PYTHON_TEMPLATE},
+          name: 'AWS Braket Starter',
+          value: {path: 'python/python-starter-aws', runtime: Runtime.PYTHON_TEMPLATE},
+        },
+        {
+          name: 'PennyLane Starter (Simulator)',
+          value: {path: 'python/python-starter-pennylane', runtime: Runtime.PYTHON_TEMPLATE},
+        },
+        {
+          name: 'Qiskit Starter (Aer Simulator)',
+          value: {path: 'python/python-starter-qiskit', runtime: Runtime.PYTHON_TEMPLATE},
         },
         {
           name: 'Qiskit IBMQ Starter (own access token required)',
@@ -51,10 +59,6 @@ export const promptUserInput = (defaultName: string): Promise<UserInput> => {
         {
           name: 'D-Wave Leap Starter (own access token required)',
           value: {path: 'python/python-starter-dwave', runtime: Runtime.PYTHON_TEMPLATE},
-        },
-        {
-          name: 'PennyLane Starter (Simulator)',
-          value: {path: 'python/python-starter-pennylane', runtime: Runtime.PYTHON_TEMPLATE},
         },
         {
           name: 'Munich Quantum Toolkit (Quantum Dev Tools and Simulator)',
