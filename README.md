@@ -1,9 +1,13 @@
-planqk-cli
-==========
+# PROJECT MOVED TO GITLAB
+
+**NOTICE:** This project is no longer maintained on GitHub. It has been moved to GitLab for continued updates and development. You can find the latest version of this project at [https://gitlab.com/planqk-foss/planqk-cli](https://gitlab.com/planqk-foss/planqk-cli).
+
+---
+
+# planqk-cli
 
 [![npm](https://img.shields.io/npm/v/%40anaqor%2Fplanqk)](https://www.npmjs.com/package/@anaqor/planqk)
 [![npm](https://img.shields.io/npm/dm/%40anaqor%2Fplanqk)](https://www.npmjs.com/package/@anaqor/planqk)
-[![pipeline](https://github.com/PlanQK/planqk-cli/actions/workflows/pipeline.yml/badge.svg)](https://github.com/PlanQK/planqk-cli/actions/workflows/pipeline.yml)
 
 The PlanQK Command Line Interface (CLI) lets you interact with the PlanQK Platform directly from your terminal.
 We have installation instructions to guide you through the initial setup in our
